@@ -1,4 +1,4 @@
-from lang_config import LANG
+from .lang_config import LANG
 
 if LANG == "Dafny":
     from dafny import (
