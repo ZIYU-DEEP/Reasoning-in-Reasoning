@@ -120,7 +120,6 @@ def getErrorMessage(out: str):
 def checkLean(lean_code_block: str) -> dict:
     path_to_repl = os.environ.get('PATH_TO_LEAN_REPL')
     proofsearch = ProofSearch(path_to_repl=path_to_repl)
-    print('what is the error?')
     try:
         out = proofsearch.run_code(lean_code_block.strip(), verbose=True)
     except pexpect.exceptions.EOF:
