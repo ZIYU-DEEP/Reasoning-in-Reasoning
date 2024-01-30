@@ -63,3 +63,4 @@ We have referenced the following repositories:
 - [pySagredo](https://github.com/zhangir-azerbayev/pySagredo)
 - [Monte Carlo Tree Search Basics](https://github.com/ImparaAI/monte-carlo-tree-search)
 - [Learning Lean4](https://leanprover-community.github.io/learn.html)
+- [Language Agent Tree Search](https://arxiv.org/pdf/2310.04406v2.pdf)
