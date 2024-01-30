@@ -1,7 +1,7 @@
 from .lang_config import LANG
 
 if LANG == "Dafny":
-    from dafny import (
+    from .dafny import (
         score_func,
         verifier_feedback,
         short_verifier_feedback,
@@ -9,7 +9,7 @@ if LANG == "Dafny":
         check_code,
     )
 elif LANG == "Coq":
-    from coq import (
+    from .coq import (
         score_func,
         verifier_feedback,
         short_verifier_feedback,
@@ -17,21 +17,21 @@ elif LANG == "Coq":
         check_code,
     )
 elif LANG == "Lean4":
-    from lean import (
+    from .lean import (
         score_func,
         verifier_feedback,
         filter_code,
         check_code,
     )
 elif LANG == "Rust":
-    from rust import (
+    from .rust import (
         score_func,
         verifier_feedback,
         filter_code,
         check_code,
     )
 elif LANG == "Scala":
-    from scala import (
+    from .scala import (
         score_func,
         verifier_feedback,
         filter_code,

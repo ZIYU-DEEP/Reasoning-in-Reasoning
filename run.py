@@ -4,8 +4,8 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 from montecarlo.node import Node
 from montecarlo.montecarlo import MonteCarlo
 
-from utils.lang import can_be_solution
-from utils.lang import score_func as uncached_score_func
+from langs.lang import can_be_solution
+from langs.lang import score_func as uncached_score_func
 
 
 
