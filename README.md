@@ -1,4 +1,4 @@
-# Bilevel Reasoner
+# Reasoning in Reasoning
 
 The current codebase relies on `Lean 4`.
 
@@ -52,9 +52,14 @@ python run_reflection.py --language Lean4 --problem_name problem_fact
 ```
 
 ## TODO
-The current implementation is MCTS where the each step is connected to the low-level verifier. We are implementing an additional high-level planner above this. Notice the implementation of stepwise reflection can be problematic.
+The current implementation is MCTS where the each step is connected to the low-level verifier. We are implementing an additional high-level planner above this (will use the LightZero approach). 
 
-And we should not trigger the verifier at each step when the proof is incomplete.
+A intuitive idea is that we first ask the algorithm to do a high-level search on the proof plan.
+
+
+<!-- Notice the implementation of stepwise reflection can be problematic. -->
+
+<!-- And we should not trigger the verifier at each step when the proof is incomplete. -->
 
 
 ## References
@@ -67,3 +72,6 @@ We have referenced the following repositories:
 - [Monte Carlo Tree Search Basics](https://github.com/ImparaAI/monte-carlo-tree-search)
 - [Learning Lean4](https://leanprover-community.github.io/learn.html)
 - [Language Agent Tree Search](https://arxiv.org/pdf/2310.04406v2.pdf)
+- [Neural Theorem Proving Tutorial](https://github.com/wellecks/ntptutorial/tree/main)
+- [GPT-F](https://arxiv.org/pdf/2009.03393.pdf)
+- [pylean](https://github.com/yeahrmek/pylean)
