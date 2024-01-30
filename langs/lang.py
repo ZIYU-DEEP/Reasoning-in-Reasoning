@@ -1,4 +1,4 @@
-from .lang_config import LANG
+from .lang_config import LANG, STOP_WORD
 
 if LANG == "Dafny":
     from .dafny import (
@@ -49,6 +49,7 @@ def can_be_solution(msg: str, min_lines: int, check_func=None) -> bool:
         r = check_func(v)
     return r
 
+
 def find_largest_new_block(old_text: str, text: str) -> str:
     return find_largest_new_block_code(
         filter_code(old_text + "```").strip(), filter_code(text + "```").strip()
@@ -61,7 +62,7 @@ def find_largest_new_block_code(old_code: str, code: str) -> str:
         if r["status"] == 0:
             return code
         try:
-            code = code[0 : code.rindex(stop_word)].strip()
+            code = code[0 : code.rindex(STOP_WORD)].strip()
         except ValueError:
             return None
     return None
