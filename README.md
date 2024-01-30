@@ -46,13 +46,15 @@ conda activate rir
 ## Run
 ```bash
 python run.py --language Lean4 --problem_name problem_fact
-python run.py --language Lean4 --problem_name problem_fact --model_host openai
+python run.py --language Lean4 --problem_name problem_fact
 python run_whole.py --language Lean4 --n_samples 10 --problem_name problem_fact --greedy False 
 python run_reflection.py --language Lean4 --problem_name problem_fact
 ```
 
 ## TODO
 The current implementation is MCTS where the each step is connected to the low-level verifier. We are implementing an additional high-level planner above this. Notice the implementation of stepwise reflection can be problematic.
+
+And we should not trigger the verifier at each step when the proof is incomplete.
 
 
 ## References
