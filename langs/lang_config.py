@@ -1,4 +1,7 @@
-from ..utils.cmdline import args
+import sys
+sys.path.append('../')
+from utils.cmdline import args
+# from ..utils.cmdline import args
 
 LANG = args.language
 
