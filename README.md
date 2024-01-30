@@ -46,6 +46,7 @@ conda activate rir
 ## Run
 ```bash
 python run.py --language Lean4 --problem_name problem_fact
+python run.py --language Lean4 --problem_name problem_fact --model_host openai
 python run_whole.py --language Lean4 --n_samples 10 --problem_name problem_fact --greedy False 
 python run_reflection.py --language Lean4 --problem_name problem_fact
 ```
