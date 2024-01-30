@@ -1,17 +1,27 @@
-from cmdline import args
-import llm
+import os
+os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+
+from models import llm
+
+from utils.cmdline import args
 
 GREEDY = args.greedy
 N_SAMPLES = args.n_samples
 MAX_N_SAMPLES = args.max_n_samples
 
-from lang import can_be_solution
-from lang import score_func as uncached_score_func
+from langs.lang import can_be_solution
+from langs.lang import score_func as uncached_score_func
+from utils.common import (
+    limit_depth,
+    max_completion_depth,
+    stats,
+    create_cached_func,
+    diffprompt
+)
 
-from common_cache import create_cached_func
 score_func, cache_stats, reset_cache = create_cached_func(uncached_score_func)
 
-from prompts import prompt, min_lines, check_func
+from utils.prompts import prompt, min_lines, check_func
 
 
 

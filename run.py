@@ -18,7 +18,6 @@ from utils.common import (
     diffprompt
 )
 
-
 score_func, cache_stats, reset_cache = create_cached_func(uncached_score_func)
 
 
