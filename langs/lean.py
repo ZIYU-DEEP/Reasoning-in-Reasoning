@@ -163,7 +163,7 @@ if __name__ == "__main__":
 # #eval factorial 5
 # ```
 # """
-    lean = f"""
+    lean = f"""```lean
     import data.nat.basic
 
     def parseAddition (s : String) : Nat :=
@@ -175,5 +175,6 @@ if __name__ == "__main__":
     sumWithCarry.1 + sumWithCarry.2
 
     #eval parseAddition "1" 
+    ```
     """
     print(calculateScoreHelper(lean))
