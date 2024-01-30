@@ -1,5 +1,5 @@
-from lang_config import LANG, ALL_LANGS
-from cmdline import args
+from .lang_config import LANG, ALL_LANGS
+from .cmdline import args
 
 if LANG == "Dafny":
     proof_marker = "ensures"
@@ -96,7 +96,7 @@ Require Import Arith.
 Require Import Peano_dec.
 Require Import Compare_dec.
 Require Import Wf_nat.
- 
+
 Inductive divides : nat -> nat -> Prop :=
     dividesDef : forall a b q : nat, b = q * a -> divides a b.
 
@@ -157,7 +157,7 @@ Notation "x '|->' v ';' m" := (update m x v)
 
 Notation "x '|->' v" := (update empty x v)
   (at level 100).
-  
+
 Definition examplepmap :=
   ("Church" |-> true ; "Turing" |-> false).
 
@@ -926,7 +926,7 @@ def remove_hints3(prompt):
     except ValueError:
         code = ""
     return prompt[:prompt.index('### Hint')]+"\n\n"+code
-    
+
 def remove_hints(prompt):
     lines = prompt.split("\n")
     lines = [line for line in lines if not line.startswith("### Hint: ")]

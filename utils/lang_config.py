@@ -1,4 +1,4 @@
-from cmdline import args
+from .cmdline import args
 
 LANG = args.language
 

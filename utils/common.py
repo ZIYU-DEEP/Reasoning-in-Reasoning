@@ -1,5 +1,5 @@
-from prompts import max_depth
-from cmdline import args
+from .prompts import max_depth
+from .cmdline import args
 
 max_completion_depth = args.max_completion_depth
 
@@ -68,7 +68,7 @@ def stats(montecarlo, f=lambda x: x):
     ))
 
     return (n_nodes, n_gen_nodes, n_back_nodes, n_gen_leaves, n_back_leaves)
-        
+
 
 # ###############################################
 # Cache

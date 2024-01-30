@@ -1,4 +1,4 @@
-from cmdline import args
+from ..utils.cmdline import args
 
 MODEL_HOST = args.model_host
 # MODEL_HOST = "huggingface"

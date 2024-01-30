@@ -1,4 +1,4 @@
-from model_config import MODEL_HOST
+from .model_config import MODEL_HOST
 from typing import List
 
 if MODEL_HOST == "openai":
@@ -9,7 +9,7 @@ if MODEL_HOST == "openai":
 
     def generate_full(prompt: str) -> str:
         return generate(prompt, 1)[0]
-    
+
 elif MODEL_HOST == "huggingface":
     import torch
     import huggingface_generate
@@ -74,6 +74,6 @@ elif MODEL_HOST == "huggingface":
                                                 )[0],
                                  skip_special_tokens=True)
         return r
-    
+
 else:
     assert False
