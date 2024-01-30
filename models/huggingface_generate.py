@@ -1,5 +1,5 @@
 import sys
-sys.append('../')
+sys.path.append('../')
 
 import torch
 from transformers import AutoModelForCausalLM, BitsAndBytesConfig, AutoTokenizer
