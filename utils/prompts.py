@@ -1,4 +1,6 @@
-from .lang_config import LANG, ALL_LANGS
+import sys
+sys.path.append('../')
+from langs.lang_config import LANG, ALL_LANGS
 from .cmdline import args
 
 if LANG == "Dafny":
