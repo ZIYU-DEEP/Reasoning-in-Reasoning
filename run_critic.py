@@ -1,3 +1,6 @@
+import os
+os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+
 from utils.cmdline import args
 
 REFLECT = args.reflect
