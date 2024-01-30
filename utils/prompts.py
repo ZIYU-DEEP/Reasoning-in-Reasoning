@@ -1,20 +1,15 @@
-import sys
-sys.path.append('../')
-from langs.lang_config import LANG, ALL_LANGS
-from .cmdline import args
+from lang_config import LANG, ALL_LANGS
+from cmdline import args
 
 if LANG == "Dafny":
     proof_marker = "ensures"
     cheat_marker = None
-
 elif LANG == "Coq":
     proof_marker = "Qed"
     cheat_marker = "Admitted"
-
 elif LANG == "Lean4":
     proof_marker = "theorem"
     cheat_marker = "sorry"
-    
 elif LANG == "Rust" or LANG == "Scala":
     proof_marker = None
     cheat_marker = None
@@ -40,10 +35,10 @@ The function should take a string that contains a sequence of integers and '+' s
 No characters other than digits and '+' may be in the string.
 Example: "1" evaluates to 1. "1+1" evaluates to 2. "100+3" evaluates to 103. "1+2+3+4+5+8+12" evaluates to 35.
 """,
-    2000,
-    None,
-    5,
-    25,
+    2000,  # MAX NEW TOKENS
+    None,  # EXPANSION COUNT
+    5,     # MIN LINES
+    25,    # MAX DEPTH
     NO_CHECK_PROOF, NO_CHECK_CHEAT,
     ALL_LANGS,
 )
@@ -101,7 +96,7 @@ Require Import Arith.
 Require Import Peano_dec.
 Require Import Compare_dec.
 Require Import Wf_nat.
-
+ 
 Inductive divides : nat -> nat -> Prop :=
     dividesDef : forall a b q : nat, b = q * a -> divides a b.
 
@@ -162,7 +157,7 @@ Notation "x '|->' v ';' m" := (update m x v)
 
 Notation "x '|->' v" := (update empty x v)
   (at level 100).
-
+  
 Definition examplepmap :=
   ("Church" |-> true ; "Turing" |-> false).
 
@@ -931,7 +926,7 @@ def remove_hints3(prompt):
     except ValueError:
         code = ""
     return prompt[:prompt.index('### Hint')]+"\n\n"+code
-
+    
 def remove_hints(prompt):
     lines = prompt.split("\n")
     lines = [line for line in lines if not line.startswith("### Hint: ")]

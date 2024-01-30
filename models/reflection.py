@@ -13,8 +13,10 @@ def reflect(code: str, snippet: Optional[str], err: str) -> str:
     snippet_text = f"""in the snippet:
 {snippet}
 """ if snippet else ""
+    
     # adapted from F.3 Reflection Prompt
     # in https://arxiv.org/pdf/2310.04406v2.pdf
+
     prompt = f"""<s>[INST] <<SYS>>
 You are a {LANG} programming assistant. 
 You will be given some code and an error. 

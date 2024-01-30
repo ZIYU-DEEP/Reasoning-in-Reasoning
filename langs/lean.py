@@ -149,18 +149,31 @@ filter_code = filterLean
 check_code = checkLean
 
 if __name__ == "__main__":
-    lean = f"""```lean
-import Mathlib
+#     lean = f"""```lean
+# import Mathlib
 
-def factorial : Nat → Nat
-| 0 => 1
-| n+1 => (n+1) * factorial n
+# def factorial : Nat → Nat
+# | 0 => 1
+# | n+1 => (n+1) * factorial n
 
-theorem factorial_pos : ∀ n : Nat, 0 < factorial n
-| 0 => Nat.zero_lt_one
-| n+1 => Nat.mul_pos (Nat.succ_pos n) (factorial_pos n)
+# theorem factorial_pos : ∀ n : Nat, 0 < factorial n
+# | 0 => Nat.zero_lt_one
+# | n+1 => Nat.mul_pos (Nat.succ_pos n) (factorial_pos n)
 
-#eval factorial 5
-```
-"""
+# #eval factorial 5
+# ```
+# """
+    lean = f"""
+    import data.nat.basic
+
+    def parseAddition (s : String) : Nat :=
+    let sumWithCarry := s.foldl
+        (fun (sumCarry : Nat × Nat) c =>
+        if c = '+' then (sumCarry.1 + sumCarry.2, 0)
+        else (sumCarry.1, sumCarry.2 * 10 + (c.toNat - '0'.toNat)))
+        (0, 0)
+    sumWithCarry.1 + sumWithCarry.2
+
+    #eval parseAddition "1" 
+    """
     print(calculateScoreHelper(lean))
