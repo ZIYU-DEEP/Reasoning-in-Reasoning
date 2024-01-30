@@ -12,7 +12,7 @@ if MODEL_HOST == "openai":
 
 elif MODEL_HOST == "huggingface":
     import torch
-    import .huggingface_generate
+    from . import huggingface_generate
     from transformers import TextStreamer
 
     _, model, tokenizer = huggingface_generate.load_model()
