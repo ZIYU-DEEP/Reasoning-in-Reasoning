@@ -38,10 +38,12 @@ lake build Mathlib
 # Add the path
 echo "export PATH_TO_LEAN_REPL=\"$(pwd)\"" >> ~/.bashrc
 source ~/.bashrc
+
+# Get back to our env
 conda activate rir
 ```
 
-## Run 
+## Run
 ```bash
 python run.py --language Lean4 --problem_name problem_fact
 ```
