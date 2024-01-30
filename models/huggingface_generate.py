@@ -26,7 +26,7 @@ def load_model(
             quantization_config=bnb_config,
             device_map="auto",
             trust_remote_code=True,
-            use_auth_token=True,
+            token=True,
         )
         tokenizer = AutoTokenizer.from_pretrained(
             base_model_name, trust_remote_code=True
