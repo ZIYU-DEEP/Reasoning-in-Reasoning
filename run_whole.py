@@ -3,7 +3,7 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 
 from models import llm
 
-from utils.cmdline import args
+from cmdline import args
 
 GREEDY = args.greedy
 N_SAMPLES = args.n_samples

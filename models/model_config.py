@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../')
-from utils.cmdline import args
+from cmdline import args
 
 MODEL_HOST = args.model_host
 # MODEL_HOST = "huggingface"
