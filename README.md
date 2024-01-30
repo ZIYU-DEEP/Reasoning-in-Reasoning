@@ -47,11 +47,14 @@ conda activate rir
 ```bash
 python run.py --language Lean4 --problem_name problem_fact
 python run_whole.py --language Lean4 --n_samples 10 --problem_name problem_fact --greedy False 
+python run_critic.py --language Lean4 --problem_name problem_fact
 ```
 
+## TODO
+The current implementation is MCTS where the each step is connected to the low-level verifier. We are implementing an additional high-level planner above this.
 
 
-### References
+## References
 We have referenced the following repositories:
 - [LLM Tree Search](https://github.com/waterhorse1/LLM_Tree_Search)
 - [LightZero](https://github.com/opendilab/LightZero)
@@ -59,3 +62,4 @@ We have referenced the following repositories:
 - [Fun Search](https://github.com/google-deepmind/funsearch)
 - [pySagredo](https://github.com/zhangir-azerbayev/pySagredo)
 - [Monte Carlo Tree Search Basics](https://github.com/ImparaAI/monte-carlo-tree-search)
+- [Learning Lean4](https://leanprover-community.github.io/learn.html)
