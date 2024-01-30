@@ -1,5 +1,7 @@
+import sys
+sys.path.append('../')
 from .prompts import max_depth
-from ..cmdline import args
+from cmdline import args
 
 max_completion_depth = args.max_completion_depth
 
