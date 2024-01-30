@@ -57,6 +57,8 @@ The current implementation is MCTS where the each step is connected to the low-l
 A intuitive idea is that we first ask the algorithm to do a high-level search on the proof plan.
 
 
+
+
 <!-- Notice the implementation of stepwise reflection can be problematic. -->
 
 <!-- And we should not trigger the verifier at each step when the proof is incomplete. -->
@@ -75,3 +77,6 @@ We have referenced the following repositories:
 - [Neural Theorem Proving Tutorial](https://github.com/wellecks/ntptutorial/tree/main)
 - [GPT-F](https://arxiv.org/pdf/2009.03393.pdf)
 - [pylean](https://github.com/yeahrmek/pylean)
+- [HyperTree Proof Search](https://openreview.net/pdf?id=J4pX8Q8cxHH) ([slides](https://github.com/tanchongmin/TensorFlow-Implementations/blob/main/Paper_Reviews/Hypertree%20Proof%20Search%20Slides.pdf))
+    - This is in essence multi-level tree search.
+- [dl4math](https://github.com/lupantech/dl4math)
