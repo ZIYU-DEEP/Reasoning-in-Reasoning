@@ -79,7 +79,6 @@ This is different from [HyperTree](https://openreview.net/pdf?id=J4pX8Q8cxHH) as
 
 
 
-
 <!-- Notice the implementation of stepwise reflection can be problematic. -->
 
 <!-- And we should not trigger the verifier at each step when the proof is incomplete. -->
