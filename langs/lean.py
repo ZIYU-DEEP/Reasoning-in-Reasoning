@@ -149,20 +149,20 @@ filter_code = filterLean
 check_code = checkLean
 
 if __name__ == "__main__":
-#     lean = f"""```lean
-# import Mathlib
+    lean = f"""```lean
+import Mathlib
 
-# def factorial : Nat → Nat
-# | 0 => 1
-# | n+1 => (n+1) * factorial n
+def factorial : Nat → Nat
+| 0 => 1
+| n+1 => (n+1) * factorial n
 
-# theorem factorial_pos : ∀ n : Nat, 0 < factorial n
-# | 0 => Nat.zero_lt_one
-# | n+1 => Nat.mul_pos (Nat.succ_pos n) (factorial_pos n)
+theorem factorial_pos : ∀ n : Nat, 0 < factorial n
+| 0 => Nat.zero_lt_one
+| n+1 => Nat.mul_pos (Nat.succ_pos n) (factorial_pos n)
 
-# #eval factorial 5
-# ```
-# """
+#eval factorial 5
+```
+"""
     lean = f"""```lean
     import data.nat.basic
 

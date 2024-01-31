@@ -17,12 +17,13 @@ huggingface-cli login
 
 Then, to install `Lean`:
 ```bash
+# Assuming you have cloned this folder at ~/github/
+cd ~/github  # or your working directory
 # Install Lean with Elan
 curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
 source $HOME/.elan/env
 
 # Fix the leanprover
-cd ~  # Or your working directory
 git clone https://github.com/leanprover-community/repl.git
 cd repl
 
@@ -42,6 +43,22 @@ source ~/.bashrc
 # Get back to our env
 conda activate rir
 ```
+<!-- 
+We also need `pylean` as a wrapper to get proof states.
+```bash
+cd ~
+
+git clone https://github.com/zhangir-azerbayev/repl
+cd repl
+
+git checkout bddf452deda0df2240b248e651bcc37fb8e59d01
+
+cd pylean
+
+python setup.py develop 
+```
+You may need go to `pylean/__init__.py` and overide the path as `path_to_repl = os.environ.get('PATH_TO_LEAN_REPL')`, as we previously defined. -->
+
 
 ## Run
 ```bash
@@ -50,11 +67,14 @@ python run.py --language Lean4 --problem_name problem_fact
 python run_whole.py --language Lean4 --n_samples 10 --problem_name problem_fact --greedy False 
 python run_reflection.py --language Lean4 --problem_name problem_fact
 ```
+We put exploration code in the `./exploration` folder.
 
 ## TODO
-The current implementation is MCTS where the each step is connected to the low-level verifier. We are implementing an additional high-level planner above this (will use the LightZero approach). 
+The current implementation uses LLM verifier, where the each and every step is verified formally (which is very inefficient). We are implementing an additional high-level planner above this. 
 
-A intuitive idea is that we first ask the algorithm to do a high-level search on the proof plan.
+A rough idea is that we first ask the algorithm to do a high-level search on the proof plan. Each step correspond to a tactic in natural language (while there might be sequential dependency for tactics, we encourage them to be mostly independent such that this division of of maximum information). After this search, we choose the trajectory with the highest value. For each node in this trajectory, we first do formalization, that means each tactic is decomposed into formal subgoals. The subgoals will be recursively expanded, until we reach the termination conditions (solved with empty set of subgoals, or failures).
+
+This is different from [HyperTree](https://openreview.net/pdf?id=J4pX8Q8cxHH) as we handle the state abstraction and the tactic dependency in a more efficient way. 
 
 
 
