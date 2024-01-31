@@ -71,8 +71,11 @@ python run_reflection.py --language Lean4 --problem_name problem_fact
 We put exploration code in the `./exploration` folder.
 
 ## TODO
-Combine the `pySagredo` (to double check the prompt part) with mcmc.
+- [ ] Make a concrete baseline of existing MCTS with Lean verifier on MiniF2F
+- [ ] Apply bi-level search 
+- [ ] Add training in the loop
 
+## Some Random Notes
 The current implementation uses LLM verifier, where the each and every step is verified formally (which is very inefficient). We are implementing an additional high-level planner above this. 
 
 A rough idea is that we first ask the algorithm to do a high-level search on the proof plan. Each step correspond to a tactic in natural language (while there might be sequential dependency for tactics, we encourage them to be mostly independent such that this division of of maximum information). After this search, we choose the trajectory with the highest value. For each node in this trajectory, we first do formalization, that means each tactic is decomposed into formal subgoals. The subgoals will be recursively expanded, until we reach the termination conditions (solved with empty set of subgoals, or failures).
