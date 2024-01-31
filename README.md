@@ -61,6 +61,7 @@ You may need go to `pylean/__init__.py` and overide the path as `path_to_repl = 
 
 
 ## Run
+(follows from llm verfier)
 ```bash
 python run.py --language Lean4 --problem_name problem_fact
 python run.py --language Lean4 --problem_name problem_fact
