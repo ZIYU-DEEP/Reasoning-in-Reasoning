@@ -17,17 +17,21 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 
 def is_done(state):
-    # return state['sorries'] == [] and state['messages'] == []
     return not state.get('sorries') and not state.get('messages')
 
 
 def get_goal(state):
     goal = None
-    for msg in state['messages']:
-        if msg['data'].startswith('unsolved goals\n'):
-            goal = '\n'.join(msg['data'].split('\n')[1:])
-        elif msg['severity'] == 'error':
-            return None
+    msgs = state.get('messages')
+
+    if msgs:
+        for msg in msgs:
+            
+            if msg['data'].startswith('unsolved goals\n'):
+                goal = '\n'.join(msg['data'].split('\n')[1:])
+                
+            elif msg['severity'] == 'error':
+                return None
     return goal
 
 
@@ -134,7 +138,9 @@ def _print_current(theorem_statement, steps):
     )
 
 
-def best_first_search(model, tokenizer, header, statement, max_iters, temperatures, num_samples, verbose=False) -> dict:
+def best_first_search(model, tokenizer, header, statement, max_iters, 
+                      temperatures, num_samples, verbose=False) -> dict:
+    
     goal = get_goal(run_code(header + statement))
     if goal is None:
         return {
