@@ -1,0 +1,26 @@
+# --------- Data ---------------
+dataset_name: hoskinson-center/minif2f-lean4
+split: validation
+slice_size: 2
+
+# ---------- Model ------------
+model_name: wellecks/llmstep-mathlib4-pythia2.8b
+
+# ---------- Args for simple first search  ----------
+do_simple_search: false
+search_budget: 4
+
+# ---------- Args for best first search  ----------
+do_best_first_search: true
+max_iters: 4
+temperatures: 
+  - 0.5
+num_samples: 4
+verbose: true
+
+# ---------- Args for mcts search  ----------
+do_mcts: false 
+
+# ---------- Args for bilevel mcts search  ----------
+do_bilevel_mcts: false
+
