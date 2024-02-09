@@ -45,6 +45,8 @@ source ~/.bashrc
 # Get back to our env
 conda activate rir
 ```
+<!-- require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "38dbcd8285bc4b1391619c12f158a7409f3dfc12" -->
+
 <!-- 
 We also need `pylean` as a wrapper to get proof states.
 ```bash
@@ -71,6 +73,9 @@ python run_whole.py --language Lean4 --n_samples 10 --problem_name problem_fact 
 python run_reflection.py --language Lean4 --problem_name problem_fact
 ```
 We put exploration code in the `./exploration` folder.
+
+## Plan
+- [ ] Make a lean version DSP.
 
 ## TODO
 - [ ] Make a concrete baseline of existing MCTS with Lean verifier on MiniF2F

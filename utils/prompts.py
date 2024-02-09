@@ -2,7 +2,7 @@ import sys
 sys.path.append('../')
 from langs.lang_config import LANG, ALL_LANGS
 from cmdline import args
-
+PLACEHOLDER = ''
 if LANG == "Dafny":
     proof_marker = "ensures"
     cheat_marker = None
@@ -61,6 +61,19 @@ No characters other than digits and '+', '*' may be in the string.
 
 problem_fact = (
     f"""### Spec: In {LANG}, write a factorial function and prove that the factorial is always strictly positive.
+I want to remind you that we're using Lean 4, not the older Lean 3, and there have been some syntax changes. 
+In particular:
+- Type constants are now UpperCamelCase, eg `Nat`, `List`.
+- Term constants and variables are now `lowerCamelCase` rather than `snake_case`. 
+  For example, we now have `NumberTheory.Divisors.properDivisors instead of `number_theory.divisors.proper_divisors`.
+- Pure functions are now written with the syntax `fun x => f x`. The old `λ x, f x` syntax will not work.
+- We now enter tactic mode using the `by {PLACEHOLDER}` keyword. The syntax `begin... end` will not work.
+- Instead of being separated by a comma, tactics are separated by a newline. 
+- In the `rw` tactic you must enclose the lemmas in square brackets, even if there is just one. 
+  For example `rw h1` is now `rw [h1]`.
+- The `induction` tactic now uses a structured format, like pattern matching. 
+Now, In {LANG}, write a factorial function and prove that the factorial is always strictly positive.
+
 {'''### Hint: Use a plain function, NOT a function method.
 ### Hint: Use a nat, NOT an int.
 ''' if LANG=='Dafny' else ''

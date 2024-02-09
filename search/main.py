@@ -1,5 +1,5 @@
 from pylean import LeanServer
-from utils import (
+from utils.search_pylean import (
     load_model,
     simple_search,
     best_first_search,
@@ -12,13 +12,18 @@ from utils import (
     DotDict
 )
 
-from pprint import pprint
+from utils import misc
+
+from pprint import pprint, pformat
 from tqdm import tqdm
 from itertools import islice
 from datasets import load_dataset
+from pathlib import Path
 
 import tiktoken
 import os
+import time
+from datetime import datetime
 import yaml
 import argparse
 
@@ -32,15 +37,33 @@ parser = argparse.ArgumentParser()
 # Arguments for dataset
 parser.add_argument('-cp', '--config_path', type=str, 
                     default='./configs/default.yaml')
+parser.add_argument('-sm', '--search_method', type=str, 
+                    default='', help='Rewrite the search method in config.',
+                    choices=['simple_search', 'best_first_search', 'mcts', 'rir'])
 
 # Parse the arguments
-args = parser.parse_args('')
+args = parser.parse_args()
 
 # Get the config
 with open(args.config_path, 'r') as y_file:
     p = yaml.load(y_file, Loader=yaml.FullLoader)
     p = DotDict(p)
-    pprint(p)
+
+# Update the search method if specified
+if args.search_method:
+    assert args.search_method in ['simple_search', 'best_first_search', 'mcts', 'rir']
+    p.search_method = args.search_method
+
+# -------------------------------------------------------------------
+# Set the logger
+# Record the time
+time_now = datetime.now().strftime('%m-%d-%H-%M')
+log_folder = Path(p.log_root) / p.search_method
+os.makedirs(log_folder, exist_ok=True)
+
+logger = misc.set_logger(log_folder / f'{time_now}.log')
+logger.info(f'{p.log_path}')
+logger.info(pformat(p, indent=4))
 # -------------------------------------------------------------------
 
 
@@ -51,7 +74,7 @@ dataset = load_dataset(p.dataset_name, split=p.split)
 
 # Create the theorem_list
 theorem_list = []
-for x in tqdm(islice(dataset, p.slice_size)): 
+for x in tqdm(islice(dataset, p.slice_size if p.slice_size else len(dataset))): 
     # Extract them
     header = x['header'] + '\n'
     statement = x['formal_statement'].replace('sorry', 'by {}')
@@ -73,14 +96,14 @@ def main():
     for data in theorem_list:
         header, statement, informal_statement, informal_proof = data
         
-        if p.do_simple_search:
+        if p.search_method == 'simple_search':
             result = simple_search(model=model,
                                    tokenizer=tokenizer,
                                    header=header,
                                    statement=statement,
-                                  search_budget=p.search_budget)
+                                   search_budget=p.search_budget)
         
-        if p.do_best_first_search:
+        if p.search_method == 'best_first_search':
             result = best_first_search(model=model,
                                        tokenizer=tokenizer,
                                        header=header,
@@ -90,17 +113,18 @@ def main():
                                        num_samples=p.num_samples,
                                        verbose=p.verbose)
         
-        if p.do_mcts:
+        if p.search_method == 'mcts':
             raise NotImplementedError('MCTS is not implemented yet.')
         
-        if p.do_bilevel_mcts:
+        if p.search_method == 'rir':
             raise NotImplementedError('Bilevel MCTS is not implemented yet.')
         
-        print(result)
-        print('\n-----\n')
+        logger.info(pformat(result, indent=4))
+        logger.info('\n-----\n')
         results.append(result)
 
-    print('Success Rate: ', sum(x['success'] for x in results) / len(results)) 
+    logger.info(f"Success Rate: {sum(x['success'] for x in results) / len(results)}") 
+
 
 if __name__ == '__main__':
     main()

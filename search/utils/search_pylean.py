@@ -4,16 +4,24 @@ Reference: https://github.com/wellecks/ntptutorial/blob/main/partI_nextstep/ntp_
 
 # Utilities for interacting with Lean and proof search
 
+from accelerate import Accelerator
 from pylean import LeanServer
 import torch
 import heapq
 import concurrent
 import transformers
 import os
+import logging
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Tuple
+
+# ------------------------------------------------
+# Some prep
+accelerator = Accelerator()
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'  
+logger = logging.getLogger()
+# ------------------------------------------------
 
 
 class DotDict(dict):
@@ -133,7 +141,7 @@ def _unique_sorted(texts, scores):
 
 
 def _print_type_checked_candidates(results):
-    print('--- type-checked candidates:\n\t' + '\n\t'.join(
+    logger.info('--- type-checked candidates:\n\t' + '\n\t'.join(
         '(%.3f) %s' % (step_score, step) 
         for state, step, step_score in results if (
         get_goal(state) is not None or is_done(state))
@@ -141,15 +149,15 @@ def _print_type_checked_candidates(results):
 
 
 def _print_current(theorem_statement, steps):
-    print('--- current:\n\t%s\n\t%s' % (
+    logger.info('--- current:\n\t%s\n\t%s' % (
         theorem_statement.replace('{}', ''),
         '\n\t'.join(steps)) 
     )
 
 
 def simple_search(model, tokenizer, header, statement, search_budget):
-    print(header)
-    print(statement)
+    logger.info(header)
+    logger.info(statement)
     success = False
 
     code = header + statement
@@ -157,9 +165,12 @@ def simple_search(model, tokenizer, header, statement, search_budget):
     proof = ''
 
     for i in range(search_budget):
-        print("== Current (%d): " % i, statement[:-3] + '\n' + proof, sep='\n')
+        # ---------------------------------------------------------------- #
+        # Get the goal information
+        # Print the current result
+        logger.info(f"== Current ({i}): \n{statement[:-3]}\n{proof}")
 
-        # Run the code (header + proof-so-far)
+        # Get the current state
         state = run_code(code)
         
         # Stop if the proof is complete.
@@ -167,31 +178,35 @@ def simple_search(model, tokenizer, header, statement, search_budget):
             success = True
             break
 
-        # Get the new state.
+        # Get the current goal
         goal_candidate = get_goal(state)
         if goal_candidate is None:
-            print("-- Error: backtracking")
+            logger.info("-- Error: backtracking")
             steps = steps[:-1]
         else:
             goal = goal_candidate
 
-        print("-- Goal: ", goal, sep='\n')
+        logger.info(f"-- Goal: \n{goal}")
+        # ----------------------------------------------------------------
 
+        # ---------------------------------------------------------------- #
         # Generate a next-step
         prompt = f"[GOAL]{goal}[PROOFSTEP]"
         texts, _= generate(prompt, model, tokenizer, temperatures=[0.5], num_samples=1)
         step = parse_step(texts[0])
+        # ----------------------------------------------------------------
 
+        # ---------------------------------------------------------------- #
         # Add the next-step to the proof-so-far
         steps.append(step)
         proof = '\n'.join(steps)
         code = header + statement.replace(" {}", "") + '\n' + proof
-        print()
+        # ----------------------------------------------------------------
 
-    if success: print("\nSUCCESS!")
-    else: print("\nFAILED")
+    if success: logger.info("\nSUCCESS!")
+    else: logger.info("\nFAILED")
     
-    print(statement.replace(' {}', ''))
+    logger.info(statement.replace(' {}', ''))
     print ('  ' + proof.replace('\n', '\n  '))
     
     return {'theorem_statement': statement, 'proof': proof, 'success': success}
@@ -200,6 +215,8 @@ def simple_search(model, tokenizer, header, statement, search_budget):
 def best_first_search(model, tokenizer, header, statement, max_iters, 
                       temperatures, num_samples, verbose=False) -> dict:
     
+    # ---------------------------------------------------------------- #
+    # GET THE GOAL INFORMATION
     goal = get_goal(run_code(header + statement))
     if goal is None:
         return {
@@ -207,12 +224,16 @@ def best_first_search(model, tokenizer, header, statement, max_iters,
             'success': False, 
             'msg': run_code(header + statement)
         }
+    # ----------------------------------------------------------------
 
+    # ---------------------------------------------------------------- #
+    # GENERATE CANDIDATES
     # Score, steps-so-far, goal state
     queue = [(0.0, [], goal)]
     visited = set()
     while len(queue) > 0 and max_iters > 0:
-        # Dequeue the tuple with minimum score
+        
+        # Dequeue the tuple with the minimum score
         score, steps, goal = heapq.heappop(queue)
         visited.add(goal)
         if verbose:
@@ -239,12 +260,14 @@ def best_first_search(model, tokenizer, header, statement, max_iters,
 
             # Collect the type checking results as they complete.
             results = []
-            for future in tqdm(concurrent.futures.as_completed(future2step.keys()), total=len(future2step)):
+            for future in tqdm(concurrent.futures.as_completed(future2step.keys()), 
+                               total=len(future2step)):
                 result = future.result()
                 results.append((result, *future2step[future]))
 
         if verbose:
             _print_type_checked_candidates(results)
+            
         for state, step, step_score in results:
             # Stop if we have found a complete proof.
             if is_done(state):
@@ -277,11 +300,14 @@ def _save(results):
     output_file = 'results__%s.json' % (dt_string)
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=4)
-        print(output_file)
+        logger.info(output_file)
 
 
 def load_model(model_name):
-    model = transformers.GPTNeoXForCausalLM.from_pretrained(model_name)
+    model = transformers.GPTNeoXForCausalLM.from_pretrained(
+        model_name,
+        device_map='auto')
     tokenizer = transformers.GPTNeoXTokenizerFast.from_pretrained(model_name)
+    model = accelerator.prepare(model)
     model.eval()
     return model, tokenizer

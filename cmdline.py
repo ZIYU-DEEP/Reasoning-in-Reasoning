@@ -18,8 +18,12 @@ class CommonArguments:
     model_host: str = field(default="huggingface", metadata={
         "help": "Choose between 'huggingface' or 'openai'"})
     
-    base_model_name: str = field(default="Phind/Phind-CodeLlama-34B-v2", metadata={
+    # base_model_name: str = field(default="Phind/Phind-CodeLlama-34B-v2", metadata={
+    #     "help": "LLM name"})
+    
+    base_model_name: str = field(default="EleutherAI/llemma_34b", metadata={
         "help": "LLM name"})
+    
     
     peft_model_path: str = field(default=None, metadata={
         "help": "Provide an optional checkpoint on top of the base model"})

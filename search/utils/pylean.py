@@ -2,6 +2,7 @@ import pexpect
 import json
 import os
 
+
 class LeanServer:
     def __init__(self):
         # Get the path where you download repl
