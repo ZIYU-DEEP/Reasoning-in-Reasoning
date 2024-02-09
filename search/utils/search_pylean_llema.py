@@ -214,7 +214,7 @@ def simple_search(model, tokenizer, header, statement, search_budget):
     else: logger.info("\nFAILED")
     
     logger.info(statement.replace(' {}', ''))
-    print ('  ' + proof.replace('\n', '\n  '))
+    logger.info('  ' + proof.replace('\n', '\n  '))
     
     return {'theorem_statement': statement, 'proof': proof, 'success': success}
 
@@ -271,8 +271,6 @@ def best_first_search(model, tokenizer, header, statement, max_iters,
                                total=len(future2step)):
                 result = future.result()
                 results.append((result, *future2step[future]))
-                # DEBUG
-                print(results)
 
         if verbose:
             _print_type_checked_candidates(results)

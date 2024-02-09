@@ -11,14 +11,13 @@ from utils.search_pylean import (
     parse_step,
     DotDict
 )
-
-from utils import misc
-
 from pprint import pprint, pformat
 from tqdm import tqdm
 from itertools import islice
 from datasets import load_dataset
 from pathlib import Path
+
+from utils import misc
 
 import tiktoken
 import os
@@ -35,8 +34,10 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 parser = argparse.ArgumentParser()
 
 # Arguments for dataset
-parser.add_argument('-cp', '--config_path', type=str, 
-                    default='./configs/default.yaml')
+parser.add_argument('-cfgr', '--config_root', type=str, 
+                    default='./configs/')
+parser.add_argument('-cfg', '--config_name', type=str, 
+                    default='default.yaml')
 parser.add_argument('-sm', '--search_method', type=str, 
                     default='', help='Rewrite the search method in config.',
                     choices=['simple_search', 'best_first_search', 'mcts', 'rir'])
@@ -45,7 +46,8 @@ parser.add_argument('-sm', '--search_method', type=str,
 args = parser.parse_args()
 
 # Get the config
-with open(args.config_path, 'r') as y_file:
+config_path = Path(args.config_root) / args.config_name
+with open(config_path, 'r') as y_file:
     p = yaml.load(y_file, Loader=yaml.FullLoader)
     p = DotDict(p)
 
