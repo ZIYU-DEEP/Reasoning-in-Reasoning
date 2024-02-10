@@ -65,4 +65,9 @@ conda activate rir
 - [x] test Llema in dojo env
 - [ ] add the mcts part
 - [ ] modify the prompt to mimic draft
+    - Similar to pysagredo, at each time, the LLM's output contains two parts, the proof plan (informal) and the proof (formal). The LLM will complete the proof step by step, adding one tactic step in each response, according to the proof plan. The pylean/dojo env information will be fed back to the LLM to improve the next-round generation.
+
+## Notice
+- The Dojo environment appears to be less stringent than the PyLean environment, occasionally categorizing incorrect proofs as successful.
+- The stopping condition for HF is still a bit problematic for beam search.
 

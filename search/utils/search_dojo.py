@@ -310,6 +310,14 @@ def sequence_scores(out, prompt_length, model, tokenizer, stop_div='----'):
 
 
 # class StoppingCriteriaSub(StoppingCriteria):
+# # In this case:
+# stop_words = ['----', '----\n', '\n----']
+# stop_words_ids = [tokenizer(stop_word, return_tensors='pt', 
+#                             add_special_tokens=False)['input_ids'].squeeze() 
+#                   for stop_word in stop_words]
+
+# stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids, tokenizer=tokenizer)])
+# 
 #     def __init__(self, stops = [], encounters=1, tokenizer=None):
 #         super().__init__()
 #         self.stops = [stop.to('cuda') for stop in stops]
@@ -398,7 +406,7 @@ def generate_hf(prompt, model, tokenizer, temperatures, num_samples, stopping_cr
 
             # Extend to the texts
             texts.extend(decoded_seqs)
-            pprint(texts)
+            # pprint(texts)
 
             # Get the scores
             scores_ = sequence_scores(
