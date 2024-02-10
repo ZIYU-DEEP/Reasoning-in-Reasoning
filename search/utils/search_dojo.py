@@ -40,7 +40,7 @@ from pprint import pprint
 # -----------------------------------------------
 # PREP
 
-accelerator = Accelerator()
+# accelerator = Accelerator()
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 logger = logging.getLogger()
 
@@ -52,6 +52,11 @@ class DotDict(dict):
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
+
+
+def print_stats(results):
+    print(len([x for x in results if x['success']]) / len(results))
+    print("# successes: ", len([x for x in results if x['success']]), sep="\t")
 # -----------------------------------------------
 
 
@@ -161,7 +166,7 @@ def load_model_vllm(model_name: str='open-web-math/llemma_7b',
     return model, tokenizer
 
 
-def load_model_hf(model_name):
+def load_model_hf(model_name, accelerator=None):
     if 'pythia' in model_name:
         model = transformers.GPTNeoXForCausalLM.from_pretrained(
             model_name,
@@ -304,17 +309,48 @@ def sequence_scores(out, prompt_length, model, tokenizer, stop_div='----'):
     return normalized_sequence_scores
 
 
+# class StoppingCriteriaSub(StoppingCriteria):
+#     def __init__(self, stops = [], encounters=1, tokenizer=None):
+#         super().__init__()
+#         self.stops = [stop.to('cuda') for stop in stops]
+#         self.tokenizer = tokenizer
+
+#     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
+#         last_token = input_ids[0][-1]
+#         # print(tokenizer.decode(last_token), last_token, len(input_ids[0]))
+#         for stop in self.stops:
+#             if self.tokenizer.decode(stop) == self.tokenizer.decode(last_token):
+#                 return True
+#         return False
+
 class StoppingCriteriaSub(StoppingCriteria):
-    def __init__(self, stops = [], encounters=1):
+    """
+    Notice this stopping criteria is specifically configured.
+    
+    We count the occurence of '----' in the few-shot prompt, and stop at the first occurence
+    in the generated text, which shold be 16.
+    
+    It is slightly troublesome that '----' is not always encoded as the same thing.
+    
+    Usage:
+    stop_words_ids = [torch.tensor([807])]
+    stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids)])
+    """
+
+    def __init__(self, stops=[], encounters=16):
         super().__init__()
         self.stops = [stop.to('cuda') for stop in stops]
+        self.ENCOUNTERS = encounters
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
-        last_token = input_ids[0][-1]
-        # print(tokenizer.decode(last_token), last_token, len(input_ids[0]))
+        stop_count = 0
+        
         for stop in self.stops:
-            if tokenizer.decode(stop) == tokenizer.decode(last_token):
-                return True
+            stop_count = (input_ids[0] == stop).sum().item()
+
+        if stop_count >= self.ENCOUNTERS:
+            return True
+            
         return False
 
 

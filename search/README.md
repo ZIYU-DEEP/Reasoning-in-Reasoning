@@ -1,13 +1,18 @@
 # README
 
 ## Run
-To run with the default config setting (.configs/default.yaml):
+To run with the default config setting (`.configs/default.yaml`) using the pylean environment:
 ```python
 # Simple search (for whole proof)
-python main.py --search_method simple_search
+python run_pylean.py --search_method simple_search
 
 # Best-first search (step by step, one tactic a time)
-python main.py --search_method best_first_search
+python run_pylean.py --search_method best_first_search
+```
+
+To run with the default config setting (`.configs/dojo_default.yaml`) using the dojo environment:
+```
+python run_dojo.py --search_method best_first_search
 ```
 
 
@@ -56,8 +61,8 @@ conda activate rir
 <!-- require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "38dbcd8285bc4b1391619c12f158a7409f3dfc12" -->
 
 ## TODO
-- [ ] test Llema in pylean env (currently the dequeue part is a bit misbehaving)
-- [ ] test Llema in dojo env
+- [x] test Llema in pylean env (currently the dequeue part is a bit misbehaving)
+- [x] test Llema in dojo env
 - [ ] add the mcts part
-- [ ] modify the prompt
+- [ ] modify the prompt to mimic draft
 
