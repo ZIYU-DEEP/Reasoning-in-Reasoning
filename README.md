@@ -1,6 +1,7 @@
 # Reasoning in Reasoning
 
-(To update in `./search/`)
+> [!NOTE]
+> Update will be put in the [`./search`](https://github.com/ZIYU-DEEP/bilevel-reasoner/tree/main/search) forder.
 
 The current codebase relies on `Lean 4`.
 
