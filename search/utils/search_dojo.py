@@ -631,10 +631,12 @@ def mct_search(
                 node.add_child(child_node)
 
     def node_evaluator(child, montecarlo):
-        if child.valid_tactic or child.proof_finished:
-            # Here, you could use step_scores or other metrics for evaluation
-            child.total_reward += 1  # Simplified example
-            child.visits += 1
+        # Increment visit count for exploration tracking
+        child.visits += 1
+        
+        if child.proof_finished:
+            # Only update the reward for finished proofs
+            child.total_reward += 1
 
     root_state = prompt_fn(theorem)
     root_node = Node(root_state)

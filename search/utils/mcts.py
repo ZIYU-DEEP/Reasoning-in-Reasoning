@@ -84,6 +84,25 @@ class MonteCarlo:
 
         return best_child
 
+    def make_scored_ucb_choice(self, C=1.41):
+        best_child = None
+        highest_score = float('-inf')  # Adjust for scores being negative log probabilities
+
+        for child in self.root_node.children:
+            if child.visits > 0:
+                # Integrate the score in the selection criteria
+                # For simplicity, you might start with a direct comparison of scores,
+                # or adjust the UCB formula to incorporate scores.
+                ucb_value = child.score + C * math.sqrt(math.log(self.root_node.visits) / child.visits)
+                if ucb_value > highest_score:
+                    highest_score = ucb_value
+                    best_child = child
+            else:
+                # Ensure all children are explored at least once
+                return child
+
+        return best_child
+
     def simulate(self, expansion_count=1):
         """
         Run simulation.
@@ -175,6 +194,7 @@ class Node:
         # Additional attributes for theorem proving
         self.proof_finished = False
         self.valid_tactic = False  # Type check the format
+        self.score = 0
 
     def update_win_value(self, value):
         self.win_value += value
@@ -194,20 +214,38 @@ class Node:
         for child in children:
             self.add_child(child)
 
-    def get_preferred_child(self, root_node):
-        best_children = []
-        best_score = float("-inf")
+    def get_preferred_child(self, root_node, C=1.41):
+        best_child = None
+        highest_ucb_value = float('-inf')
 
         for child in self.children:
-            score = child.get_score(root_node)
+            if child.visits > 0:
+                # Incorporate score into the decision-making process
+                # Assuming 'score' is stored in child nodes and represents negative log probability
+                ucb_value = child.score + C * math.sqrt(math.log(self.visits) / child.visits)
+                if ucb_value > highest_ucb_value:
+                    highest_ucb_value = ucb_value
+                    best_child = child
+            else:
+                # Select unvisited child
+                return child
 
-            if score > best_score:
-                best_score = score
-                best_children = [child]
-            elif score == best_score:
-                best_children.append(child)
+        return best_child
+    
+    # def get_preferred_child(self, root_node):
+    #     best_children = []
+    #     best_score = float("-inf")
 
-        return random.choice(best_children)
+    #     for child in self.children:
+    #         score = child.get_score(root_node)
+
+    #         if score > best_score:
+    #             best_score = score
+    #             best_children = [child]
+    #         elif score == best_score:
+    #             best_children.append(child)
+
+    #     return random.choice(best_children)
 
     def get_score(self, root_node):
         discovery_operand = (
