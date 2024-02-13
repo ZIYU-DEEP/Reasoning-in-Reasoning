@@ -1,7 +1,20 @@
 # README
 
 ## Run
-To run with the default config setting (`.configs/default.yaml`) using the pylean environment:
+(Recommended) To run with the default config setting (`.configs/dojo_default.yaml`) using the dojo environment:
+```
+python run_dojo.py --search_method best_first_search --config_name dojo_default.yaml
+```
+
+I am still working on the single-level MCTS part (debugging). Currently, the setting is:
+- [Expansion] Given the current state of the proof, the model will generate multiple next-step tactics as the nodes for this layer.
+    - A state can contain multiple unsolved sub-goals. The tactic is used to solve the goals.
+    - We type-check the generated results with the LeanDojo environment. A result will be retain if it is either an instance of `ProofFinished` or `TacticState`.
+- [Selection] We use simple UCB weighted by the log-probability associated with the tactic to select the node.
+- [Simulation] This step is the same as classical MCTS rollout.
+- [Backpropagation] Only `ProofFinished` gives +1 reward, otherwise 0.
+
+Pylean environment is an alternative (which is less flexible) to the dojo environment, for test purpose:
 ```python
 # Simple search (for whole proof)
 python run_pylean.py --search_method simple_search
@@ -9,12 +22,6 @@ python run_pylean.py --search_method simple_search
 # Best-first search (step by step, one tactic a time)
 python run_pylean.py --search_method best_first_search
 ```
-
-To run with the default config setting (`.configs/dojo_default.yaml`) using the dojo environment:
-```
-python run_dojo.py --search_method best_first_search --config_name dojo_default.yaml
-```
-
 
 ## Installation
 First, for the basic environment:

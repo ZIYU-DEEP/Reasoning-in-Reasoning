@@ -619,15 +619,18 @@ def mct_search(
             prompt, model, tokenizer, temperatures, num_samples, max_tokens=max_tokens
         )
         for step, score in zip(step_cands, step_scores):
-            child_state, result = apply_step_to_state(node.state, step)  # Assume this returns new state and result
+            child_state, result = apply_step_to_state(node.state, step)  
+            
             if isinstance(result, ProofFinished):
                 child_node = Node(child_state)
                 child_node.proof_finished = True
+                child_node.score = score
                 node.add_child(child_node)
                 
             elif isinstance(result, TacticState):
                 child_node = Node(child_state)
                 child_node.valid_tactic = True
+                child_node.score = score
                 node.add_child(child_node)
 
     def node_evaluator(child, montecarlo):
