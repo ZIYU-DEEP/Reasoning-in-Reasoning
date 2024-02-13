@@ -159,8 +159,19 @@ def main():
                                                 gen_method=p.gen_method)
         
         if p.search_method == 'mcts':
-            raise NotImplementedError('MCTS is not implemented yet.')
-        
+            attempt_results = mct_search(theorem=theorem,
+                                         model=model,
+                                         tokenizer=tokenizer,
+                                         max_iters=p.max_iters,
+                                         temperatures=p.temperatures,
+                                         num_samples=p.num_samples,
+                                         prompt_fn=search_dojo._prompt_fewshot,
+                                         timeout=p.timeout,
+                                         early_stop=p.early_stop,
+                                         max_tokens=p.max_tokens,
+                                         stopping_criteria=stopping_criteria,
+                                         gen_method=p.gen_method)
+
         if p.search_method == 'rir':
             raise NotImplementedError('Bilevel MCTS is not implemented yet.')
 
