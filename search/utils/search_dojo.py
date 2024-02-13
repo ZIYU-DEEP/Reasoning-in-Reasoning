@@ -36,7 +36,7 @@ import subprocess
 from tqdm import tqdm, trange
 from pprint import pprint
 
-from mcts import (
+from .mcts import (
     MonteCarlo, 
     Node,
     limit_depth,
