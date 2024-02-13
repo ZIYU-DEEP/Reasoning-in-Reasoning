@@ -61,6 +61,8 @@ parser.add_argument('-cfg', '--config_name', type=str,
 parser.add_argument('-sm', '--search_method', type=str, 
                     default='', help='Rewrite the search method in config.',
                     choices=['simple_search', 'best_first_search', 'mcts', 'rir'])
+parser.add_argument('-re', '--resume_from', type=str, default='', 
+                    help='Resume from a specific problem, e.g., amc12_2000_p12.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -99,6 +101,10 @@ results_path = results_folder / f'{time_now}.json'
 # Set up the minif2f dataset
 repo, data = search_dojo._load_data(dataset_name=p.dataset_name,
                                     dataset_path=p.dataset_path)
+
+if args.resume_from:
+    re_ind = [item['full_name'] for item in data].index(args.resume_from)
+    data = data[re_ind:] 
 
 # Split data in different shards and use CUDA_VISIBLE_DEVICES to control
 # shard_size = len(data) // args.num_shards
