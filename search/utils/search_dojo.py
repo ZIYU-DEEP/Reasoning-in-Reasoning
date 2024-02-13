@@ -573,61 +573,186 @@ def best_first_search(
 # -----------------------------------------------
 # MCTS
 
-
-def generate_complete(text, 
-                      montecarlo, 
-                      current_completion_depth: int=1,
-                      max_completion_depth: int=30):
-
-    if current_completion_depth >= max_completion_depth:
-        return None
+def apply_step_to_state(current_state, step, dojo):
+    """
+    Applies a generated step (tactic) to the current state and evaluates the outcome.
     
-    prev = text
-    texts = llm.generate(text, 1)  # TO EDIT
-    text = texts[0]
-    score = score_func(text)  # TO EDIT WITH DOJO
-    print(diffprompt(prev, texts))  # TO EDIT WITH DOJO
-
-    if score is not None:
-        if score < 0:
-            return None
-        else:
-            if can_be_solution(text, min_lines, check_func):  # TO EDIT WITH DOJO
-                montecarlo.solution = text
-            return text
-    else:
-        return generate_complete(text, montecarlo, current_completion_depth + 1)
-
-
-def child_finder(node, montecarlo):
-    if limit_depth(node):
-        return
-
-    text = generate_complete(node.state, montecarlo)
-    if text is None:
-        node.update_win_value(-1)
-    else:
-        child = Node(text)
-        node.add_child(child)
-        child.update_win_value(1)
-        child.update_policy_value(1)
-
-        child = Node(node.state)
-        node.add_child(child)
-        child.update_policy_value(0.2)
-
-def mct_search(prompt: str='',
-               mins_timeout: int=None,
-               expansion_count: int=None):
+    Parameters:
+    - current_state: The current state of the theorem proving process.
+    - step: The tactic to apply to the current state.
+    - dojo: The theorem proving environment or logic handler.
     
-    # Initialize the montecarlo
-    montecarlo = MonteCarlo(Node(prompt), mins_timeout)  # TO EDIT
+    Returns:
+    - new_state: The state resulting from applying the step, or None if the step is invalid.
+    - result: An instance indicating the outcome of the step application, which can be ProofFinished, TacticState, or None.
+    """
+    result = dojo.run_tac(current_state, step)
+    if isinstance(result, ProofFinished):
+        # Proof is successfully finished with this step
+        return current_state, result  # Or however you represent the "finished" state
+    elif isinstance(result, TacticState):
+        # Step leads to a valid new state
+        new_state = result  # Assuming result contains the new state information
+        return new_state, result
+    else:
+        # Step is invalid or not applicable
+        return None, None
+
+
+def mct_search(
+        theorem,
+        model,
+        tokenizer,
+        max_iters,
+        temperatures,
+        num_samples,
+        prompt_fn,
+        timeout=600,
+        early_stop=False,
+        max_tokens=256,
+        stopping_criteria=None,
+        gen_method='vllm',
+) -> dict:
+    def child_finder(node, montecarlo):
+        prompt = prompt_fn(node.state)
+        step_cands, step_scores = generate_vllm(
+            prompt, model, tokenizer, temperatures, num_samples, max_tokens=max_tokens
+        )
+        for step, score in zip(step_cands, step_scores):
+            child_state, result = apply_step_to_state(node.state, step)  # Assume this returns new state and result
+            if isinstance(result, ProofFinished):
+                child_node = Node(child_state)
+                child_node.proof_finished = True
+                node.add_child(child_node)
+                
+            elif isinstance(result, TacticState):
+                child_node = Node(child_state)
+                child_node.valid_tactic = True
+                node.add_child(child_node)
+
+    def node_evaluator(child, montecarlo):
+        if child.valid_tactic or child.proof_finished:
+            # Here, you could use step_scores or other metrics for evaluation
+            child.total_reward += 1  # Simplified example
+            child.visits += 1
+
+    root_state = prompt_fn(theorem)
+    root_node = Node(root_state)
+    montecarlo = MonteCarlo(root_node, mins_timeout=timeout/60)
     montecarlo.child_finder = child_finder
+    montecarlo.node_evaluator = node_evaluator
+
+    montecarlo.simulate(expansion_count=max_iters)
+
+    # Extraction and return of results as previously outlined
+    def format_solution(node):
+        """
+        Recursively trace back from the solution node to the root to construct the proof steps.
+        """
+        solution_steps = []
+        current_node = node
+        while current_node.parent is not None:  # Trace back to root
+            if hasattr(current_node, 'tactic'):  # Assuming nodes store their tactic
+                solution_steps.append(current_node.tactic)
+            current_node = current_node.parent
+        solution_steps.reverse()  # Reverse to get the correct order
+        return solution_steps
+
+    def find_solution_node(root_node):
+        """
+        Traverse the tree to find a node where proof_finished is True.
+        """
+        if root_node.proof_finished:
+            return root_node
+        for child in root_node.children:
+            solution_node = find_solution_node(child)
+            if solution_node:
+                return solution_node
+        return None  # No solution found in this branch
+
+    # At the end of mct_search function, after montecarlo.simulate(expansion_count=max_iters)
+    solution_node = find_solution_node(montecarlo.root_node)
+    if solution_node:
+        proof_steps = format_solution(solution_node)
+        result = {
+            'theorem': theorem,  # Adjust according to how you identify theorems
+            'success': True,
+            'proof_steps': proof_steps,
+            'details': {
+                # Additional details like total iterations, time taken, etc.
+                'iterations': max_iters,
+                'timeout': timeout
+            }
+        }
+    else:
+        result = {
+            'theorem': theorem,
+            'success': False,
+            'failure_reason': 'No solution found within the given constraints',
+            'details': {
+                'iterations': max_iters,
+                'timeout': timeout
+            }
+        }
+
+    return result
+
+
+
+# def generate_complete(text, 
+#                       montecarlo, 
+#                       current_completion_depth: int=1,
+#                       max_completion_depth: int=30):
+
+#     if current_completion_depth >= max_completion_depth:
+#         return None
     
-    # Simulate
-    montecarlo.simulate(expansion_count)
+#     prev = text
+#     texts = llm.generate(text, 1)  # TO EDIT
+#     text = texts[0]
+#     score = score_func(text)  # TO EDIT WITH DOJO
+#     print(diffprompt(prev, texts))  # TO EDIT WITH DOJO
+
+#     if score is not None:
+#         if score < 0:
+#             return None
+#         else:
+#             if can_be_solution(text, min_lines, check_func):  # TO EDIT WITH DOJO
+#                 montecarlo.solution = text
+#             return text
+#     else:
+#         return generate_complete(text, montecarlo, current_completion_depth + 1)
+
+
+# def child_finder(node, montecarlo):
+#     if limit_depth(node):
+#         return
+
+#     text = generate_complete(node.state, montecarlo)
+#     if text is None:
+#         node.update_win_value(-1)
+#     else:
+#         child = Node(text)
+#         node.add_child(child)
+#         child.update_win_value(1)
+#         child.update_policy_value(1)
+
+#         child = Node(node.state)
+#         node.add_child(child)
+#         child.update_policy_value(0.2)
+
+# def mct_search(prompt: str='',
+#                mins_timeout: int=None,
+#                expansion_count: int=None):
     
-    # Record the results
-    return montecarlo.solution  # TO EDIT
+#     # Initialize the montecarlo
+#     montecarlo = MonteCarlo(Node(prompt), mins_timeout)  # TO EDIT
+#     montecarlo.child_finder = child_finder  # TO WRITE THIS FUNCTION
+    
+#     # Simulate
+#     montecarlo.simulate(expansion_count)
+    
+#     # Record the results
+#     return montecarlo.solution  # TO EDIT
     
     

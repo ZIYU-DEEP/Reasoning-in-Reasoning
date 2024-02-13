@@ -171,6 +171,10 @@ class Node:
         self.expanded = False
         self.player_number = None
         self.discovery_factor = 0.35
+        
+        # Additional attributes for theorem proving
+        self.proof_finished = False
+        self.valid_tactic = False  # Type check the format
 
     def update_win_value(self, value):
         self.win_value += value
