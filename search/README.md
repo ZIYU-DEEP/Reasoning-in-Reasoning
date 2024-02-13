@@ -12,7 +12,7 @@ python run_pylean.py --search_method best_first_search
 
 To run with the default config setting (`.configs/dojo_default.yaml`) using the dojo environment:
 ```
-python run_dojo.py --search_method best_first_search
+python run_dojo.py --search_method best_first_search --config_name dojo_default.yaml
 ```
 
 
@@ -69,5 +69,5 @@ conda activate rir
 
 ## Notice
 - The Dojo environment appears to be less stringent than the PyLean environment, occasionally categorizing incorrect proofs as successful.
-- The stopping condition for HF is still a bit problematic for beam search.
+- The stopping condition for HF is still a bit problematic the for beam search - to debug later.
 

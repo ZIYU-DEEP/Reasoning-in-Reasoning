@@ -8,7 +8,7 @@ dataset_path: ./data/minif2f.jsonl
 
 # ---------- Model ------------
 model_name: open-web-math/llemma_7b
-gen_method: hf  # Choose from hf or vllm
+gen_method: vllm  # Choose from hf or vllm
 num_shards: 8  # Put data on different shard
 tp_degree: 8  # tensor parallel size
 dtype: float16

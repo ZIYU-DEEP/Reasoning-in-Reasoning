@@ -36,6 +36,15 @@ import subprocess
 from tqdm import tqdm, trange
 from pprint import pprint
 
+from mcts import (
+    MonteCarlo, 
+    Node,
+    limit_depth,
+    stats,
+    select_with_scores,
+    create_score_predicate,
+)
+
 
 # -----------------------------------------------
 # PREP
@@ -560,3 +569,65 @@ def best_first_search(
 
     return attempt_results
 # -----------------------------------------------
+
+# -----------------------------------------------
+# MCTS
+
+
+def generate_complete(text, 
+                      montecarlo, 
+                      current_completion_depth: int=1,
+                      max_completion_depth: int=30):
+
+    if current_completion_depth >= max_completion_depth:
+        return None
+    
+    prev = text
+    texts = llm.generate(text, 1)  # TO EDIT
+    text = texts[0]
+    score = score_func(text)  # TO EDIT WITH DOJO
+    print(diffprompt(prev, texts))  # TO EDIT WITH DOJO
+
+    if score is not None:
+        if score < 0:
+            return None
+        else:
+            if can_be_solution(text, min_lines, check_func):  # TO EDIT WITH DOJO
+                montecarlo.solution = text
+            return text
+    else:
+        return generate_complete(text, montecarlo, current_completion_depth + 1)
+
+
+def child_finder(node, montecarlo):
+    if limit_depth(node):
+        return
+
+    text = generate_complete(node.state, montecarlo)
+    if text is None:
+        node.update_win_value(-1)
+    else:
+        child = Node(text)
+        node.add_child(child)
+        child.update_win_value(1)
+        child.update_policy_value(1)
+
+        child = Node(node.state)
+        node.add_child(child)
+        child.update_policy_value(0.2)
+
+def mct_search(prompt: str='',
+               mins_timeout: int=None,
+               expansion_count: int=None):
+    
+    # Initialize the montecarlo
+    montecarlo = MonteCarlo(Node(prompt), mins_timeout)  # TO EDIT
+    montecarlo.child_finder = child_finder
+    
+    # Simulate
+    montecarlo.simulate(expansion_count)
+    
+    # Record the results
+    return montecarlo.solution  # TO EDIT
+    
+    

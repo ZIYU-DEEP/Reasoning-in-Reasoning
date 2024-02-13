@@ -1,4 +1,3 @@
-from pylean import LeanServer
 from utils.search_pylean import (
     load_model,
     simple_search,
