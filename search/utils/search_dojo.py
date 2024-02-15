@@ -638,15 +638,19 @@ def mct_search(theorem,
                early_stop=False,
                max_tokens=256,
                stopping_criteria=None,
-               gen_method='vllm') -> dict:
+               gen_method='vllm',
+               expansion_count=10) -> dict:
 
     # =========================================================
     # DEFINE NODE EVALUATOR AND CHILD FINDER FOR MCTS
     def node_evaluator(child, montecarlo):
         if child.proof_finished:
             return 1
-        else:
-            return - 1 
+        # else:
+        #     return - 1 
+        # DEBUG
+        elif limit_depth(child, max_depth=max_iters):
+           return -1
     
     def child_finder(node, montecarlo):
         """
@@ -691,21 +695,19 @@ def mct_search(theorem,
             if isinstance(new_state, (ProofFinished, TacticState)):
                 # Init the node
                 child_node = Node(new_state)
+                child_node.score = score
                 
                 # DEBUG
                 logger.info(child_node.state)
-
-                # Update the score
-                child_node.score = score
                 
                 # Special handling for ProofFinished state
                 if isinstance(new_state, ProofFinished):
                     child_node.proof_finished = True
-                    montecarlo.solution = True
-                    
-                    # DEBUG
+                    montecarlo.solution = new_state  #TODO: Looks like this is not used
+                    node.add_child(child_node)
                     logger.info('Success!')
-                
+                    return
+                           
                 # Add the child node to the current node
                 node.add_child(child_node)
     # =========================================================
@@ -733,14 +735,16 @@ def mct_search(theorem,
             montecarlo.node_evaluator = node_evaluator
 
             # Run the simulation
-            montecarlo.simulate(expansion_count=max_iters)
+            # TODO: Use a different expansion count parameter
+            # TODO: Return the result immediately when a solution is found
+            montecarlo.simulate(expansion_count=expansion_count)
 
             # At the end of mct_search function, after montecarlo.simulate(expansion_count=max_iters)
             solution_node = find_solution_node(montecarlo.root_node)
             if solution_node:
                 proof_steps = format_solution(solution_node)
                 attempt_results.append({
-                    'theorem': theorem,  # Adjust according to how you identify theorems
+                    'theorem': theorem.full_name,
                     'success': True,
                     'proof_steps': proof_steps,
                     'details': {
@@ -750,7 +754,7 @@ def mct_search(theorem,
                 })
             else:
                 attempt_results.append({
-                    'theorem': theorem,
+                    'theorem': theorem.full_name,
                     'success': False,
                     'failure_reason': 'No solution found within the given constraints',
                     'details': {

@@ -133,8 +133,11 @@ class MonteCarlo:
             current_node = self.root_node
             while current_node.expanded:
                 current_node = current_node.get_preferred_child(self.root_node)
+            
+            if current_node.proof_finished:
+                return
 
-            # Expand the selected node
+            # Rollout the selected node
             self.expand(current_node)
 
     def expand(self, node):
@@ -149,6 +152,9 @@ class MonteCarlo:
 
             if child_win_value != None:
                 child.update_win_value(child_win_value)
+            
+            if child.proof_finished:
+                return # TODO: During inference, we return immediately when success
 
             if not child.is_scorable():
                 self.random_rollout(child)
@@ -162,7 +168,13 @@ class MonteCarlo:
     def random_rollout(self, node):
         """
         Simulation.
+        
+        Notice that for inference, we will return immediately when success.
         """
+        # TODO: DEBUG
+        if node.proof_finished:
+            return
+        
         # Add child_node to the current node
         self.child_finder(node, self)
         
@@ -177,6 +189,9 @@ class MonteCarlo:
 
         if child_win_value != None:
             node.update_win_value(child_win_value)
+            # TODO: DEBUG # During inference, we return immediately when success
+            if child.proof_finished:
+                return
         else:
             self.random_rollout(child)
 

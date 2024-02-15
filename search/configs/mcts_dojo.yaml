@@ -32,13 +32,18 @@ timeout: 1200
 early_stop: false
 
 # ---------- Args for mcts search  ----------
-max_depth: 100
+max_iters: 100
 temperatures: 
   - 0.0
 num_samples: 32  # The width of the tree
 verbose: true
-timeout: 1200
+timeout: 12000
 early_stop: false
+
+# TODO: 
+# - reset the max_dpeth
+# - the expansion count 
+# - rewrite the code
 
 # ---------- Args for bilevel mcts search  ----------
 
