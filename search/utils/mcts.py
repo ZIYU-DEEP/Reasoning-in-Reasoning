@@ -181,7 +181,7 @@ class MonteCarlo:
 # ###############################################
 class Node:
     def __init__(self, state):
-        self.state = state
+        self.state = state  # Be it TacticState, ProofFinished or Error
         self.win_value = 0
         self.policy_value = None
         self.visits = 0
@@ -193,7 +193,7 @@ class Node:
         
         # Additional attributes for theorem proving
         self.proof_finished = False
-        self.valid_tactic = False  # Type check the format
+        # self.valid_tactic = False  # Type check the format
         self.score = 0
 
     def update_win_value(self, value):
