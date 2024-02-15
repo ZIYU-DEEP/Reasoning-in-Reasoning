@@ -573,7 +573,7 @@ def best_first_search(
 # -----------------------------------------------
 # MCTS
 
-def apply_step_to_state(current_state, step, dojo):
+def apply_step_to_state(current_state, step):
     """
     Applies a generated step (tactic) to the current state and evaluates the outcome.
     
@@ -614,6 +614,7 @@ def mct_search(
         gen_method='vllm',
 ) -> dict:
     def child_finder(node, montecarlo):
+        # Set the prompt
         prompt = prompt_fn(node.state)
         step_cands, step_scores = generate_vllm(
             prompt, model, tokenizer, temperatures, num_samples, max_tokens=max_tokens
