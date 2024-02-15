@@ -195,7 +195,7 @@ def _tactic_state(state):
     """
     if isinstance(state, TacticState):
         ts = state.pp
-    if isinstance(state, ProofFinished):
+    elif isinstance(state, ProofFinished):
         ts = ''
     else:
         ts = state.unsolved_tactic_state

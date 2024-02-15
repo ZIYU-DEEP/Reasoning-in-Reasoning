@@ -92,8 +92,13 @@ def _record_results(attempt_results, theorem, logger, failure_reason):
 # -----------------------------------------------
 # ENV
 def _tactic_state(state):
+    """
+    Return the string state from the state.
+    """
     if isinstance(state, TacticState):
         ts = state.pp
+    elif isinstance(state, ProofFinished):
+        ts = ''
     else:
         ts = state.unsolved_tactic_state
     return ts
@@ -650,7 +655,6 @@ def mct_search(theorem,
 
         # ---------------------------------------------
         # Get the next step candidates
-        string_state = _tactic_state(node.state)
         prompt = prompt_fn(node.state)
         
         assert gen_method in ['vllm', 'hf']
@@ -681,16 +685,15 @@ def mct_search(theorem,
         # Find the valid child
         for step, score in zip(step_cands, step_scores):
             # Apply the step to the current state
-            new_state = dojo.run_tac(state, step)
+            new_state = dojo.run_tac(node.dojo_state, step)
         
             # Only type checked node is added
             if isinstance(new_state, (ProofFinished, TacticState)):
                 # Init the node
-                new_state_str = _tactic_state(new_state)
-                child_node = Node(new_state_str)
+                child_node = Node(new_state)
                 
                 # DEBUG
-                logger.info(new_state_str)
+                logger.info(child_node.state)
 
                 # Update the score
                 child_node.score = score
@@ -720,7 +723,7 @@ def mct_search(theorem,
             init_state_str = _tactic_state(init_state)
 
             # Initialize the root node
-            root_node = Node(init_state_str)
+            root_node = Node(init_state)
 
             # Initialize the monte carlo class
             montecarlo = MonteCarlo(root_node, mins_timeout=timeout / 60)
