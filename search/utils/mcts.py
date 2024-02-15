@@ -9,6 +9,7 @@ import json
 import math
 
 from math import log, sqrt
+from lean_dojo import *
 
 
 # ###############################################
@@ -113,6 +114,8 @@ class MonteCarlo:
         while expansion_count is None or i < expansion_count:
             i += 1
 
+            # ----------------------------------------------------------------- #
+            # STOP CONDITIONS
             # Stop if found a solution
             if self.solution is not None:
                 return
@@ -124,6 +127,7 @@ class MonteCarlo:
                 if duration > (self.mins_timeout * 60):
                     print('I am tired. Stopping expansion on current node.')
                     return
+            # -----------------------------------------------------------------
 
             # Select a node
             current_node = self.root_node
@@ -159,10 +163,16 @@ class MonteCarlo:
         """
         Simulation.
         """
+        # Add child_node to the current node
         self.child_finder(node, self)
+        
+        # Randomly select a child to proceed
+        # TODO: MAKE THIS WITH UCB
         child = random.choice(node.children)
         node.children = []
         node.add_child(child)
+        
+        # Calculdate the win value
         child_win_value = self.node_evaluator(child, self)
 
         if child_win_value != None:
@@ -179,9 +189,25 @@ class MonteCarlo:
 # ###############################################
 # Node
 # ###############################################
+def _tactic_state(state):
+    """
+    Return the string state from the state.
+    """
+    if isinstance(state, TacticState):
+        ts = state.pp
+    if isinstance(state, ProofFinished):
+        ts = ''
+    else:
+        ts = state.unsolved_tactic_state
+    return ts
+
+
 class Node:
     def __init__(self, state):
-        self.state = state  # Be it TacticState, ProofFinished or Error
+        # Set the state
+        self.dojo_state = state # Be it TacticState, ProofFinished or Error
+        self.state = _tactic_state(state)  
+        
         self.win_value = 0
         self.policy_value = None
         self.visits = 0
@@ -214,38 +240,38 @@ class Node:
         for child in children:
             self.add_child(child)
 
-    def get_preferred_child(self, root_node, C=1.41):
-        best_child = None
-        highest_ucb_value = float('-inf')
-
-        for child in self.children:
-            if child.visits > 0:
-                # Incorporate score into the decision-making process
-                # Assuming 'score' is stored in child nodes and represents negative log probability
-                ucb_value = child.score + C * math.sqrt(math.log(self.visits) / child.visits)
-                if ucb_value > highest_ucb_value:
-                    highest_ucb_value = ucb_value
-                    best_child = child
-            else:
-                # Select unvisited child
-                return child
-
-        return best_child
-    
-    # def get_preferred_child(self, root_node):
-    #     best_children = []
-    #     best_score = float("-inf")
+    # def get_preferred_child(self, root_node, C=1.41):
+    #     best_child = None
+    #     highest_ucb_value = float('-inf')
 
     #     for child in self.children:
-    #         score = child.get_score(root_node)
+    #         if child.visits > 0:
+    #             # Incorporate score into the decision-making process
+    #             # Assuming 'score' is stored in child nodes and represents negative log probability
+    #             ucb_value = child.score + C * math.sqrt(math.log(self.visits) / child.visits)
+    #             if ucb_value > highest_ucb_value:
+    #                 highest_ucb_value = ucb_value
+    #                 best_child = child
+    #         else:
+    #             # Select unvisited child
+    #             return child
 
-    #         if score > best_score:
-    #             best_score = score
-    #             best_children = [child]
-    #         elif score == best_score:
-    #             best_children.append(child)
+    #     return best_child
+    
+    def get_preferred_child(self, root_node):
+        best_children = []
+        best_score = float("-inf")
 
-    #     return random.choice(best_children)
+        for child in self.children:
+            score = child.get_score(root_node)
+
+            if score > best_score:
+                best_score = score
+                best_children = [child]
+            elif score == best_score:
+                best_children.append(child)
+
+        return random.choice(best_children)
 
     def get_score(self, root_node):
         discovery_operand = (

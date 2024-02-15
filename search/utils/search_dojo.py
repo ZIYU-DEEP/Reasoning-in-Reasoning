@@ -688,6 +688,9 @@ def mct_search(theorem,
                 # Init the node
                 new_state_str = _tactic_state(new_state)
                 child_node = Node(new_state_str)
+                
+                # DEBUG
+                logger.info(new_state_str)
 
                 # Update the score
                 child_node.score = score
@@ -696,6 +699,9 @@ def mct_search(theorem,
                 if isinstance(new_state, ProofFinished):
                     child_node.proof_finished = True
                     montecarlo.solution = True
+                    
+                    # DEBUG
+                    logger.info('Success!')
                 
                 # Add the child node to the current node
                 node.add_child(child_node)
