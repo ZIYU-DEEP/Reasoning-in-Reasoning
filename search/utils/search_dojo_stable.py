@@ -655,10 +655,11 @@ def mct_search(
         """
         solution_steps = []
         current_node = node
+        
         while current_node.parent is not None:  # Trace back to root
-            if hasattr(current_node, 'tactic'):  # Assuming nodes store their tactic
-                solution_steps.append(current_node.tactic)
+            solution_steps.append(current_node.state)
             current_node = current_node.parent
+            
         solution_steps.reverse()  # Reverse to get the correct order
         return solution_steps
 
@@ -668,10 +669,12 @@ def mct_search(
         """
         if root_node.proof_finished:
             return root_node
+        
         for child in root_node.children:
             solution_node = find_solution_node(child)
             if solution_node:
                 return solution_node
+            
         return None  # No solution found in this branch
 
     # At the end of mct_search function, after montecarlo.simulate(expansion_count=max_iters)
@@ -683,7 +686,6 @@ def mct_search(
             'success': True,
             'proof_steps': proof_steps,
             'details': {
-                # Additional details like total iterations, time taken, etc.
                 'iterations': max_iters,
                 'timeout': timeout
             }

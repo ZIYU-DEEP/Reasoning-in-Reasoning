@@ -570,7 +570,7 @@ def best_first_search(
                             logger.info(f'\nstep: {step}; score: {round(score, 3)}')
                 # ---------------------------------------------
 
-    except (DojoInitError, DojoHardTimeoutError, DojoCrashError, subprocess.CalledProcessError) as e:
+    except DOJO_ERROR as e:
         if len(attempt_results) == 0:
             attempt_results.append({
                 'theorem': theorem.full_name,
@@ -592,6 +592,36 @@ def best_first_search(
 
 # -----------------------------------------------
 # MCTS
+# Extraction and return of results as previously outlined
+def format_solution(node):
+    """
+    Recursively trace back from the solution node to the root to construct the proof steps.
+    """
+    solution_steps = []
+    current_node = node
+    
+    while current_node.parent is not None:  # Trace back to root
+        solution_steps.append(current_node.state)
+        current_node = current_node.parent
+        
+    solution_steps.reverse()  # Reverse to get the correct order
+    return solution_steps
+
+def find_solution_node(root_node):
+    """
+    Traverse the tree to find a node where proof_finished is True.
+    """
+    if root_node.proof_finished:
+        return root_node
+    
+    for child in root_node.children:
+        solution_node = find_solution_node(child)
+        if solution_node:
+            return solution_node
+        
+    return None  # No solution found in this branch
+
+
 def mct_search(theorem,
                model,
                tokenizer,
@@ -665,6 +695,7 @@ def mct_search(theorem,
                 # Special handling for ProofFinished state
                 if isinstance(new_state, ProofFinished):
                     child_node.proof_finished = True
+                    montecarlo.solution = True
                 
                 # Add the child node to the current node
                 node.add_child(child_node)
@@ -694,6 +725,32 @@ def mct_search(theorem,
 
             # Run the simulation
             montecarlo.simulate(expansion_count=max_iters)
+
+            # At the end of mct_search function, after montecarlo.simulate(expansion_count=max_iters)
+            solution_node = find_solution_node(montecarlo.root_node)
+            if solution_node:
+                proof_steps = format_solution(solution_node)
+                attempt_results.append({
+                    'theorem': theorem,  # Adjust according to how you identify theorems
+                    'success': True,
+                    'proof_steps': proof_steps,
+                    'details': {
+                        'iterations': max_iters,
+                        'timeout': timeout
+                    }
+                })
+            else:
+                attempt_results.append({
+                    'theorem': theorem,
+                    'success': False,
+                    'failure_reason': 'No solution found within the given constraints',
+                    'details': {
+                        'iterations': max_iters,
+                        'timeout': timeout
+                    }
+                })
+
+            return attempt_results
 
     except DOJO_ERROR as e:
         attempt_results = _record_results(attempt_results, theorem, logger, type(e).__name__)
