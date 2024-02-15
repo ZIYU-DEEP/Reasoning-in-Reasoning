@@ -51,6 +51,7 @@ from .mcts import (
 
 # accelerator = Accelerator()
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+DOJO_ERROR = (DojoInitError, DojoHardTimeoutError, DojoCrashError, subprocess.CalledProcessError)
 logger = logging.getLogger()
 
 
@@ -676,15 +677,6 @@ def mct_search(theorem,
         with Dojo(theorem, hard_timeout=timeout) as (dojo, init_state):
 
             # ------------------------------------------------
-            # PREPARATION
-            start = time.time()
-            proof_finished = False
-        
-            queue = [(0.0, [], init_state, [])]
-            visited = set()
-            # ------------------------------------------------
-
-            # ------------------------------------------------
             # Get the state for the root node
             # Notice we use the string rep as the state
             # Instead of the dojo state itself
@@ -703,7 +695,7 @@ def mct_search(theorem,
             # Run the simulation
             montecarlo.simulate(expansion_count=max_iters)
 
-    except (DojoInitError, DojoHardTimeoutError, DojoCrashError, subprocess.CalledProcessError) as e:
+    except DOJO_ERROR as e:
         attempt_results = _record_results(attempt_results, theorem, logger, type(e).__name__)
 
     attempt_results = _record_results(attempt_results, theorem, logger, 'SearchEnded')
