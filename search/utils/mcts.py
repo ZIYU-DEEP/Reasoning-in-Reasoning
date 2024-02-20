@@ -106,18 +106,20 @@ class MonteCarlo:
 
     def simulate(self, expansion_count=1):
         """
-        Run simulation.
+        Run monte carlo tree search from the root node.
         """
         # Init
         i, start_time = 0, time.time()
 
         while expansion_count is None or i < expansion_count:
             i += 1
+            print('Simulating from the beginning!')
 
             # ----------------------------------------------------------------- #
             # STOP CONDITIONS
             # Stop if found a solution
-            if self.solution is not None:
+            if self.solution:
+                print('Solution found. No more simulations.')
                 return
 
             # Stop if reached the time limit
@@ -135,6 +137,7 @@ class MonteCarlo:
                 current_node = current_node.get_preferred_child(self.root_node)
             
             if current_node.proof_finished:
+                self.solution = True
                 return
 
             # Rollout the selected node
@@ -144,6 +147,11 @@ class MonteCarlo:
         """
         Expansion for a given node.
         """
+        # DEBUG
+        if node.proof_finished:
+            self.solution = True
+            return
+        
         self.stats_expansion_count += 1
         self.child_finder(node, self)
 
@@ -154,9 +162,10 @@ class MonteCarlo:
                 child.update_win_value(child_win_value)
             
             if child.proof_finished:
+                self.solution = True
                 return # TODO: During inference, we return immediately when success
 
-            if not child.is_scorable():
+            if (not child.is_scorable()) and (not child.proof_finished):
                 self.random_rollout(child)
                 child.children = []
 
@@ -173,6 +182,7 @@ class MonteCarlo:
         """
         # TODO: DEBUG
         if node.proof_finished:
+            self.solution = True
             return
         
         # Add child_node to the current node
@@ -191,6 +201,7 @@ class MonteCarlo:
             node.update_win_value(child_win_value)
             # TODO: DEBUG # During inference, we return immediately when success
             if child.proof_finished:
+                self.solution = True
                 return
         else:
             self.random_rollout(child)
@@ -233,7 +244,10 @@ class Node:
         self.discovery_factor = 0.35
         
         # Additional attributes for theorem proving
-        self.proof_finished = False
+        if isinstance(state, ProofFinished):
+            self.proof_finished = True
+        else:
+            self.proof_finished = False
         # self.valid_tactic = False  # Type check the format
         self.score = 0
 

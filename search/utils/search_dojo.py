@@ -639,12 +639,13 @@ def mct_search(theorem,
                max_tokens=256,
                stopping_criteria=None,
                gen_method='vllm',
-               expansion_count=10) -> dict:
+               expansion_count=1) -> dict:
 
     # =========================================================
     # DEFINE NODE EVALUATOR AND CHILD FINDER FOR MCTS
     def node_evaluator(child, montecarlo):
         if child.proof_finished:
+            print('DEBUG: PROOF IS FINISHED!')
             return 1
         # else:
         #     return - 1 
@@ -655,6 +656,7 @@ def mct_search(theorem,
     def child_finder(node, montecarlo):
         """
         Add type checked child_node to the current node.
+        Notice that we are using beam search to find the children.
         """
 
         # ---------------------------------------------
@@ -705,6 +707,7 @@ def mct_search(theorem,
                     child_node.proof_finished = True
                     montecarlo.solution = new_state  #TODO: Looks like this is not used
                     node.add_child(child_node)
+                    node.proof_finished = True  #TODO: DEBUG
                     logger.info('Success!')
                     return
                            
@@ -722,7 +725,6 @@ def mct_search(theorem,
             # Get the state for the root node
             # Notice we use the string rep as the state
             # Instead of the dojo state itself
-            init_state_str = _tactic_state(init_state)
 
             # Initialize the root node
             root_node = Node(init_state)
