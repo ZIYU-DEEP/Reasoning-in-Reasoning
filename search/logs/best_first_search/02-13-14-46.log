@@ -1,0 +1,752 @@
+logs/best_first_search/02-13-14-46.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=0, message=None)
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.437
+
+step: refine' ⟨_, _, _⟩; score: -0.44
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.507
+
+step: by_cases hm : m = 0; score: -0.658
+
+step: contrapose! h₃; score: -0.78
+
+step: by_contra h; score: -0.893
+
+Current State:
+TacticState(pp='case intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=1, message='')
+
+
+step: refine' ⟨_, _, _⟩; score: -0.381
+
+step: rcases eq_or_ne a 0 with (rfl | ha); score: -0.476
+
+step: by_contra h; score: -0.929
+
+step: apply And.intro; score: -1.016
+
+Current State:
+TacticState(pp="case refine'_1\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ a = 0\n\ncase refine'_2\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ b = 0\n\ncase refine'_3\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ c = 0", id=2, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.436
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.481
+
+step: by_cases hm : m = 0; score: -0.722
+
+Current State:
+TacticState(pp='case intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=4, message='')
+
+
+step: refine' ⟨_, _, _⟩; score: -0.394
+
+step: apply And.intro _ _; score: -0.809
+
+step: by_contra h; score: -0.928
+
+step: apply And.intro; score: -0.989
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=8, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.316
+
+step: rcases hm with (rfl | hm); score: -0.367
+
+step: by_cases m = 0; score: -0.389
+
+step: rcases h₀ with ⟨h₀m, h₀n⟩; score: -0.389
+
+step: by_cases hm : m = 0; score: -0.402
+
+step: rcases hm with hm | hm; score: -0.419
+
+step: rcases hm with (hm | hm); score: -0.428
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.463
+
+step: rcases hm with (_ | hm); score: -0.478
+
+step: cases' hm with hm hm; score: -0.504
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: rcases hm with (_ | _); score: -0.592
+
+step: by_cases h : m = 0; score: -0.604
+
+step: cases hm; score: -0.688
+
+step: rcases hm with rfl; score: -0.691
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : a = 0 → b = 0 → c ≠ 0\n⊢ ↑a + ↑b * m + ↑c * n ≠ 0', id=10, message='')
+
+
+step: norm_num at h₁ h₂ ⊢; score: -0.509
+
+step: by_cases ha : a = 0; score: -0.644
+
+step: norm_num at h₃ ⊢; score: -0.659
+
+step: nontriviality ℚ; score: -0.678
+
+step: by_contra h; score: -0.686
+
+step: by_contra' h; score: -0.779
+
+step: contrapose! h₀; score: -0.785
+
+step: by_contra' H; score: -0.833
+
+step: by_contra'; score: -0.855
+
+step: contrapose h₃; score: -0.933
+
+step: intro h; score: -1.177
+
+Current State:
+TacticState(pp="case intro.refine'_1\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0\n\ncase intro.refine'_2\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ b = 0\n\ncase intro.refine'_3\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ c = 0", id=13, message='')
+
+
+step: by_cases hm : m = 0; score: -0.722
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0\n\ncase refine'_2\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ b = 0\n\ncase refine'_3\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ c = 0", id=19, message='')
+
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nh : ¬(a = 0 ∧ b = 0 ∧ c = 0)\n⊢ False', id=12, message='')
+
+
+step: push_neg at h ⊢; score: -0.586
+
+step: push_neg at h; score: -0.67
+
+step: contrapose! h; score: -0.678
+
+step: by_contra'; score: -0.77
+
+step: norm_num at *; score: -0.773
+
+step: push_neg at h; score: -0.804
+
+step: by_contra h; score: -0.813
+
+step: by_contra hf; score: -0.829
+
+step: by_contra' h; score: -0.84
+
+step: by_contra H; score: -0.873
+
+step: by_contra; score: -0.925
+
+Current State:
+TacticState(pp="case intro.refine'_1\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ a = 0\n\ncase intro.refine'_2\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ b = 0\n\ncase intro.refine'_3\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ c = 0", id=27, message='')
+
+
+step: by_cases hm : m = 0; score: -0.707
+
+Current State:
+TacticState(pp='case intro.inl\nb c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nhm₀ : 0 < m\nhn₀ : 0 < n\nh₃ : ↑0 + ↑b * m + ↑c * n = 0\n⊢ 0 = 0 ∧ b = 0 ∧ c = 0\n\ncase intro.inr\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nha : a ≠ 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=14, message='')
+
+
+step: refine' ⟨_, _, _⟩; score: -0.541
+
+step: by_cases hm : m = 0; score: -0.701
+
+step: apply And.intro; score: -1.038
+
+Current State:
+TacticState(pp="case refine'_1.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ a = 0\n\ncase refine'_2\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ b = 0\n\ncase refine'_3\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ c = 0", id=20, message='')
+
+
+step: by_cases hm : m = 0; score: -0.711
+
+Current State:
+TacticState(pp='case pos.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=35, message='')
+
+
+step: by_cases h₀ : 0 < m ∧ 0 < n; score: -0.406
+
+step: by_cases hm : m = 0; score: -0.464
+
+step: by_cases h : m = 0; score: -0.505
+
+step: refine' ⟨_, _, _⟩; score: -0.509
+
+step: rcases hm with (rfl | hm); score: -0.528
+
+step: by_cases h : 0 < m; score: -0.609
+
+step: by_cases m = 0; score: -0.638
+
+step: cases hm; score: -0.911
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=36, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm h : m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=37, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.393
+
+step: rcases hm with (rfl | hm); score: -0.448
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.451
+
+step: rcases hm with hm | hm; score: -0.465
+
+step: cases' hm with hm hm; score: -0.51
+
+step: rcases hm with (_ | hm); score: -0.532
+
+step: refine' ⟨_, _, _⟩; score: -0.546
+
+step: rcases hm with (_ | _); score: -0.617
+
+step: by_cases m = 0; score: -0.66
+
+step: cases hm; score: -0.702
+
+Current State:
+TacticState(pp='case pos.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh₀m : 0 < m\nh₀n : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=38, message='')
+
+
+step: by_cases h₀ : 0 < m ∧ 0 < n; score: -0.404
+
+step: by_cases h : m = 0; score: -0.492
+
+step: by_cases hm : m = 0; score: -0.52
+
+step: refine' ⟨_, _, _⟩; score: -0.529
+
+step: by_cases h : 0 < m; score: -0.572
+
+step: by_cases h₀ : 0 < m; score: -0.608
+
+step: by_cases m = 0; score: -0.64
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ hm : m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=39, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.379
+
+step: rcases hm with (rfl | hm); score: -0.381
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.407
+
+step: rcases hm with hm | hm; score: -0.407
+
+step: rcases hm with (hm | hm); score: -0.437
+
+step: rcases hm with (_ | hm); score: -0.451
+
+step: cases' hm with hm hm; score: -0.513
+
+step: refine' ⟨_, _, _⟩; score: -0.533
+
+step: rcases hm with (_ | _); score: -0.585
+
+step: by_cases m = 0; score: -0.627
+
+step: cases hm; score: -0.761
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=40, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=41, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp='case pos.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm : 0 < m\nhn : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=42, message='')
+
+
+step: by_cases hm : m = 0; score: -0.477
+
+step: refine' ⟨_, _, _⟩; score: -0.518
+
+step: by_cases h : m = 0; score: -0.53
+
+step: by_cases h : 0 < m; score: -0.662
+
+step: by_cases m = 0; score: -0.675
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=43, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp="case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\n⊢ a = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0\n\ncase refine'_2\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ b = 0\n\ncase refine'_3\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\n⊢ c = 0", id=25, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.39
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.461
+
+step: rcases h₀ with ⟨h₀m, h₀n⟩; score: -0.467
+
+step: rcases eq_or_ne m 0 with (hm | hm); score: -0.492
+
+step: rcases h₀ with ⟨h₀, h₀'⟩; score: -0.531
+
+step: by_cases hm : m = 0; score: -0.636
+
+step: by_cases m = 0; score: -0.691
+
+step: sorry; score: -0.921
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=44, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp="case pos.refine'_1\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\n⊢ a = 0\n\ncase pos.refine'_2\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\n⊢ b = 0\n\ncase pos.refine'_3\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\n⊢ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0", id=45, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.487
+
+step: rcases hm with (rfl | rfl); score: -0.544
+
+step: rcases hm with rfl; score: -0.728
+
+step: by_cases m = 0; score: -0.735
+
+step: cases hm; score: -0.775
+
+step: sorry; score: -1.005
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=47, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm h : m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=48, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.393
+
+step: rcases hm with (rfl | hm); score: -0.448
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.451
+
+step: rcases hm with hm | hm; score: -0.465
+
+step: cases' hm with hm hm; score: -0.51
+
+step: rcases hm with (_ | hm); score: -0.532
+
+step: refine' ⟨_, _, _⟩; score: -0.546
+
+step: rcases hm with (_ | _); score: -0.617
+
+step: by_cases m = 0; score: -0.66
+
+step: cases hm; score: -0.702
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : a = 0 → b = 0 → c ≠ 0\n⊢ ¬↑a + ↑b * m + ↑c * n = 0', id=53, message='')
+
+
+step: norm_num at h₃ ⊢; score: -0.607
+
+step: by_contra h; score: -0.688
+
+step: by_contra' h; score: -0.76
+
+step: norm_num at *; score: -0.766
+
+step: contrapose! h₀; score: -0.774
+
+step: by_contra' H; score: -0.793
+
+step: by_contra'; score: -0.833
+
+step: by_contra H; score: -0.893
+
+step: contrapose h₃; score: -0.915
+
+step: by_contra; score: -0.949
+
+step: intro h; score: -1.21
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ a = 0\n\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\n⊢ b = 0 ∧ c = 0', id=32, message='')
+
+
+step: rcases eq_or_ne a 0 with (rfl | ha); score: -0.45
+
+step: by_cases hc : c = 0; score: -0.661
+
+step: rw [h₁, h₂] at *; score: -0.668
+
+step: by_cases h : a = 0; score: -0.751
+
+step: by_cases a = 0; score: -0.795
+
+step: by_cases b = 0; score: -0.819
+
+step: contrapose! h₃; score: -0.823
+
+step: by_contra'; score: -0.843
+
+step: by_contra h; score: -0.977
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=49, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.414
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.501
+
+step: refine' ⟨_, _, _⟩; score: -0.511
+
+step: by_cases hn : n = 0; score: -0.631
+
+step: by_cases h : n = 0; score: -0.664
+
+step: by_cases n = 0; score: -0.676
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=50, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.398
+
+step: rcases h₀ with ⟨h₀m, h₀n⟩; score: -0.438
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.481
+
+step: rcases h₀ with ⟨h₀, h₀'⟩; score: -0.492
+
+step: refine' ⟨_, _, _⟩; score: -0.516
+
+step: cases' h₀ with h₀ h₀; score: -0.584
+
+step: by_cases hn : n = 0; score: -0.6
+
+step: by_cases n = 0; score: -0.654
+
+step: by_cases h : 0 < 0; score: -0.655
+
+step: by_cases h : n = 0; score: -0.664
+
+Current State:
+TacticState(pp='case intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nh : ¬(a = 0 ∧ b = 0 ∧ c = 0)\n⊢ False', id=17, message='')
+
+
+step: push_neg at h ⊢; score: -0.536
+
+step: by_contra'; score: -0.759
+
+step: norm_num at *; score: -0.772
+
+step: by_contra h; score: -0.787
+
+step: push_neg at h; score: -0.803
+
+step: by_contra; score: -0.853
+
+step: apply False.elim; score: -0.873
+
+step: push_neg at h; score: -0.874
+
+step: by_contra H; score: -0.896
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nh₀ : 0 < m ∧ 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nh₀ : ¬(0 < m ∧ 0 < n)\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=96, message='')
+
+
+step: rcases hm with (rfl | hm); score: -0.478
+
+step: refine' ⟨_, _, _⟩; score: -0.521
+
+step: rcases hm with (hm | hm); score: -0.55
+
+step: by_cases hm : m = 0; score: -0.561
+
+step: by_cases h : m = 0; score: -0.64
+
+step: by_cases m = 0; score: -0.749
+
+step: sorry; score: -1.099
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : a = 0 → b = 0 → c ≠ 0\nha : a = 0\n⊢ ↑a + ↑b * m + ↑c * n ≠ 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : a = 0 → b = 0 → c ≠ 0\nha : ¬a = 0\n⊢ ↑a + ↑b * m + ↑c * n ≠ 0', id=54, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.372
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.384
+
+step: rcases h₀ with ⟨h₀m, h₀n⟩; score: -0.395
+
+step: by_cases ha : a = 0; score: -0.446
+
+step: by_cases a = 0; score: -0.489
+
+step: by_cases h : a = 0; score: -0.548
+
+step: cases ha; score: -0.804
+
+step: simp only [ha]; score: -0.838
+
+step: rw [ha]; score: -0.883
+
+step: intro ha; score: -1.126
+
+step: intro h; score: -1.204
+
+Current State:
+TacticState(pp='case intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : 0 < m\nhn : 0 < n\nh : ¬(a = 0 ∧ b = 0 ∧ c = 0)\n⊢ False', id=33, message='')
+
+
+step: push_neg at h ⊢; score: -0.522
+
+step: norm_num at *; score: -0.766
+
+step: by_contra'; score: -0.778
+
+step: by_contra h; score: -0.827
+
+step: push_neg at h; score: -0.862
+
+step: by_contra; score: -0.886
+
+step: apply False.elim; score: -0.888
+
+step: by_contra hf; score: -0.902
+
+step: by_contra H; score: -0.909
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nhm : m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=97, message='')
+
+
+step: rcases hm with (rfl | hm); score: -0.404
+
+step: rcases hm with (hm | hm); score: -0.46
+
+step: rcases hm with hm | hm; score: -0.461
+
+step: rcases hm with (_ | hm); score: -0.489
+
+step: refine' ⟨_, _, _⟩; score: -0.52
+
+step: rcases hm with (_ | _); score: -0.63
+
+step: by_cases m = 0; score: -0.7
+
+step: cases hm; score: -0.865
+
+step: sorry; score: -1.044
+
+Current State:
+TacticState(pp='a b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : a = 0 → b = 0 → ¬c = 0\n⊢ ¬↑a + ↑b * m + ↑c * n = 0', id=55, message='')
+
+
+step: by_contra h; score: -0.67
+
+step: by_contra' h; score: -0.758
+
+step: by_contra' H; score: -0.781
+
+step: contrapose! h₀; score: -0.797
+
+step: by_contra'; score: -0.813
+
+step: push_neg; score: -0.865
+
+step: by_contra H; score: -0.896
+
+step: contrapose h₃; score: -0.91
+
+step: by_contra; score: -0.946
+
+step: intro h; score: -1.217
+
+Current State:
+TacticState(pp='case pos.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ hm : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=128, message='')
+
+
+step: rcases hm with (hm | hm); score: -0.459
+
+step: rcases hm with (rfl | hm); score: -0.488
+
+step: rcases hm with hm | hm; score: -0.511
+
+step: refine' ⟨_, _, _⟩; score: -0.518
+
+step: by_cases hm : m = 0; score: -0.534
+
+step: cases' hm with hm hm; score: -0.589
+
+step: by_cases m = 0; score: -0.661
+
+step: cases hm; score: -0.861
+
+Current State:
+TacticState(pp='case pos.intro\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm h : m = 0\nhm₀ : 0 < m\nhn₀ : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=111, message='')
+
+
+step: refine' ⟨_, _, _⟩; score: -0.522
+
+step: by_cases hm : m = 0; score: -0.538
+
+step: rcases h with (rfl | h); score: -0.567
+
+step: by_cases h : m = 0; score: -0.608
+
+step: by_cases m = 0; score: -0.669
+
+Current State:
+TacticState(pp='case pos.refl.intro\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\nhm₀ : 0 < 0\nhn₀ : 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=105, message='')
+
+
+step: refine' ⟨_, _, _⟩; score: -0.494
+
+step: by_cases hm₀ : 0 = 0; score: -0.548
+
+step: by_cases hn : n = 0; score: -0.56
+
+step: by_cases h : n = 0; score: -0.65
+
+step: by_cases n = 0; score: -0.669
+
+step: by_cases h : 0 = n; score: -0.696
+
+step: by_cases h : 0 < n; score: -0.7
+
+Current State:
+TacticState(pp='case pos.refl\na b c : ℚ\nn : ℝ\nh₂ : n ^ 3 = 4\nh₀ : 0 < 0 ∧ 0 < n\nh₁ : 0 ^ 3 = 2\nh₃ : ↑a + ↑b * 0 + ↑c * n = 0\nhm : 0 = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm✝ : m = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=129, message='')
+
+
+step: rcases h₀ with ⟨hm₀, hn₀⟩; score: -0.362
+
+step: rcases hm with (rfl | hm); score: -0.391
+
+step: rcases hm with (_ | hm); score: -0.46
+
+step: rcases h₀ with ⟨hm, hn⟩; score: -0.461
+
+step: rcases hm with (hm | hm); score: -0.469
+
+step: refine' ⟨_, _, _⟩; score: -0.504
+
+step: rcases hm with hm | hm; score: -0.524
+
+step: cases' hm with hm hm; score: -0.54
+
+step: rcases hm with (_ | _); score: -0.633
+
+step: cases hm; score: -0.831
+
+step: sorry; score: -1.035
+
+Current State:
+TacticState(pp='case pos\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh₀m : 0 < m\nh₀n : 0 < n\nh₀ : 0 < m ∧ 0 < n\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : m = 0\nh₀m : 0 < m\nh₀n : 0 < n\nh₀ : ¬(0 < m ∧ 0 < n)\n⊢ a = 0 ∧ b = 0 ∧ c = 0\n\ncase neg\na b c : ℚ\nm n : ℝ\nh₀ : 0 < m ∧ 0 < n\nh₁ : m ^ 3 = 2\nh₂ : n ^ 3 = 4\nh₃ : ↑a + ↑b * m + ↑c * n = 0\nhm : ¬m = 0\n⊢ a = 0 ∧ b = 0 ∧ c = 0', id=121, message='')
+

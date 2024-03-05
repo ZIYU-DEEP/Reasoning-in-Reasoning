@@ -1,0 +1,1082 @@
+logs/best_first_search/02-13-20-56.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ v = 65', id=0, message=None)
+
+
+step: rw [h₁, h₂, h₃]; score: -0.27
+
+step: field_simp [h₂, h₃] at h₁ ⊢; score: -0.325
+
+step: simp [h₂, h₃] at h₁ ⊢; score: -0.413
+
+step: rw [h₂, h₃] at h₁; score: -0.414
+
+step: field_simp at h₁ ⊢; score: -0.555
+
+step: field_simp [*] at *; score: -0.56
+
+step: field_simp [*]; score: -0.6
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ 1 / 3 * (30 * (13 / 2)) = 65', id=1, message='')
+
+
+step: field_simp [h₀.1, h₀.2.2]; score: -0.283
+
+step: field_simp [h₂, h₃]; score: -0.377
+
+step: simp [h₂, h₃] at h₁ ⊢; score: -0.382
+
+step: field_simp [h₀.2.2]; score: -0.419
+
+step: field_simp [h₀.1]; score: -0.438
+
+step: linarith; score: -0.465
+Congrats. Proof is finished for this theorem.
+['rw [h₁, h₂, h₃]', 'linarith']
+{   'attempt_results': [   {   'elapsed': -16.740827322006226,
+                               'failure_reason': '',
+                               'iteration': 1,
+                               'proof': ['rw [h₁, h₂, h₃]', 'linarith'],
+                               'score': 0.7358643870305188,
+                               'success': True,
+                               'temperature': [0.0],
+                               'theorem': 'mathd_algebra_478',
+                               'trace': [   {   'state_before': 'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ v = 65',
+                                                'tactic': 'rw [h₁, h₂, h₃]'},
+                                            {   'state_before': 'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ 1 / 3 * (30 '
+                                                                '* (13 / 2)) = '
+                                                                '65',
+                                                'tactic': 'linarith'}]}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Test.lean',
+                   'full_name': 'mathd_algebra_478',
+                   'split': 'test',
+                   'statement': 'theorem mathd_algebra_478 (b h v : ℝ) (h₀ : 0 '
+                                '< b ∧ 0 < h ∧ 0 < v) (h₁ : v = 1 / 3 * (b * '
+                                'h))\n'
+                                '    (h₂ : b = 30) (h₃ : h = 13 / 2) : v = 65',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': True}
+
+-----
+
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=0, message=None)
+
+
+step: ring_nf; score: -0.627
+
+step: contrapose!; score: -0.635
+
+step: norm_num; score: -0.731
+
+step: by_contra h; score: -0.806
+
+step: intro h; score: -0.82
+
+step: by_contra' h; score: -0.885
+
+step: by_contra H; score: -0.936
+
+step: field_simp; score: -0.965
+
+step: contrapose; score: -1.004
+
+step: intros h; score: -1.029
+
+step: ring; score: -1.226
+
+step: intro H; score: -1.319
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=1, message='')
+
+
+step: contrapose!; score: -0.603
+
+step: norm_num; score: -0.684
+
+step: by_contra h; score: -0.843
+
+step: intro h; score: -0.877
+
+step: field_simp; score: -0.88
+
+step: by_contra H; score: -0.964
+
+step: contrapose; score: -0.968
+
+step: intro H; score: -1.373
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=2, message='')
+
+
+step: contrapose!; score: -0.61
+
+step: by_contra h; score: -0.655
+
+step: intro h; score: -0.704
+
+step: by_contra; score: -0.753
+
+step: by_contra H; score: -0.782
+
+step: by_contra'; score: -0.81
+
+step: contrapose; score: -0.917
+
+step: rintro h; score: -0.928
+
+step: rintro _; score: -0.972
+
+step: intros h; score: -0.992
+
+step: intros; score: -1.05
+
+step: intro; score: -1.065
+
+step: intro H; score: -1.121
+
+step: intro _; score: -1.155
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=3, message='')
+
+
+step: by_contra h; score: -0.696
+
+step: ring_nf; score: -0.723
+
+step: by_contra' h; score: -0.793
+
+step: intro h; score: -0.842
+
+step: by_contra' H; score: -0.856
+
+step: by_contra H; score: -0.874
+
+step: by_contra; score: -0.955
+
+step: contrapose; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=5, message='')
+
+
+step: ring_nf at h ⊢; score: -0.502
+
+step: contrapose! h; score: -0.585
+
+step: ring_nf at *; score: -0.727
+
+step: contrapose! h with h; score: -0.775
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=6, message='')
+
+
+step: ring_nf at h ⊢; score: -0.502
+
+step: contrapose! h; score: -0.585
+
+step: ring_nf at *; score: -0.727
+
+step: contrapose! h with h; score: -0.775
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=7, message='')
+
+
+step: ring_nf at h ⊢; score: -0.502
+
+step: contrapose! h; score: -0.585
+
+step: ring_nf at *; score: -0.727
+
+step: contrapose! h with h; score: -0.775
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=8, message='')
+
+
+step: ring_nf at H ⊢; score: -0.478
+
+step: rcases eq_or_ne y 0 with (h | h); score: -0.518
+
+step: contrapose! H; score: -0.552
+
+step: ring_nf at *; score: -0.748
+
+step: by_contra H1; score: -0.828
+
+step: by_contra'; score: -0.897
+
+step: by_contra h; score: -0.907
+
+step: revert H; score: -1.03
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=9, message='')
+
+
+step: ring_nf; score: -0.723
+
+step: by_contra; score: -0.955
+
+step: contrapose; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=10, message='')
+
+
+step: contrapose!; score: -0.561
+
+step: by_contra h; score: -0.621
+
+step: by_contra; score: -0.699
+
+step: intro h; score: -0.712
+
+step: by_contra H; score: -0.72
+
+step: by_contra'; score: -0.752
+
+step: contrapose; score: -0.829
+
+step: exfalso; score: -0.989
+
+step: rintro h; score: -0.991
+
+step: intros; score: -1.046
+
+step: intro; score: -1.115
+
+step: intro H; score: -1.142
+
+step: intro _; score: -1.202
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=11, message='')
+
+
+step: ring_nf at h ⊢; score: -0.502
+
+step: contrapose! h; score: -0.585
+
+step: ring_nf at *; score: -0.727
+
+step: contrapose! h with h; score: -0.775
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=12, message='')
+
+
+step: contrapose!; score: -0.603
+
+step: norm_num; score: -0.684
+
+step: by_contra h; score: -0.843
+
+step: intro h; score: -0.877
+
+step: field_simp; score: -0.88
+
+step: by_contra H; score: -0.964
+
+step: contrapose; score: -0.968
+
+step: intro H; score: -1.373
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=15, message='')
+
+
+step: contrapose!; score: -0.599
+
+step: by_contra h; score: -0.675
+
+step: intro h; score: -0.737
+
+step: by_contra; score: -0.742
+
+step: by_contra H; score: -0.787
+
+step: by_contra'; score: -0.795
+
+step: contrapose; score: -0.881
+
+step: rintro h; score: -0.963
+
+step: rintro _; score: -0.969
+
+step: intros; score: -1.037
+
+step: intro; score: -1.037
+
+step: intro h1; score: -1.038
+
+step: intro _; score: -1.148
+
+step: intro H; score: -1.157
+
+step: simp; score: -1.427
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 = 2003 → False', id=25, message='')
+
+
+step: by_cases h : x = 0; score: -0.662
+
+step: ring_nf; score: -0.781
+
+step: by_contra'; score: -0.881
+
+step: by_contra; score: -0.917
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=26, message='')
+
+
+step: push_neg at h ⊢; score: -0.365
+
+step: simp only [not_imp_not] at h ⊢; score: -0.399
+
+step: contrapose! h; score: -0.485
+
+step: by_contra; score: -0.538
+
+step: push_neg at h; score: -0.538
+
+step: push_neg at h; score: -0.62
+
+step: by_contra'; score: -0.624
+
+step: by_contra h; score: -0.643
+
+step: by_contra H; score: -0.655
+
+step: by_contra h1; score: -0.68
+
+step: by_contra hn; score: -0.704
+
+step: by_contra h'; score: -0.739
+
+step: by_contra' h; score: -0.751
+
+step: by_contra' H; score: -0.78
+
+step: by_contra h₁; score: -0.797
+
+step: contrapose h; score: -0.841
+
+step: apply h; score: -0.868
+
+step: exfalso; score: -0.885
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=53, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=16, message='')
+
+
+step: by_contra' H; score: -0.879
+
+step: by_contra H; score: -0.903
+
+step: contrapose; score: -0.919
+
+step: exfalso; score: -1.097
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=13, message='')
+
+
+step: ring_nf at H ⊢; score: -0.478
+
+step: rcases eq_or_ne y 0 with (h | h); score: -0.518
+
+step: contrapose! H; score: -0.552
+
+step: ring_nf at *; score: -0.748
+
+step: by_contra H1; score: -0.828
+
+step: by_contra'; score: -0.897
+
+step: by_contra h; score: -0.907
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=66, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=28, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=79, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\nx✝ : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=29, message='')
+
+
+step: by_contra h; score: -0.561
+
+step: by_contra; score: -0.606
+
+step: by_contra'; score: -0.607
+
+step: by_contra' h; score: -0.668
+
+step: push_neg at *; score: -0.672
+
+step: by_contra' H; score: -0.726
+
+step: by_contra H; score: -0.728
+
+step: exfalso; score: -0.77
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=55, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=68, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nH : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=91, message='')
+
+
+step: have : x ^ 3 * 4 = y ^ 3 * 7 + 2003 := by linarith; score: -0.332
+
+step: contrapose! H; score: -0.503
+
+step: by_contra H1; score: -0.826
+
+step: by_contra'; score: -0.916
+
+step: by_contra h; score: -0.924
+
+step: contrapose H; score: -0.939
+
+step: revert H; score: -1.084
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=30, message='')
+
+
+step: push_neg at H ⊢; score: -0.42
+
+step: contrapose! H; score: -0.496
+
+step: by_contra H1; score: -0.524
+
+step: by_contra; score: -0.554
+
+step: by_contra h; score: -0.564
+
+step: by_contra'; score: -0.631
+
+step: push_neg at H; score: -0.659
+
+step: by_contra H; score: -0.696
+
+step: by_contra H2; score: -0.727
+
+step: by_contra' H; score: -0.74
+
+step: by_contra H'; score: -0.748
+
+step: by_contra' h; score: -0.78
+
+step: exfalso; score: -0.807
+
+step: contrapose H; score: -0.859
+
+step: apply H; score: -0.871
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=42, message='')
+
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nthis : ¬False ∧ 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=31, message='')
+
+
+step: rcases this with ⟨_, h⟩; score: -0.512
+
+step: rcases this with ⟨-, h⟩; score: -0.557
+
+step: contrapose! this; score: -0.558
+
+step: norm_num at this ⊢; score: -0.571
+
+step: by_contra h; score: -0.705
+
+step: norm_num at *; score: -0.781
+
+step: by_contra'; score: -0.788
+
+step: have := this.2; score: -0.808
+
+step: by_contra; score: -0.832
+
+step: have := this.1; score: -0.857
+
+step: by_contra H; score: -0.863
+
+step: cases this; score: -0.987
+
+step: exfalso; score: -1.052
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=44, message='')
+
+
+step: contrapose; score: -0.919
+
+step: exfalso; score: -1.097
+
+Current State:
+TacticState(pp='case inl\nx y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nh : y = 0\n⊢ False\n\ncase inr\nx y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nh : y ≠ 0\n⊢ False', id=93, message='')
+
+
+step: by_cases y = 0; score: -0.511
+
+step: rcases h with (rfl | h); score: -0.529
+
+step: rcases h with (rfl | rfl); score: -0.529
+
+step: by_cases h : y = 0; score: -0.532
+
+step: cases h; score: -0.546
+
+step: simp only [h] at H ⊢; score: -0.564
+
+step: rcases h with (_ | _); score: -0.622
+
+step: rcases h with rfl; score: -0.676
+
+step: rw [h] at H; score: -0.694
+
+step: rw [h] at H; score: -0.72
+
+step: cases y; score: -0.918
+
+step: cases' h; score: -0.937
+
+step: sorry; score: -1.087
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=81, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=18, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=95, message='')
+
+
+step: norm_num at H ⊢; score: -0.584
+
+step: by_contra H1; score: -0.753
+
+step: norm_num; score: -0.799
+
+step: exfalso; score: -0.803
+
+step: by_contra h; score: -0.814
+
+step: contrapose!; score: -0.818
+
+step: by_contra H; score: -0.846
+
+step: contrapose H; score: -0.88
+
+step: by_contra'; score: -0.881
+
+step: by_contra; score: -0.898
+
+step: intro H; score: -0.968
+
+step: intro h; score: -1.01
+
+step: convert H; score: -1.018
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=19, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=20, message='')
+
+
+step: contrapose; score: -0.919
+
+step: exfalso; score: -1.097
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=46, message='')
+
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=133, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=57, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=70, message='')
+
+
+step: contrapose! h; score: -0.529
+
+step: contrapose! h with h; score: -0.777
+
+step: have := h.symm; score: -0.898
+
+step: by_contra'; score: -0.91
+
+step: contrapose h; score: -0.915
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 ≠ 2003 → ¬¬False', id=32, message='')
+
+
+step: rw [not_not]; score: -0.588
+
+step: intro h
+contradiction; score: -0.639
+
+step: by_contra h; score: -0.663
+
+step: by_contra; score: -0.731
+
+step: by_contra H; score: -0.738
+
+step: by_contra'; score: -0.747
+
+step: contrapose; score: -0.817
+
+step: intro h; score: -0.859
+
+step: exfalso; score: -0.881
+
+step: intros; score: -1.107
+
+step: intro; score: -1.312
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=33, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 = 2003 → False', id=117, message='')
+
+
+step: by_cases h : x = 0; score: -0.662
+
+step: ring_nf; score: -0.781
+
+step: by_contra'; score: -0.881
+
+step: by_contra; score: -0.917
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=47, message='')
+
+
+step: by_contra'; score: -0.89
+
+step: contrapose h; score: -0.95
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=59, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=48, message='')
+
+
+step: by_contra H1; score: -0.828
+
+step: by_contra'; score: -0.897
+
+step: by_contra h; score: -0.907
+
+Current State:
+TacticState(pp='x y : ℤ\nH : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=21, message='')
+
+
+step: have : x ^ 3 * 4 = y ^ 3 * 7 + 2003 := by linarith; score: -0.332
+
+step: contrapose! H; score: -0.503
+
+step: by_contra H1; score: -0.826
+
+step: by_contra'; score: -0.916
+
+step: by_contra h; score: -0.924
+
+step: contrapose H; score: -0.939
+
+step: revert H; score: -1.084
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=22, message='')
+
+
+step: contrapose!; score: -0.546
+
+step: by_contra h; score: -0.657
+
+step: by_contra; score: -0.689
+
+step: by_contra H; score: -0.728
+
+step: by_contra'; score: -0.732
+
+step: intro h; score: -0.769
+
+step: contrapose; score: -0.797
+
+step: exfalso; score: -0.984
+
+step: rintro h; score: -1.025
+
+step: intros; score: -1.046
+
+step: intro; score: -1.142
+
+step: intro _; score: -1.18
+
+step: intro H; score: -1.208
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=72, message='')
+
+
+step: norm_num at h ⊢; score: -0.594
+
+step: ring_nf; score: -0.777
+
+step: contrapose!; score: -0.807
+
+step: norm_num; score: -0.808
+
+step: by_contra H; score: -0.843
+
+step: contrapose h; score: -0.858
+
+step: by_contra h; score: -0.865
+
+step: exfalso; score: -0.877
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.904
+
+step: by_contra; score: -0.914
+
+step: convert h; score: -0.943
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=49, message='')
+
+
+step: by_contra H1; score: -0.828
+
+step: by_contra'; score: -0.897
+
+step: by_contra h; score: -0.907
+
+Current State:
+TacticState(pp='x y : ℤ\na✝ : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=34, message='')
+

@@ -1,0 +1,127 @@
+logs/best_first_search/02-10-14-48.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'hf',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ v = 65', id=0, message=None)
+
+
+step: calc
+  v; score: -5.277
+
+Current State:
+TacticState(pp='case calc.step\nb h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ v = 65', id=3, message='')
+
+
+step: calc
+  v; score: -5.255
+
+step: suffices h; score: -5.255
+
+step: nlinarith; score: -5.255
+Congrats. Proof is finished for this theorem.
+['calc\n  v', 'nlinarith']
+{   'attempt_results': [   {   'elapsed': -101.10458111763,
+                               'failure_reason': '',
+                               'iteration': 1,
+                               'proof': ['calc\n  v', 'nlinarith'],
+                               'score': 10.531463146209717,
+                               'success': True,
+                               'temperature': [0.0],
+                               'theorem': 'mathd_algebra_478',
+                               'trace': [   {   'state_before': 'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ v = 65',
+                                                'tactic': 'calc\n  v'},
+                                            {   'state_before': 'case '
+                                                                'calc.step\n'
+                                                                'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ v = 65',
+                                                'tactic': 'nlinarith'}]}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Test.lean',
+                   'full_name': 'mathd_algebra_478',
+                   'split': 'test',
+                   'statement': 'theorem mathd_algebra_478 (b h v : ℝ) (h₀ : 0 '
+                                '< b ∧ 0 < h ∧ 0 < v) (h₁ : v = 1 / 3 * (b * '
+                                'h))\n'
+                                '    (h₂ : b = 30) (h₃ : h = 13 / 2) : v = 65',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': True}
+
+-----
+
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=0, message=None)
+
+
+step: intro h; score: -4.306
+
+step: contrapose!; score: -4.38
+
+step: ring_nf; score: -4.38
+
+step: by_contra h; score: -4.38
+
+step: by_contra H; score: -4.38
+
+step: norm_num; score: -4.667
+
+step: ring; score: -4.7
+
+step: intros h; score: -4.784
+
+step: field_simp; score: -4.922
+
+step: contrapose; score: -5.179
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=1, message='')
+
+
+step: contrapose! h; score: -4.417
+
+step: have h₁ : x; score: -4.417
+
+step: have h1 : x; score: -4.417
+
+step: have hx : x; score: -4.417
+
+step: have : 2; score: -4.417
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=5, message='')
+

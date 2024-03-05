@@ -1,0 +1,152 @@
+logs/mcts/02-15-03-23.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'mcts',
+    'temperatures': [0.0],
+    'timeout': 12000,
+    'tp_degree': 8,
+    'verbose': True}
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 1 / 3 * (30 * (13 / 2)) = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v * (3 * 2) = 30 * 13
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (30 * (13 / 2))
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v * 3 = b * h
+⊢ v = 65
+b h v : ℝ
+h₂ : b = 30
+h₀ : 0 < 30 ∧ 0 < 13 / 2 ∧ 0 < 30 * 13 / (3 * 2)
+h₁ : v * (3 * 2) = 30 * 13
+h₃ : h * 2 = 13
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ 3⁻¹ * (30 * (13 / 2)) = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ 30 * 13 = 65 * (3 * 2)
+
+Success!
+
+Success!
+
+Success!
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v * (3 * 2) = 30 * 13
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ 3⁻¹ * (30 * (13 / 2)) = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v * (3 * 2) = 30 * 13
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ 30 * 13 = 65 * (3 * 2)
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ v = 65
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 3⁻¹ * (30 * (13 / 2))
+⊢ v = 65

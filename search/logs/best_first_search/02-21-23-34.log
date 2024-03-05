@@ -1,0 +1,1405 @@
+logs/best_first_search/02-21-23-34.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = 42 / 5', id=0, message=None)
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.498
+
+step: convert h₁.symm using 1; score: -0.558
+
+step: by_contra h; score: -0.853
+
+step: ring_nf; score: -0.872
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=2, message='')
+
+
+step: have : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a; score: -0.319
+
+step: have h₂ : ∑ k in Finset.range 5, a + k * d = 70 := h₀; score: -0.394
+
+step: field_simp [h₀, h₁] at *; score: -0.527
+
+step: field_simp [h₀, h₁]; score: -0.527
+
+step: by_contra h; score: -0.89
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=3, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.556
+
+step: simp at h₀ h₁ ⊢; score: -0.572
+
+step: simp [h₀, h₁] at *; score: -0.606
+
+step: rw [← h₁]; score: -0.68
+
+step: convert h₁ using 1; score: -0.746
+
+step: simp at h₀ h₁; score: -0.864
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=6, message='')
+
+
+step: convert h₁ using 1; score: -0.725
+
+step: by_contra h; score: -0.829
+
+step: norm_num; score: -0.842
+
+step: by_contra; score: -0.883
+
+step: field_simp; score: -0.903
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = 42 / 5\n⊢ False', id=4, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.42
+
+step: push_neg at h ⊢; score: -0.459
+
+step: norm_num [h₀, h₁] at *; score: -0.507
+
+step: norm_num at *; score: -0.635
+
+step: norm_num at h₁ ⊢; score: -0.675
+
+step: contrapose! h; score: -0.706
+
+step: norm_num at h₀ h₁; score: -0.707
+
+step: push_neg at h; score: -0.713
+
+step: push_neg at h; score: -0.74
+
+step: by_contra h; score: -0.809
+
+step: by_contra'; score: -0.847
+
+step: by_contra; score: -0.894
+
+step: by_contra H; score: -0.896
+
+step: apply h; score: -1.026
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=5, message='')
+
+
+step: convert h₀ using 1; score: -0.681
+
+step: by_contra h; score: -0.873
+
+step: push_cast; score: -1.018
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₂ : ∑ k in Finset.range 5, a + k * d = 70\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=7, message='')
+
+
+step: field_simp [h₀, h₁, h₂]; score: -0.502
+
+step: field_simp [h₀, h₁, h₂] at *; score: -0.505
+
+step: rw [h₀, h₁, h₂] at *; score: -0.554
+
+step: by_contra h; score: -0.892
+
+step: field_simp; score: -0.99
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\n⊢ a * 5 = 42', id=9, message='')
+
+
+step: field_simp [h₀, h₁] at *; score: -0.353
+
+step: field_simp [h₀.symm, h₁.symm] at *; score: -0.376
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.418
+
+step: ring_nf at *; score: -0.563
+
+step: rw [mul_comm] at h₀ ⊢; score: -0.588
+
+step: rw [mul_comm]; score: -0.641
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ a * 5 = 42', id=10, message='')
+
+
+step: have : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a; score: -0.324
+
+step: ring_nf at *; score: -0.715
+
+step: rw [mul_comm]; score: -0.792
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=14, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.527
+
+step: field_simp [h₀, h₁] at *; score: -0.569
+
+step: convert h₁ using 1; score: -0.745
+
+step: rw [← h₁]; score: -0.832
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=15, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.527
+
+step: field_simp [h₀, h₁] at *; score: -0.569
+
+step: convert h₁ using 1; score: -0.745
+
+step: rw [← h₁]; score: -0.832
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=17, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.527
+
+step: field_simp [h₀, h₁] at *; score: -0.569
+
+step: convert h₁ using 1; score: -0.745
+
+step: rw [← h₁]; score: -0.832
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = ∑ k in Finset.range 10, a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=18, message='')
+
+
+step: simp [h₀, h₁]; score: -0.548
+
+step: norm_num; score: -0.938
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : ¬a = 42 / 5\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ False', id=32, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.47
+
+step: push_neg at h ⊢; score: -0.554
+
+step: field_simp [h] at *; score: -0.604
+
+step: norm_num at *; score: -0.63
+
+step: ring_nf at *; score: -0.644
+
+step: contrapose! h; score: -0.775
+
+step: push_neg at h; score: -0.785
+
+step: field_simp at *; score: -0.806
+
+step: contrapose! h₀; score: -0.83
+
+step: by_contra'; score: -0.865
+
+step: apply h; score: -1.126
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = ∑ k in Finset.range 10, a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=20, message='')
+
+
+step: simp [h₀, h₁]; score: -0.548
+
+step: norm_num; score: -0.938
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : a ≠ 42 / 5\n⊢ False', id=33, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.421
+
+step: simp only [Finset.sum_range_succ] at h₀ h₁ ⊢; score: -0.435
+
+step: norm_num [h₀, h₁] at *; score: -0.517
+
+step: norm_num at *; score: -0.648
+
+step: norm_num at h₁ ⊢; score: -0.663
+
+step: norm_num at h₀ h₁; score: -0.714
+
+step: contrapose! h; score: -0.737
+
+step: by_contra h; score: -0.817
+
+step: by_contra'; score: -0.838
+
+step: by_contra H; score: -0.861
+
+step: by_contra; score: -0.89
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a * 5 = 42', id=66, message='')
+
+
+step: convert h₁ using 1; score: -0.703
+
+step: norm_num; score: -0.914
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\nh : ¬a = 42 / 5\n⊢ False', id=34, message='')
+
+
+step: push_neg at h ⊢; score: -0.516
+
+step: field_simp [h] at *; score: -0.654
+
+step: ring_nf at *; score: -0.657
+
+step: contrapose! h; score: -0.695
+
+step: push_neg at h; score: -0.8
+
+step: push_neg at h; score: -0.828
+
+step: by_contra h; score: -0.833
+
+step: by_contra'; score: -0.88
+
+step: contrapose h; score: -0.956
+
+step: by_contra; score: -0.958
+
+step: apply h; score: -0.973
+
+step: exfalso; score: -1.211
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ : True\n⊢ a * 5 = 42', id=58, message='')
+
+
+step: rw [mul_comm]; score: -0.529
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh : ¬a = ↑(Int.ofNat 42) / ↑5\n⊢ False', id=12, message='')
+
+
+step: push_neg at h ⊢; score: -0.44
+
+step: norm_num at h₀ h₁ ⊢; score: -0.49
+
+step: norm_num at h₁ h₀ ⊢; score: -0.584
+
+step: norm_num at h h₁ ⊢; score: -0.646
+
+step: norm_num at h₁ ⊢; score: -0.664
+
+step: push_neg at h; score: -0.682
+
+step: norm_num at *; score: -0.685
+
+step: norm_num at h ⊢; score: -0.689
+
+step: push_neg at h; score: -0.712
+
+step: contrapose! h; score: -0.732
+
+step: push_neg  at h; score: -0.744
+
+step: by_contra h; score: -0.81
+
+step: by_contra'; score: -0.843
+
+step: norm_num at h₁; score: -0.874
+
+step: by_contra H; score: -0.89
+
+step: by_contra; score: -0.901
+
+step: apply h; score: -1.028
+
+step: exfalso; score: -1.167
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₂ : ∑ k in Finset.range 5, a + k * d = 70\n⊢ a * 5 = 42', id=52, message='')
+
+
+step: simp only [Finset.sum_range_succ] at *; score: -0.49
+
+step: convert h₁ using 1; score: -0.645
+
+step: rw [mul_comm]; score: -0.756
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\nh₂ : 5 * a + k * d = 70\n⊢ a * 5 = 42', id=53, message='')
+
+
+step: field_simp [h₀, h₁] at h₂ ⊢; score: -0.337
+
+step: field_simp [h₀, h₁, h₂] at *; score: -0.408
+
+step: field_simp [h₀] at h₂ ⊢; score: -0.462
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.475
+
+step: field_simp [h₀, h₁] at *; score: -0.486
+
+step: ring_nf at h₂ ⊢; score: -0.537
+
+step: ring_nf at *; score: -0.589
+
+step: rw [mul_comm]; score: -0.65
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ : True\n⊢ a * 5 = 42', id=59, message='')
+
+
+step: rw [mul_comm]; score: -0.529
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=21, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.527
+
+step: field_simp [h₀, h₁] at *; score: -0.569
+
+step: convert h₁ using 1; score: -0.745
+
+step: rw [← h₁]; score: -0.832
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ a * 5 = 42', id=60, message='')
+
+
+step: field_simp [h₀, h₁] at h₀ ⊢; score: -0.411
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 70 = 70\nh₁ : 210 = 210\nh₂ : 70 = 70\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=54, message='')
+
+
+step: field_simp [h₀, h₁, h₂]; score: -0.26
+
+step: field_simp [h₀, h₁, h₂] at *; score: -0.318
+
+step: field_simp [h₀, h₁] at h₂ ⊢; score: -0.354
+
+step: field_simp at h₀ h₁ h₂ ⊢; score: -0.379
+
+step: field_simp [h₁, h₂] at h₀ ⊢; score: -0.384
+
+step: field_simp only [h₀, h₁, h₂]; score: -0.397
+
+step: norm_num at h₀ h₁ h₂ ⊢; score: -0.43
+
+step: field_simp [h₁] at h₂ ⊢; score: -0.46
+
+step: field_simp [h₁, h₂]; score: -0.467
+
+step: field_simp [h₀, h₁]; score: -0.483
+
+step: field_simp at h₂ ⊢; score: -0.523
+
+step: field_simp at h₁ h₂ ⊢; score: -0.525
+
+step: field_simp at h₁ ⊢; score: -0.554
+
+step: field_simp; score: -0.556
+
+step: field_simp [h₂]; score: -0.584
+
+step: field_simp [h₁]; score: -0.663
+
+step: norm_num at *; score: -0.669
+
+step: field_simp at *; score: -0.696
+
+step: field_simp only; score: -0.813
+
+step: norm_num; score: -0.828
+
+step: push_cast; score: -0.911
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\nh : ¬a = 42 / 5\n⊢ False', id=37, message='')
+
+
+step: push_neg at h ⊢; score: -0.516
+
+step: field_simp [h] at *; score: -0.654
+
+step: ring_nf at *; score: -0.657
+
+step: contrapose! h; score: -0.695
+
+step: push_neg at h; score: -0.8
+
+step: push_neg at h; score: -0.828
+
+step: by_contra h; score: -0.833
+
+step: by_contra'; score: -0.88
+
+step: contrapose h; score: -0.956
+
+step: by_contra; score: -0.958
+
+step: apply h; score: -0.973
+
+step: exfalso; score: -1.211
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh : ¬a = 42 / 5\nh₁ : 10 * a + k * d = 210\n⊢ False', id=38, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.486
+
+step: norm_num [h₀, h₁] at *; score: -0.526
+
+step: ring_nf at h₁ ⊢; score: -0.556
+
+step: push_neg at h ⊢; score: -0.582
+
+step: norm_num at *; score: -0.626
+
+step: contrapose! h₁; score: -0.711
+
+step: push_neg at h; score: -0.735
+
+step: by_contra h₂; score: -0.742
+
+step: push_neg at h; score: -0.847
+
+step: by_contra; score: -0.955
+
+step: apply h; score: -1.095
+
+step: exfalso; score: -1.142
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ ∑ k in Finset.range 5, a + k * d = k * d + ∑ k in Finset.range 10, a\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ ∑ k in Finset.range 10, a = 210\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5", id=25, message='')
+
+
+step: rw [h₀, h₁]; score: -0.66
+
+step: norm_num; score: -0.929
+
+step: congr 1; score: -1.072
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = ∑ k in Finset.range 5, a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ ↑(Int.ofNat 42) / ↑5 = 70", id=48, message='')
+
+
+step: simp [h₀, h₁]; score: -0.537
+
+step: simp only [h₀, h₁]; score: -0.571
+
+step: simp at h₀ h₁ ⊢; score: -0.591
+
+step: rw [h₀]; score: -0.609
+
+step: simp [h₀]; score: -0.751
+
+step: norm_num; score: -0.832
+
+step: field_simp; score: -1.075
+
+step: simp; score: -1.348
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬False\n⊢ a = 42 / 5', id=39, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.438
+
+step: field_simp [h₀, h₁] at h ⊢; score: -0.464
+
+step: field_simp [h₀, h₁]; score: -0.518
+
+step: field_simp at h₀ h₁ ⊢; score: -0.545
+
+step: norm_num at h₀ h₁; score: -0.685
+
+step: convert h₀ using 1; score: -0.688
+
+step: norm_num at *; score: -0.69
+
+step: by_contra h; score: -0.773
+
+step: contrapose! h₀; score: -0.789
+
+step: ring_nf; score: -0.884
+
+step: by_contra'; score: -0.896
+
+step: by_contra; score: -0.92
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : ¬a = 42 / 5\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ False', id=40, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.47
+
+step: push_neg at h ⊢; score: -0.554
+
+step: field_simp [h] at *; score: -0.604
+
+step: ring_nf at *; score: -0.644
+
+step: contrapose! h; score: -0.775
+
+step: push_neg at h; score: -0.785
+
+step: field_simp at *; score: -0.806
+
+step: contrapose! h₀; score: -0.83
+
+step: by_contra'; score: -0.865
+
+step: apply h; score: -1.126
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : a ≠ 42 / 5\n⊢ False', id=41, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.421
+
+step: simp only [Finset.sum_range_succ] at h₀ h₁ ⊢; score: -0.435
+
+step: norm_num at h₁ ⊢; score: -0.663
+
+step: norm_num at h₀ h₁; score: -0.714
+
+step: by_contra h; score: -0.817
+
+step: by_contra'; score: -0.838
+
+step: by_contra H; score: -0.861
+
+step: by_contra; score: -0.89
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₁ : a * 10 + k * d = 210\nh₀ : a * 5 + k * d = 70\n⊢ a * 5 = 42', id=61, message='')
+
+
+step: field_simp [h₁, h₀] at *; score: -0.395
+
+step: field_simp [h₁.symm, h₀.symm] at *; score: -0.404
+
+step: field_simp [h₁, h₀] at h₀ ⊢; score: -0.47
+
+step: field_simp [h₀, h₁] at *; score: -0.513
+
+step: rw [← mul_one a] at h₁ ⊢; score: -0.562
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : a ≠ 42 / 5\n⊢ False', id=42, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.421
+
+step: simp only [Finset.sum_range_succ] at h₀ h₁ ⊢; score: -0.435
+
+step: norm_num at h₁ ⊢; score: -0.663
+
+step: norm_num at h₀ h₁; score: -0.714
+
+step: by_contra h; score: -0.817
+
+step: by_contra'; score: -0.838
+
+step: by_contra H; score: -0.861
+
+step: by_contra; score: -0.89
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : a * 5 + k * d = 70\nh₁ : k * d + 10 * a = 210\n⊢ 5 * a = 42', id=63, message='')
+
+
+step: field_simp [h₀, h₁] at *; score: -0.331
+
+step: field_simp [h₀.symm, h₁.symm] at *; score: -0.368
+
+step: field_simp [h₀, h₁] at h₀ ⊢; score: -0.456
+
+step: rw [mul_comm] at h₀ h₁ ⊢; score: -0.519
+
+step: ring_nf; score: -0.625
+
+step: ring; score: -1.055
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=74, message='')
+
+
+step: field_simp [h₀, h₁] at *; score: -0.578
+
+step: convert h₁ using 1; score: -0.772
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh : ¬∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ False\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=26, message='')
+
+
+step: norm_num at *; score: -0.707
+
+step: push_neg at h ⊢; score: -0.716
+
+step: by_contra h; score: -0.74
+
+step: apply_assumption; score: -0.754
+
+step: by_contra'; score: -0.814
+
+step: by_contra; score: -0.815
+
+step: exfalso; score: -1.165
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=84, message='')
+
+
+step: field_simp [h₀, h₁] at *; score: -0.578
+
+step: convert h₁ using 1; score: -0.772
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ 5 * a + k * d = 10 * a\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=27, message='')
+
+
+step: ring_nf; score: -0.8
+
+step: by_contra h; score: -0.853
+
+step: by_contra; score: -0.901
+
+step: ring; score: -1.222
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh✝ : ¬a = 42 / 5\nh : ¬False\n⊢ False', id=43, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.377
+
+step: norm_num at *; score: -0.604
+
+step: push_neg at *; score: -0.797
+
+step: by_contra h; score: -0.8
+
+step: by_contra'; score: -0.836
+
+step: exfalso; score: -0.876
+
+step: by_contra; score: -0.899
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\n⊢ 5 * a = 42', id=64, message='')
+
+
+step: field_simp [h₀, h₁] at *; score: -0.348
+
+step: field_simp [h₀.symm, h₁.symm] at *; score: -0.391
+
+step: field_simp [h₀, h₁] at h₀ ⊢; score: -0.457
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ h₁ : True\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=75, message='')
+
+
+step: convert h₁ using 1; score: -0.698
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=94, message='')
+
+
+step: convert h₁ using 1; score: -0.772
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ h₁ : True\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=85, message='')
+
+
+step: convert h₁ using 1; score: -0.698
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = 42 / 5\nthis : ¬False\n⊢ False', id=44, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.409
+
+step: push_neg at h ⊢; score: -0.506
+
+step: push_neg at h h₁ ⊢; score: -0.591
+
+step: norm_num at *; score: -0.601
+
+step: norm_num at h₁ ⊢; score: -0.629
+
+step: contrapose! h; score: -0.714
+
+step: apply h; score: -0.756
+
+step: push_neg at h; score: -0.761
+
+step: by_contra h; score: -0.781
+
+step: push_neg at *; score: -0.805
+
+step: by_contra; score: -0.851
+
+step: by_contra'; score: -0.867
+
+step: exfalso; score: -0.902
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nx✝ : ¬∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ False\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=29, message='')
+
+
+step: norm_num at *; score: -0.708
+
+step: apply_assumption; score: -0.755
+
+step: by_contra h; score: -0.768
+
+step: by_contra'; score: -0.787
+
+step: by_contra; score: -0.801
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 70 = 70\nh₁ : 210 = 210\nh₂ : 70 = 70\n⊢ a * 5 = 42', id=237, message='')
+
+
+step: field_simp [h₀, h₁, h₂] at *; score: -0.377
+
+step: rw [mul_comm]; score: -0.641
+
+step: clear h₀ h₁ h₂; score: -0.699
+
+step: norm_num at *; score: -0.706
+
+Current State:
+TacticState(pp='case this\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ 5 * a + k * d = 10 * a\n\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nthis : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a\n⊢ a = ↑(Int.ofNat 42) / ↑5', id=30, message='')
+
+
+step: ring_nf; score: -0.8
+
+step: by_contra h; score: -0.853
+
+step: by_contra; score: -0.901
+
+step: ring; score: -1.222
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : a ≠ 42 / 5\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ False', id=135, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.473
+
+step: field_simp [h] at *; score: -0.587
+
+step: ring_nf at *; score: -0.623
+
+step: field_simp at *; score: -0.767
+
+step: contrapose! h₀; score: -0.81
+
+step: by_contra'; score: -0.862
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ h₁ : True\n⊢ a = 210\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=95, message='')
+
+
+step: convert h₁ using 1; score: -0.698
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\nh₂ : True\n⊢ a * 5 = 42', id=204, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.482
+
+step: field_simp [h₀, h₁] at *; score: -0.49
+
+step: nth_rewrite 1 [mul_comm]; score: -0.58
+
+step: ring_nf at *; score: -0.635
+
+step: rw [mul_comm]; score: -0.641
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₀ : k * d + ∑ k in Finset.range 5, a = 70\n⊢ a * 5 = 42', id=70, message='')
+
+
+step: convert h₁ using 1; score: -0.72
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : ¬a = 42 / 5\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ False', id=113, message='')
+
+
+step: push_neg at h ⊢; score: -0.546
+
+step: field_simp [h] at *; score: -0.599
+
+step: ring_nf at *; score: -0.62
+
+step: norm_num at *; score: -0.636
+
+step: contrapose! h; score: -0.773
+
+step: push_neg at h; score: -0.775
+
+step: field_simp at *; score: -0.797
+
+step: contrapose! h₀; score: -0.835
+
+step: by_contra'; score: -0.859
+
+step: apply h; score: -1.154
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = ↑(Int.ofNat 42) / ↑5\n⊢ False', id=50, message='')
+
+
+step: push_neg at h ⊢; score: -0.414
+
+step: norm_num at h₀ h₁ ⊢; score: -0.479
+
+step: norm_num at h₁ ⊢; score: -0.656
+
+step: push_neg at h; score: -0.671
+
+step: push_neg at h; score: -0.68
+
+step: contrapose! h; score: -0.715
+
+step: norm_num at h₀ h₁; score: -0.719
+
+step: by_contra h; score: -0.827
+
+step: by_contra'; score: -0.851
+
+step: by_contra H; score: -0.901
+
+step: by_contra; score: -0.904
+
+step: apply h; score: -1.043
+
+step: exfalso; score: -1.163
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = 42 / 5\nx✝ : ¬False\n⊢ False', id=45, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.391
+
+step: push_neg at h ⊢; score: -0.463
+
+step: norm_num at *; score: -0.616
+
+step: push_neg at h; score: -0.704
+
+step: contrapose! h; score: -0.707
+
+step: by_contra h; score: -0.766
+
+step: push_neg at h; score: -0.775
+
+step: by_contra'; score: -0.798
+
+step: apply h; score: -0.817
+
+step: push_neg at *; score: -0.836
+
+step: by_contra; score: -0.855
+
+step: by_contra H; score: -0.88
+
+step: exfalso; score: -0.992
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : a ≠ 42 / 5\nh₀ : ∑ k in Finset.range 0, a + a + a + a + a + a + k * d = 70\nh₁ : ∑ k in Finset.range 0, a + a + a + a + a + a + a + a + a + a + a + k * d = 210\n⊢ False', id=136, message='')
+
+
+step: rw [Finset.sum_range_zero] at h₀ h₁; score: -0.317
+
+step: simp only [Finset.sum_range_zero] at h₀ h₁; score: -0.333
+
+step: simp only [Finset.sum_range_zero] at *; score: -0.376
+
+step: rw [Finset.sum_range_zero] at *; score: -0.427
+
+step: norm_num at h₀ h₁ ⊢; score: -0.45
+
+step: norm_num at h₀ h₁; score: -0.451
+
+step: simp at h₀ h₁ ⊢; score: -0.551
+
+step: norm_num at h₀ h₁⊢; score: -0.56
+
+step: norm_num at *; score: -0.584
+
+step: norm_num at h₁ ⊢; score: -0.624
+
+step: convert h₀ using 1; score: -0.646
+
+step: simp at h₀ h₁; score: -0.702
+
+step: norm_num at h₁; score: -0.789
+
+step: by_contra h; score: -0.912
+
+step: by_contra'; score: -0.913
+
+step: by_contra; score: -0.973
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = 42 / 5\nH : ¬False\n⊢ False', id=46, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.427
+
+step: norm_num at h h₁ ⊢; score: -0.587
+
+step: norm_num at h₁ ⊢; score: -0.62
+
+step: norm_num at *; score: -0.63
+
+step: push_neg at h ⊢; score: -0.659
+
+step: by_contra h; score: -0.796
+
+step: contrapose! h; score: -0.804
+
+step: push_neg at *; score: -0.805
+
+step: apply h; score: -0.82
+
+step: by_contra H; score: -0.832
+
+step: by_contra'; score: -0.856
+
+step: exfalso; score: -0.862
+
+step: by_contra; score: -0.871
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ h₂ : True\n⊢ a * 5 = 42', id=238, message='')
+
+
+step: rw [mul_comm]; score: -0.527
+
+step: convert h₂; score: -0.982
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₂ : ∑ k in Finset.range 5, a + k * d = 70\nh : ¬a = ↑(Int.ofNat 42) / ↑5\n⊢ False', id=56, message='')
+
+
+step: push_neg at h ⊢; score: -0.476
+
+step: norm_num at h₁ h₂ ⊢; score: -0.594
+
+step: push_neg at h; score: -0.662
+
+step: norm_num at *; score: -0.736
+
+step: apply_assumption; score: -0.741
+
+step: contrapose! h; score: -0.743
+
+step: push_neg  at h; score: -0.756
+
+step: push_neg at h; score: -0.782
+
+step: by_contra h; score: -0.804
+
+step: norm_num at h₂; score: -0.809
+
+step: by_contra'; score: -0.863
+
+step: by_contra; score: -0.88
+
+step: apply h; score: -1.001
+
+step: exfalso; score: -1.157
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = 10 * a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=105, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.557
+
+step: simp [h₀, h₁] at *; score: -0.592
+
+step: simp at h₀ h₁ ⊢; score: -0.613
+
+step: ring_nf; score: -0.666
+
+step: convert h₁ using 1; score: -0.759
+
+step: norm_num at h₁; score: -0.832
+
+step: ring; score: -1.055
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 70 = 70\nh₁ : 210 = 210\nh₂ : True\n⊢ a * 5 = 42', id=239, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.484
+
+step: rw [mul_comm]; score: -0.623
+
+step: clear h₀ h₁ h₂; score: -0.709
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ h₂ : True\n⊢ a * 5 = 42', id=205, message='')
+
+
+step: rw [mul_comm]; score: -0.527
+
+step: convert h₂; score: -0.982
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\n⊢ 5 * a = 42', id=71, message='')
+
+
+step: have : ∑ k in Finset.range 5, a + k * d = ∑ k in Finset.range 10, a; score: -0.315
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ h₂ : True\n⊢ a * 5 = 42', id=240, message='')
+
+
+step: rw [mul_comm]; score: -0.527
+
+step: convert h₂; score: -0.982
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : a ≠ 42 / 5\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ False', id=114, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.473
+
+step: field_simp [h] at *; score: -0.587
+
+step: ring_nf at *; score: -0.623
+
+step: field_simp at *; score: -0.767
+
+step: contrapose! h₀; score: -0.81
+
+step: by_contra'; score: -0.862
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh : a ≠ ↑(Int.ofNat 42) / ↑5\n⊢ False', id=179, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.466
+
+step: norm_num [h₀, h₁] at *; score: -0.576
+
+step: norm_num at h₁ h₀ ⊢; score: -0.589
+
+step: norm_num at h₁ ⊢; score: -0.637
+
+step: norm_num at *; score: -0.686
+
+step: contrapose! h; score: -0.741
+
+step: norm_num at h₀ h₁; score: -0.765
+
+step: by_contra h; score: -0.807
+
+step: by_contra'; score: -0.832
+
+step: by_contra H; score: -0.876
+
+step: norm_num at h₁; score: -0.886
+
+step: by_contra; score: -0.9
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\nh : ¬a = 42 / 5\n⊢ False', id=139, message='')
+
+
+step: push_neg at h ⊢; score: -0.516
+
+step: field_simp [h] at *; score: -0.654
+
+step: ring_nf at *; score: -0.657
+
+step: contrapose! h; score: -0.695
+
+step: push_neg at h; score: -0.8
+
+step: push_neg at h; score: -0.828
+
+step: by_contra h; score: -0.833
+
+step: by_contra'; score: -0.88
+
+step: contrapose h; score: -0.956
+
+step: by_contra; score: -0.958
+
+step: apply h; score: -0.973
+
+step: exfalso; score: -1.211
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₁ : 210 = 210\nh₂ : 70 = 70\nh₀ : True\n⊢ a * 5 = 42', id=241, message='')
+
+
+step: norm_num at *; score: -0.643
+
+step: rw [mul_comm]; score: -0.704
+
+step: clear h₁ h₂; score: -0.847
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 70 = 70\nh₁ : 210 = 210\nh₂ : 70 = 70\n⊢ a * ↑5 = ↑(Int.ofNat 42)', id=242, message='')
+
+
+step: rw [Int.ofNat_eq_coe]; score: -0.388
+
+step: rw [mul_comm]; score: -0.607
+
+step: push_cast; score: -0.855
+
+step: norm_cast; score: -0.915
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = 10 * a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=128, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.557
+
+step: simp [h₀, h₁] at *; score: -0.592
+
+step: simp at h₀ h₁ ⊢; score: -0.613
+
+step: ring_nf; score: -0.666
+
+step: convert h₁ using 1; score: -0.759
+
+step: norm_num at h₁; score: -0.832
+
+step: ring; score: -1.055
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₁ : a * 10 + k * d = 210\nh₀ : True\n⊢ a * 5 = 42', id=232, message='')
+
+
+step: rw [← mul_one a] at h₁ ⊢; score: -0.541
+
+step: rw [mul_comm] at h₁ ⊢; score: -0.564
+
+step: convert h₁ using 1; score: -0.608
+
+step: rw [mul_comm]; score: -0.786
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 10 * a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=79, message='')
+
+
+step: ring_nf; score: -0.657
+
+step: ring; score: -1.036
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\nh₂ : True\n⊢ a * 5 = 42', id=206, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.482
+
+step: field_simp [h₀, h₁] at *; score: -0.49
+
+step: nth_rewrite 1 [mul_comm]; score: -0.58
+
+step: ring_nf at *; score: -0.635
+
+step: rw [mul_comm]; score: -0.641
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₂ : 5 * a + k * d = 70\nh₀ : a * 5 + k * d = 70\nh₁ : a * 10 + k * d = 210\n⊢ a * 5 = 42', id=207, message='')
+
+
+step: ring_nf at h₂ h₀ h₁ ⊢; score: -0.409
+
+step: field_simp [h₂, h₀, h₁] at *; score: -0.41
+
+step: ring_nf at *; score: -0.476
+
+Current State:
+TacticState(pp="case h.e'_2\nk a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\n⊢ a = 10 * a + k * d\n\ncase h.e'_3\nk a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ 42 / 5 = ∑ k in Finset.range 10, a + k * d", id=89, message='')
+
+
+step: ring_nf; score: -0.657
+
+step: ring; score: -1.036
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\nh : a ≠ 42 / 5\n⊢ False', id=159, message='')
+
+
+step: field_simp [h] at *; score: -0.556
+
+step: ring_nf at *; score: -0.604
+
+step: contrapose! h; score: -0.715
+
+step: field_simp at *; score: -0.765
+
+step: by_contra h; score: -0.852
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ h₂ : True\n⊢ a = 42 / 5', id=243, message='')
+
+
+step: rw [div_eq_inv_mul]; score: -0.531
+
+step: ring_nf; score: -0.773
+
+step: ring; score: -1.065
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : 5 * a + k * d = 70\nh₁ : 10 * a + k * d = 210\nh : ¬a * 5 = 42\n⊢ False', id=116, message='')
+
+
+step: push_neg at h ⊢; score: -0.508
+
+step: ring_nf at *; score: -0.617
+
+step: contrapose! h; score: -0.668
+
+step: push_neg at h; score: -0.804
+
+step: push_neg at h; score: -0.807
+
+step: by_contra'; score: -0.851
+
+step: by_contra h; score: -0.862
+
+step: by_contra H; score: -0.919
+
+step: by_contra; score: -0.955
+
+step: apply h; score: -1.106
+
+step: exfalso; score: -1.235
+
+Current State:
+TacticState(pp='k a d : ℝ\nh : ¬a = ↑(Int.ofNat 42) / ↑5\nh₀ : 5 * a + k * d = 70\nh₁ : k * d + 10 * a = 210\n⊢ False', id=180, message='')
+
+
+step: ring_nf at h₀ h₁ ⊢; score: -0.43
+
+step: norm_num at h h₀ h₁ ⊢; score: -0.512
+
+step: ring_nf at *; score: -0.543
+
+step: push_neg at h ⊢; score: -0.575
+
+step: field_simp [h] at *; score: -0.585
+
+step: norm_num at h h₀ h₁; score: -0.628
+
+step: norm_num at h ⊢; score: -0.633
+
+step: norm_num at *; score: -0.653
+
+step: norm_num at h; score: -0.712
+
+step: push_neg at h; score: -0.728
+
+step: contrapose! h; score: -0.783
+
+step: field_simp at *; score: -0.795
+
+step: by_contra'; score: -0.861
+
+step: apply h; score: -1.189
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\nh : ¬a = 42 / 5\n⊢ a = 42 / 5', id=47, message='')
+
+
+step: norm_num at h₀ h₁ ⊢; score: -0.433
+
+step: push_neg at h ⊢; score: -0.438
+
+step: contrapose! h; score: -0.619
+
+step: push_neg at h; score: -0.666
+
+step: norm_num at *; score: -0.674
+
+step: by_contra h; score: -0.711
+
+step: convert h₀ using 1; score: -0.715
+
+step: push_neg at h; score: -0.719
+
+step: field_simp [h]; score: -0.732
+
+step: by_contra; score: -0.871
+
+step: contrapose h; score: -0.879
+
+step: by_contra'; score: -0.879
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₂ : ∑ k in Finset.range 5, a + k * d = 70\n⊢ a * 5 = 42', id=57, message='')
+
+
+step: simp only [Finset.sum_range_succ] at *; score: -0.49
+
+step: convert h₁ using 1; score: -0.645
+
+step: rw [mul_comm]; score: -0.756
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ h₁ h₂ : True\n⊢ a * 5 = 42', id=208, message='')
+
+
+step: rw [mul_comm]; score: -0.527
+
+step: convert h₂; score: -0.982
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : k * d + ∑ k in Finset.range 10, a = 210\nh₂ : ∑ k in Finset.range 0, a + a + a + a + a + a + k * d = 70\n⊢ a * 5 = 42', id=198, message='')
+
+
+step: rw [Finset.sum_range_zero, zero_add] at h₂; score: -0.369
+
+step: rw [Finset.sum_range_zero] at h₂; score: -0.396
+
+step: simp only [Finset.sum_range_succ, Finset.sum_range_zero] at *; score: -0.406
+
+step: convert h₀ using 1; score: -0.616
+
+step: convert h₁ using 1; score: -0.726
+
+Current State:
+TacticState(pp='k a d : ℝ\nh₀ : ∑ k in Finset.range 5, a + k * d = 70\nh₁ : ∑ k in Finset.range 10, a + k * d = 210\n⊢ a = ↑(Int.ofNat 42) / 5', id=51, message='')
+
+Crashed.

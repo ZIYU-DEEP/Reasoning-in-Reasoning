@@ -1,0 +1,62 @@
+2024-02-08 19:50:19,006 - root - INFO - logs/best_first_search/02-08-19-50.log
+2024-02-08 19:50:19,006 - root - INFO - None
+2024-02-08 19:50:19,006 - root - INFO - {'log_root': './logs', 'dataset_name': 'hoskinson-center/minif2f-lean4', 'split': 'validation', 'slice_size': 2, 'model_name': 'wellecks/llmstep-mathlib4-pythia2.8b', 'search_method': 'best_first_search', 'search_budget': 4, 'max_iters': 4, 'temperatures': [0.5], 'num_samples': 4, 'verbose': True}
+2024-02-08 19:51:14,804 - root - INFO - --- current:
+	theorem amc12a_2019_p21
+  (z : ℂ)
+  (h₀ : z = (1 + Complex.I) / Real.sqrt 2) :
+  (∑ k in Finset.Icc 1 12, (z^(k^2))) * (∑ k in Finset.Icc 1 12, (1 / z^(k^2))) = 36 := by 
+	
+2024-02-08 19:51:51,576 - root - INFO - --- type-checked candidates:
+	(-0.310) have h₁ :
+  (∑ k in Finset.Icc 1 12, z ^ k ^ 2) = (∑ k in Finset.Icc 1 12, (1 + Complex.I) / (Real.sqrt 2) ^ k ^ 2) :=
+  by simp only [h₀, mul_one, div_one]
+	(-0.430) simp only [h₀, Finset.mul_sum, Finset.sum_div, mul_div_cancel_left]
+	(-0.488) simp [h₀, mul_one]
+2024-02-08 19:51:51,577 - root - INFO - --- current:
+	theorem amc12a_2019_p21
+  (z : ℂ)
+  (h₀ : z = (1 + Complex.I) / Real.sqrt 2) :
+  (∑ k in Finset.Icc 1 12, (z^(k^2))) * (∑ k in Finset.Icc 1 12, (1 / z^(k^2))) = 36 := by 
+	have h₁ :
+  (∑ k in Finset.Icc 1 12, z ^ k ^ 2) = (∑ k in Finset.Icc 1 12, (1 + Complex.I) / (Real.sqrt 2) ^ k ^ 2) :=
+  by simp only [h₀, mul_one, div_one]
+2024-02-08 19:52:09,015 - root - INFO - --- type-checked candidates:
+	(-0.411) simp [h₁, mul_one]
+	(-0.301) simp [h₁]
+2024-02-08 19:52:09,016 - root - INFO - --- current:
+	theorem amc12a_2019_p21
+  (z : ℂ)
+  (h₀ : z = (1 + Complex.I) / Real.sqrt 2) :
+  (∑ k in Finset.Icc 1 12, (z^(k^2))) * (∑ k in Finset.Icc 1 12, (1 / z^(k^2))) = 36 := by 
+	simp only [h₀, Finset.mul_sum, Finset.sum_div, mul_div_cancel_left]
+2024-02-08 19:52:32,789 - root - INFO - --- type-checked candidates:
+	
+2024-02-08 19:52:32,790 - root - INFO - --- current:
+	theorem amc12a_2019_p21
+  (z : ℂ)
+  (h₀ : z = (1 + Complex.I) / Real.sqrt 2) :
+  (∑ k in Finset.Icc 1 12, (z^(k^2))) * (∑ k in Finset.Icc 1 12, (1 / z^(k^2))) = 36 := by 
+	simp [h₀, mul_one]
+2024-02-08 19:53:05,780 - root - INFO - --- type-checked candidates:
+	(-0.337) have h₁ : 0 < Real.sqrt 2 := by norm_num
+	(-0.361) have h₁ : (Complex.I : ℂ) ^ 2 = -1 := by simp
+	(-0.281) have h₁ : Complex.I ≠ 0 := Complex.I_ne_zero
+2024-02-08 19:53:05,781 - root - INFO - {'theorem_statement': 'theorem amc12a_2019_p21\n  (z : ℂ)\n  (h₀ : z = (1 + Complex.I) / Real.sqrt 2) :\n  (∑ k in Finset.Icc 1 12, (z^(k^2))) * (∑ k in Finset.Icc 1 12, (1 / z^(k^2))) = 36 := by {}', 'success': False}
+2024-02-08 19:53:05,782 - root - INFO - 
+-----
+
+2024-02-08 19:53:18,396 - root - INFO - --- current:
+	theorem amc12a_2015_p10
+  (x y : ℤ)
+  (h₀ : 0 < y)
+  (h₁ : y < x)
+  (h₂ : x + y + (x * y) = 80) :
+  x = 26 := by 
+	
+2024-02-08 19:53:35,105 - root - INFO - --- type-checked candidates:
+	
+2024-02-08 19:53:35,106 - root - INFO - {'theorem_statement': 'theorem amc12a_2015_p10\n  (x y : ℤ)\n  (h₀ : 0 < y)\n  (h₁ : y < x)\n  (h₂ : x + y + (x * y) = 80) :\n  x = 26 := by {}', 'success': False}
+2024-02-08 19:53:35,106 - root - INFO - 
+-----
+

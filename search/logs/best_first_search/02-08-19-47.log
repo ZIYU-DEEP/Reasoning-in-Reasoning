@@ -1,0 +1,3 @@
+2024-02-08 19:47:27,212 - root - INFO - logs/best_first_search/02-08-19-47.log
+2024-02-08 19:47:27,213 - root - INFO - None
+2024-02-08 19:47:27,213 - root - INFO - {'log_root': './logs', 'dataset_name': 'hoskinson-center/minif2f-lean4', 'split': 'validation', 'slice_size': 2, 'model_name': 'wellecks/llmstep-mathlib4-pythia2.8b', 'search_method': 'best_first_search', 'search_budget': 4, 'max_iters': 4, 'temperatures': [0.5], 'num_samples': 4, 'verbose': True}

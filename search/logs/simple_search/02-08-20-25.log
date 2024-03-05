@@ -1,0 +1,235 @@
+logs/simple_search/02-08-20-25.log
+None
+{   'dataset_name': 'hoskinson-center/minif2f-lean4',
+    'log_root': './logs',
+    'max_iters': 4,
+    'model_name': 'wellecks/llmstep-mathlib4-pythia2.8b',
+    'num_samples': 4,
+    'search_budget': 10,
+    'search_method': 'simple_search',
+    'slice_size': 1,
+    'split': 'test',
+    'temperatures': [0.5],
+    'verbose': True}
+import Mathlib.Algebra.BigOperators.Basic
+import Mathlib.Data.Real.Basic
+import Mathlib.Data.Complex.Basic
+import Mathlib.Data.Nat.Log
+import Mathlib.Data.Complex.Exponential
+import Mathlib.NumberTheory.Divisors
+import Mathlib.Data.ZMod.Defs
+import Mathlib.Data.ZMod.Basic
+import Mathlib.Topology.Basic
+import Mathlib.Data.Nat.Digits
+
+open BigOperators
+open Real
+open Nat
+open Topology
+
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by {}
+== Current (0): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+== Current (1): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+linarith
+-- Error: backtracking
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₁ : v = 1 / 3 * (b * h)
+h₂ : b = 30
+h₃ : h = 13 / 2
+⊢ v = 65
+== Current (2): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * h)
+⊢ v = 65
+== Current (3): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (4): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+simp [h₃, h₂]
+-- Error: backtracking
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (5): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+norm_num
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (6): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+norm_num
+norm_num at h₁
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (7): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+norm_num
+norm_num at h₁
+norm_num
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (8): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+norm_num
+norm_num at h₁
+norm_num
+norm_num
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+== Current (9): 
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+norm_num at h₁
+nth_rw 1 [h₃] at h₁
+norm_num
+norm_num at h₁
+norm_num
+norm_num
+norm_num
+-- Goal: 
+b h v : ℝ
+h₀ : 0 < b ∧ 0 < h ∧ 0 < v
+h₂ : b = 30
+h₃ : h = 13 / 2
+h₁ : v = 1 / 3 * (b * (13 / 2))
+⊢ v = 65
+
+FAILED
+theorem mathd_algebra_478
+  (b h v : ℝ)
+  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)
+  (h₁ : v = 1 / 3 * (b * h))
+  (h₂ : b = 30)
+  (h₃ : h = 13 / 2) :
+  v = 65 := by
+{'theorem_statement': 'theorem mathd_algebra_478\n  (b h v : ℝ)\n  (h₀ : 0 < b ∧ 0 < h ∧ 0 < v)\n  (h₁ : v = 1 / 3 * (b * h))\n  (h₂ : b = 30)\n  (h₃ : h = 13 / 2) :\n  v = 65 := by {}', 'proof': 'norm_num at h₁\nnth_rw 1 [h₃] at h₁\nnorm_num\nnorm_num at h₁\nnorm_num\nnorm_num\nnorm_num\nlinarith', 'success': False}
+
+-----
+
+Success Rate: 0.0
