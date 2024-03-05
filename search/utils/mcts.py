@@ -12,6 +12,10 @@ from math import log, sqrt
 from lean_dojo import *
 
 
+class SuccessFoundException(Exception):
+    pass
+
+
 # ###############################################
 # MCTS
 # ###############################################
@@ -108,64 +112,52 @@ class MonteCarlo:
         """
         Run monte carlo tree search from the root node.
         """
-        # Init
         i, start_time = 0, time.time()
 
         while expansion_count is None or i < expansion_count:
             i += 1
-            print('Simulating from the beginning!')
 
-            # ----------------------------------------------------------------- #
-            # STOP CONDITIONS
-            # Stop if found a solution
             if self.solution:
                 print('Solution found. No more simulations.')
                 return
 
-            # Stop if reached the time limit
             if self.mins_timeout is not None:
                 duration = time.time() - start_time
-
                 if duration > (self.mins_timeout * 60):
-                    print('I am tired. Stopping expansion on current node.')
+                    print('Reached time limit. Stopping expansion.')
                     return
-            # -----------------------------------------------------------------
 
             # Select a node
             current_node = self.root_node
             while current_node.expanded:
                 current_node = current_node.get_preferred_child(self.root_node)
-            
-            if current_node.proof_finished:
+
+            try:
+                self.expand(current_node)
+            except SuccessFoundException:
+                print('Solution found via exception. Stopping simulations.')
                 self.solution = True
                 return
-
-            # Rollout the selected node
-            self.expand(current_node)
 
     def expand(self, node):
         """
         Expansion for a given node.
         """
-        # DEBUG
         if node.proof_finished:
-            self.solution = True
-            return
-        
+            raise SuccessFoundException()
+
         self.stats_expansion_count += 1
         self.child_finder(node, self)
 
         for child in node.children:
             child_win_value = self.node_evaluator(child, self)
-
-            if child_win_value != None:
+            if child_win_value is not None:
                 child.update_win_value(child_win_value)
-            
-            if child.proof_finished:
-                self.solution = True
-                return # TODO: During inference, we return immediately when success
 
-            if (not child.is_scorable()) and (not child.proof_finished):
+            if child.proof_finished:
+                raise SuccessFoundException()
+
+            if not child.is_scorable() and not child.proof_finished:
                 self.random_rollout(child)
                 child.children = []
 
@@ -177,34 +169,125 @@ class MonteCarlo:
     def random_rollout(self, node):
         """
         Simulation.
-        
-        Notice that for inference, we will return immediately when success.
         """
-        # TODO: DEBUG
         if node.proof_finished:
-            self.solution = True
-            return
-        
-        # Add child_node to the current node
+            raise SuccessFoundException()
+
         self.child_finder(node, self)
-        
-        # Randomly select a child to proceed
-        # TODO: MAKE THIS WITH UCB
         child = random.choice(node.children)
         node.children = []
         node.add_child(child)
-        
-        # Calculdate the win value
         child_win_value = self.node_evaluator(child, self)
 
-        if child_win_value != None:
+        if child_win_value is not None:
             node.update_win_value(child_win_value)
-            # TODO: DEBUG # During inference, we return immediately when success
             if child.proof_finished:
-                self.solution = True
-                return
+                raise SuccessFoundException()
         else:
             self.random_rollout(child)
+
+    # def simulate(self, expansion_count=1):
+    #     """
+    #     Run monte carlo tree search from the root node.
+    #     """
+    #     # Init
+    #     i, start_time = 0, time.time()
+
+    #     while expansion_count is None or i < expansion_count:
+    #         i += 1
+    #         print('Simulating from the beginning!')
+
+    #         # ----------------------------------------------------------------- #
+    #         # STOP CONDITIONS
+    #         # Stop if found a solution
+    #         if self.solution:
+    #             print('Solution found. No more simulations.')
+                
+    #             return
+
+    #         # Stop if reached the time limit
+    #         if self.mins_timeout is not None:
+    #             duration = time.time() - start_time
+
+    #             if duration > (self.mins_timeout * 60):
+    #                 print('I am tired. Stopping expansion on current node.')
+    #                 return
+    #         # -----------------------------------------------------------------
+
+    #         # Select a node
+    #         current_node = self.root_node
+    #         while current_node.expanded:
+    #             current_node = current_node.get_preferred_child(self.root_node)
+            
+    #         if current_node.proof_finished:
+    #             self.solution = True
+    #             return
+
+    #         # Rollout the selected node
+    #         self.expand(current_node)
+
+    # def expand(self, node):
+    #     """
+    #     Expansion for a given node.
+    #     """
+    #     # DEBUG
+    #     if node.proof_finished:
+    #         self.solution = True
+    #         return
+        
+    #     self.stats_expansion_count += 1
+    #     self.child_finder(node, self)
+
+    #     for child in node.children:
+    #         child_win_value = self.node_evaluator(child, self)
+
+    #         if child_win_value != None:
+    #             child.update_win_value(child_win_value)
+            
+    #         if child.proof_finished:
+    #             self.solution = True
+    #             return # TODO: During inference, we return immediately when success
+
+    #         if (not child.is_scorable()) and (not child.proof_finished):
+    #             self.random_rollout(child)
+    #             child.children = []
+
+    #     if len(node.children):
+    #         node.expanded = True
+    #     else:
+    #         self.stats_failed_expansion_count += 1
+
+    # def random_rollout(self, node):
+    #     """
+    #     Simulation.
+        
+    #     Notice that for inference, we will return immediately when success.
+    #     """
+    #     # TODO: DEBUG
+    #     if node.proof_finished:
+    #         self.solution = True
+    #         return
+        
+    #     # Add child_node to the current node
+    #     self.child_finder(node, self)
+        
+    #     # Randomly select a child to proceed
+    #     # TODO: MAKE THIS WITH UCB
+    #     child = random.choice(node.children)
+    #     node.children = []
+    #     node.add_child(child)
+        
+    #     # Calculdate the win value
+    #     child_win_value = self.node_evaluator(child, self)
+
+    #     if child_win_value != None:
+    #         node.update_win_value(child_win_value)
+    #         # TODO: DEBUG # During inference, we return immediately when success
+    #         if child.proof_finished:
+    #             self.solution = True
+    #             return
+    #     else:
+    #         self.random_rollout(child)
 
     def print_tree(self, f):
         f.write("graph\n{\n")

@@ -62,7 +62,9 @@ parser.add_argument('-sm', '--search_method', type=str,
                     default='', help='Rewrite the search method in config.',
                     choices=['simple_search', 'best_first_search', 'mcts', 'rir'])
 parser.add_argument('-re', '--resume_from', type=str, default='', 
-                    help='Resume from a specific problem, e.g., amc12_2000_p12.')
+                    help='Resume from a specific problem, e.g., imo_1969_p2.')
+parser.add_argument('-ss', '--slice_size', type=int, default=None, 
+                    help='The size of the slice of the dataset.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -105,6 +107,9 @@ repo, data = search_dojo._load_data(dataset_name=p.dataset_name,
 if args.resume_from:
     re_ind = [item['full_name'] for item in data].index(args.resume_from)
     data = data[re_ind:] 
+
+if args.slice_size:
+    data = data[:args.slice_size]
 
 # Split data in different shards and use CUDA_VISIBLE_DEVICES to control
 # shard_size = len(data) // args.num_shards
