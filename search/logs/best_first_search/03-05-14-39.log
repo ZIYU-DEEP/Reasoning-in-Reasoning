@@ -1,0 +1,128 @@
+logs/best_first_search/03-05-14-39.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ v = 65', id=0, message=None)
+
+
+step: rw [h₁, h₂, h₃]; score: -0.27
+
+step: field_simp [h₂, h₃] at h₁ ⊢; score: -0.325
+
+step: simp [h₂, h₃] at h₁ ⊢; score: -0.413
+
+step: rw [h₂, h₃] at h₁; score: -0.414
+
+step: field_simp at h₁ ⊢; score: -0.555
+
+step: field_simp [*] at *; score: -0.56
+
+step: field_simp [*]; score: -0.6
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ 1 / 3 * (30 * (13 / 2)) = 65', id=1, message='')
+
+
+step: field_simp [h₀.1, h₀.2.2]; score: -0.283
+
+step: field_simp [h₂, h₃]; score: -0.377
+
+step: simp [h₂, h₃] at h₁ ⊢; score: -0.382
+
+step: field_simp [h₀.2.2]; score: -0.419
+
+step: field_simp [h₀.1]; score: -0.438
+
+step: linarith; score: -0.465
+Congrats. Proof is finished for this theorem.
+['rw [h₁, h₂, h₃]', 'linarith']
+logs/best_first_search/03-05-17-03.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters': 100,
+    'max_num_batched_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 8,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'best_first_search',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 8,
+    'verbose': True}
+
+Current State:
+TacticState(pp='σ : ℝ ≃ ℝ\nh : Equiv.toFun σ 2 = Equiv.invFun σ 2\n⊢ Equiv.toFun σ (Equiv.toFun σ 2) = 2', id=0, message=None)
+
+
+step: rw [h]; score: -0.299
+
+step: simp only [h]; score: -0.545
+
+step: simp [h]; score: -0.555
+
+step: convert h.symm; score: -0.669
+
+step: simp_rw [h]; score: -0.692
+
+step: erw [h]; score: -0.703
+
+step: convert h; score: -0.812
+
+Current State:
+TacticState(pp='σ : ℝ ≃ ℝ\nh : Equiv.toFun σ 2 = Equiv.invFun σ 2\n⊢ Equiv.toFun σ (Equiv.invFun σ 2) = 2', id=1, message='')
+
+
+step: convert h.symm using 1; score: -0.502
+
+step: simp [h]; score: -0.596
+Congrats. Proof is finished for this theorem.
+['rw [h]', 'simp [h]']
+
+Current State:
+TacticState(pp='σ : ℝ ≃ ℝ\nh : Equiv.toFun σ 2 = Equiv.invFun σ 2\n⊢ Equiv.toFun σ (Equiv.toFun σ 2) = 2', id=0, message=None)
+
+
+step: rw [h]; score: -0.354
+
+step: simp only [h]; score: -0.637
+
+step: simp [h]; score: -0.738
+
+step: convert h using 1; score: -0.768
+
+step: rewrite [h]; score: -0.839
+
+step: convert h; score: -0.921
+
+Current State:
+TacticState(pp='σ : ℝ ≃ ℝ\nh : Equiv.toFun σ 2 = Equiv.invFun σ 2\n⊢ Equiv.toFun σ (Equiv.invFun σ 2) = 2', id=1, message='')
+
+
+step: simp [h]; score: -0.746
+Congrats. Proof is finished for this theorem.
+['rw [h]', 'simp [h]']
