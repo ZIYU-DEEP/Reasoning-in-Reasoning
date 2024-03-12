@@ -1,5 +1,5 @@
 from accelerate import Accelerator
-from pylean import LeanServer
+from utils.search_pylean import LeanServer
 import torch
 import heapq
 import concurrent
