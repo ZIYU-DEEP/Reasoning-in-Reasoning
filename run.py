@@ -18,7 +18,7 @@ from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
     DataCollatorWithPadding,
-    StoppingCriteria, 
+    StoppingCriteria,
     StoppingCriteriaList,
 )
 from tqdm import tqdm
@@ -45,7 +45,7 @@ from utils import search
 # ------------------------------------------------
 # Some prep
 accelerator = Accelerator()
-os.environ['TOKENIZERS_PARALLELISM'] = 'true'  
+os.environ['TOKENIZERS_PARALLELISM'] = 'true'
 logger = logging.getLogger()
 # ------------------------------------------------
 
@@ -55,15 +55,15 @@ logger = logging.getLogger()
 parser = argparse.ArgumentParser()
 
 # Arguments for dataset
-parser.add_argument('-cfgr', '--config_root', type=str, 
+parser.add_argument('-cfgr', '--config_root', type=str,
                     default='./configs/')
-parser.add_argument('-cfg', '--config_name', type=str, 
+parser.add_argument('-cfg', '--config_name', type=str,
                     default='dojo_default.yaml')
-parser.add_argument('-sm', '--search_method', type=str, 
+parser.add_argument('-sm', '--search_method', type=str,
                     default='', help='Rewrite the search method in config.')
-parser.add_argument('-re', '--resume_from', type=str, default='', 
+parser.add_argument('-re', '--resume_from', type=str, default='',
                     help='Resume from a specific problem, e.g., imo_1969_p2.')
-parser.add_argument('-ss', '--slice_size', type=int, default=None, 
+parser.add_argument('-ss', '--slice_size', type=int, default=None,
                     help='The size of the slice of the dataset.')
 
 # Parse the arguments
@@ -92,7 +92,7 @@ logger.info(f'{p.log_path}')
 logger.info(pformat(p, indent=4))
 
 # Set the results folder
-results_folder = Path(p.results_root) / p.search_method 
+results_folder = Path(p.results_root) / p.search_method
 os.makedirs(results_folder, exist_ok=True)
 results_path = results_folder / f'{time_now}.json'
 # -------------------------------------------------------------------
@@ -106,7 +106,7 @@ repo, data = misc.load_data_dojo(dataset_name=p.dataset_name,
 
 if args.resume_from:
     re_ind = [item['full_name'] for item in data].index(args.resume_from)
-    data = data[re_ind:] 
+    data = data[re_ind:]
 
 if args.slice_size:
     data = data[:args.slice_size]
@@ -123,7 +123,7 @@ if p.gen_method == 'vllm':
         tp_degree=p.tp_degree,
         dtype=p.dtype,
         max_num_batched_tokens=p.max_num_batched_tokens)
-    stopping_criteria = None  
+    stopping_criteria = None
 
 elif p.gen_method == 'hf':
     model, tokenizer = llms.load_model_hf(
@@ -140,39 +140,39 @@ def main():
     results = []
 
     for example in tqdm(data, total=len(data)):
-        
+
         # Set up the data
         file_path = example['file_path']
         theorem_name = example['full_name']
         theorem = Theorem(repo, file_path, theorem_name)
-        
-        # To load the data from the huggingface dataset 
-        formal_statement = example['statement'] 
+
+        # To load the data from the huggingface dataset
+        formal_statement = example['statement']
         informal_statement = example['informal_stmt']
         informal_proof = example['informal_proof']
-        
+
         # Start search
 
         if 'bfs' in p.search_method:
-            
+
             # Low-level Search
             if p.search_method == 'bfs_low':
                 search_fn = search.bfs_low
                 prompt_fn_low = prompts._prompt_low
                 prompt_fn_high = None
-            
+
             # Low-level Search with Raw High-Level Proof Plan in Context
             if p.search_method == 'bfs_low_with_raw_high':
                 search_fn = search.bfs_low
                 prompt_fn_low = prompts._prompt_low_with_high
                 prompt_fn_high = None
-            
+
             # Bi-level Search
             if p.search_method == 'bfs_bilevel':
                 search_fn = search.bfs_bilevel
                 prompt_fn_low = prompts._prompt_low_with_high
                 prompt_fn_high = prompts._prompt_high
-        
+
             attempt_results = search.proof_search(theorem=theorem,
                                                   model=model,
                                                   tokenizer=tokenizer,
@@ -180,6 +180,7 @@ def main():
                                                   max_iters_high=p.max_iters_high,
                                                   temperatures=p.temperatures,
                                                   num_samples=p.num_samples,  # Maybe two params for low and high
+                                                  search_fn=search_fn,
                                                   prompt_fn_low=prompt_fn_low,
                                                   prompt_fn_high=prompt_fn_high,
                                                   timeout=p.timeout,
@@ -191,7 +192,7 @@ def main():
                                                   informal_statement=informal_statement,
                                                   plan_high=informal_proof,  # This will be overwritten by machine generated plan in bfs_bilevel
                                                     )
-        
+
         if p.search_method == 'mcts':
             attempt_results = search.mct_search(theorem=theorem,
                                                 model=model,
@@ -213,7 +214,7 @@ def main():
         }
         logger.info(pformat(result, indent=4))
         logger.info('\n-----\n')
-        
+
         # Add ther result to the result
         results.append(result)
         with open(results_path, 'w') as f:
