@@ -1,0 +1,40 @@
+# --------- Logs ---------------
+log_root: ./logs
+results_root: ./results
+
+# --------- Data ---------------
+dataset_name: minif2f-test
+dataset_path: ./data/minif2f.jsonl
+
+# ---------- Model ------------
+model_name: open-web-math/llemma_7b
+gen_method: vllm  # Choose from hf or vllm
+num_shards: 1  # Put data on different shard
+tp_degree: 1  # tensor parallel size
+dtype: float16
+max_tokens: 4096
+
+# ---------- Search Method ----------
+# Choose from simple_search, best_first_search, mcts, rir
+# Can be overwrite by the command line argument
+# bfs_low, bfs_low_with_high
+search_method: bfs_low
+
+# ---------- Args for simple first search  ----------
+search_budget: 32
+
+# ---------- Args for best first search  ----------
+max_iters_low: 100
+max_iters_high: 10
+temperatures: 
+  - 0.0
+num_samples: 32
+verbose: true
+timeout: 1200
+early_stop: false
+
+
+# ---------- Args for mcts search  ----------
+
+# ---------- Args for bilevel mcts search  ----------
+
