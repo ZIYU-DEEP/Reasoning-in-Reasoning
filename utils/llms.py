@@ -13,6 +13,7 @@ import json
 import time
 from datetime import datetime
 import logging
+import openai
 
 from transformers import (
     Trainer,
@@ -263,7 +264,8 @@ def generate_hf(prompt,
                 tokenizer, 
                 temperatures, 
                 num_samples, 
-                stopping_criteria):
+                stopping_criteria,
+                max_tokens: int=256):
 
     # Init texts and scores
     texts, scores = [], []
@@ -276,7 +278,7 @@ def generate_hf(prompt,
         # Does beam search at temp 0.0, otherwise temperature sampling.
         for temp in temperatures:
             decoding_params = dict(
-                max_new_tokens=256,
+                max_new_tokens=max_tokens,
                 do_sample=temp > 0,
                 temperature=temp,
                 pad_token_id=tokenizer.eos_token_id,
@@ -320,3 +322,53 @@ def generate_hf(prompt,
 
     texts, scores = _unique_sorted(texts, scores)
     return texts, scores
+
+
+# ===============================================
+# 4. Generation with OpenAI
+# ===============================================
+def generate_openai(prompt: str='',
+                    model: str='gpt-4-0125-preview',
+                    tokenizer: str=None,
+                    temperatures: tuple=(0.4,),
+                    num_samples: int=4,
+                    stop: str='----',
+                    max_tokens: int=256):
+
+    # Format the messages
+    messages = [{'role': 'system',
+                 'content': SYSTEM_MESSAGE},
+                {'role': 'user',
+                 'content': prompt}]
+
+    # Init texts and scores
+    texts, scores = [], []
+
+    for temperature in temperatures:
+        params = dict(model=model,
+                      messages=messages,
+                      n=num_samples,
+                      max_tokens=max_tokens,
+                      temperature=temperature,
+                      stop=stop,
+                      logprobs=True)
+
+        # Get the completion
+        client = OpenAI()
+        completion = client.chat.completions.create(**params)
+
+        # # Get the texts and scores (cumulative logprobs normalized by length)
+        for choice in completion.choices:
+            # Get the text
+            text = choice.message.content
+
+            # Get the score
+            cumulative_logprob = sum([i.logprob for i in choice.logprobs.content])
+            score = cumulative_logprob / len(encoding.encode(text))
+
+            texts.append(text)
+            scores.append(score)
+
+        texts, scores = _unique_sorted(texts, scores)
+
+        return texts, scores
