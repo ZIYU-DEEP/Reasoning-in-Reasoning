@@ -179,7 +179,8 @@ def main():
                                                   max_iters_low=p.max_iters_low,
                                                   max_iters_high=p.max_iters_high,
                                                   temperatures=p.temperatures,
-                                                  num_samples=p.num_samples,  # Maybe two params for low and high
+                                                  num_samples_low=p.num_samples_low, 
+                                                  num_samples_high=p.num_samples_high,
                                                   search_fn=search_fn,
                                                   prompt_fn_low=prompt_fn_low,
                                                   prompt_fn_high=prompt_fn_high,

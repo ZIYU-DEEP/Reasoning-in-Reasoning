@@ -28,7 +28,8 @@ max_iters_low: 100
 max_iters_high: 10
 temperatures: 
   - 0.0
-num_samples: 32
+num_samples_low: 32
+num_samples_high: 4
 verbose: true
 timeout: 1200
 early_stop: false
