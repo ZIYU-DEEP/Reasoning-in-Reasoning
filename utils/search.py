@@ -10,7 +10,6 @@ import heapq
 import concurrent
 import transformers
 import os
-import vllm
 import json
 import time
 from datetime import datetime
@@ -44,6 +43,11 @@ from .mcts import (
     select_with_scores,
     create_score_predicate,
 )
+
+try:
+    import vllm
+except Exception:
+    pass
 
 
 # ===============================================

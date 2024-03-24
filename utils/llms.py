@@ -8,7 +8,6 @@ import torch
 import concurrent
 import transformers
 import os
-import vllm
 import json
 import time
 from datetime import datetime
@@ -30,6 +29,11 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Tuple
 from lean_dojo import *
+
+try:
+    import vllm
+except Exception:
+    pass
 
 
 # ===============================================

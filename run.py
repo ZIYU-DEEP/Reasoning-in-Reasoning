@@ -4,7 +4,6 @@ import heapq
 import concurrent
 import transformers
 import os
-import vllm
 import json
 import time
 from datetime import datetime
@@ -40,6 +39,11 @@ from utils import misc
 from utils import prompts
 from utils import llms
 from utils import search
+
+try:
+    import vllm
+except Exception:
+    pass
 
 
 # ------------------------------------------------
