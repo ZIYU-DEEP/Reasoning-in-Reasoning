@@ -549,6 +549,9 @@ def print_stats(results):
     print(len([x for x in results if x['success']]) / len(results))
     print("# successes: ", len([x for x in results if x['success']]), sep="\t")
 
+def log_stats(results):
+    logger.info(len([x for x in results if x['success']]) / len(results))
+    logger.info("# successes: ", len([x for x in results if x['success']]), sep="\t")
 
 def _record_results(attempt_results, theorem, logger, failure_reason):
     """

@@ -235,6 +235,10 @@ def main():
             json.dump({'results': results,
                        'config': p}, f, indent=4)
         search.print_stats(results)
+        try:
+            search.log_stats(results)
+        except Exception:
+            pass
 
 
 if __name__ == '__main__':
