@@ -85,7 +85,7 @@ profile_default/
 ipython_config.py
 
 **/results
-**/scripts
+# **/scripts
 **/local
 **/lean-dojo-mew
 **/logs
