@@ -1,7 +1,7 @@
 # README
 
-> [!NOTE]
-> The current version is still in testing. A tested version is in the [raptors](https://github.com/ZIYU-DEEP/bilevel-reasoner/tree/raptors) branch, where we have the benchmark results with Llemma-7b on `bfs_low` and `bfs_low_with_raw_high` methods. The latter is very much underperforming (23 out of 244 problems), likely due to the fact that the raw informal proof is unstructured and the model capacity is bad. A proof of concept colab with GPT-4 can be found at [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1BI3u6NwVtefTpWzQNj-OwPf6C3ONuPFn?usp=sharing).
+<!-- > [!NOTE]
+> The current version is still in testing. A tested version is in the [raptors](https://github.com/ZIYU-DEEP/bilevel-reasoner/tree/raptors) branch, where we have the benchmark results with Llemma-7b on `bfs_low` and `bfs_low_with_raw_high` methods. The latter is very much underperforming (23 out of 244 problems), likely due to the fact that the raw informal proof is unstructured and the model capacity is bad. A proof of concept colab with GPT-4 can be found at [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1BI3u6NwVtefTpWzQNj-OwPf6C3ONuPFn?usp=sharing). -->
 
 ## Installation
 

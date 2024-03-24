@@ -1,0 +1,162 @@
+logs/bfs_low/03-24-15-12.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_mew.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'openai',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'gpt-4-0125-preview',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'stop': '----',
+    'temperatures': [0.4],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+MiniF2F/Validation.lean
+mathd_algebra_480
+
+Current State:
+TacticState(pp='f : ℝ → ℝ\nh₀ : ∀ (x : ℝ), x < 0 → f x = -x ^ 2 - 1\nh₁ : ∀ (x : ℝ), 0 ≤ x ∧ x < 4 → f x = 2\nh₂ : ∀ (x : ℝ), x ≥ 4 → f x = Real.sqrt x\n⊢ f π = 2', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+apply h₁
+have : 0 ≤ π ∧ π < 4 := by norm_num
+norm_num [Real.pi_gt_zero]
+norm_num [Real.pi_pos]
+norm_num [Real.pi_pos, Real.pi_lt_four]
+
+step: apply h₁; score: -0.02
+
+Current State:
+TacticState(pp='case a\nf : ℝ → ℝ\nh₀ : ∀ (x : ℝ), x < 0 → f x = -x ^ 2 - 1\nh₁ : ∀ (x : ℝ), 0 ≤ x ∧ x < 4 → f x = 2\nh₂ : ∀ (x : ℝ), x ≥ 4 → f x = Real.sqrt x\n⊢ 0 ≤ π ∧ π < 4', id=1, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+norm_num [Real.pi_pos, Real.pi_lt_four]
+apply And.intro Real.pi_nonneg Real.pi_lt_four
+norm_num [Real.pi_gt_0, Real.pi_lt_4]
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_480'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_480',
+                   'informal_proof': 'Since $\\pi$ is about 3.14, we use the '
+                                     'second case, so $f(\\pi) = 2$.',
+                   'informal_stmt': 'Let \\[f(x) = \\begin{cases}\n'
+                                    '-x^2 - 1 &\\text{if }x<0, \\\\\n'
+                                    '2&\\text{if }0 \\le x< 4, \\\\\n'
+                                    '\\sqrt{x}&\\text{if }x \\ge 4.\n'
+                                    '\\end{cases}\n'
+                                    '\\]Find $f(\\pi)$. Show that it is 2.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_480 (f : ℝ → ℝ) (h₀ : ∀ '
+                                'x < 0, f x = -x ^ 2 - 1)\n'
+                                '    (h₁ : ∀ x, 0 ≤ x ∧ x < 4 → f x = 2) (h₂ : '
+                                '∀ x ≥ 4, f x = Real.sqrt x) : f π = 2',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.0
+MiniF2F/Validation.lean
+mathd_algebra_69
+
+Current State:
+TacticState(pp='rows seats : ℕ\nh₀ : rows * seats = 450\nh₁ : (rows + 5) * (seats - 3) = 450\n⊢ rows = 25', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+nlinarith
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_69'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_69',
+                   'informal_proof': 'Let $r$ be the number of rows, and $s$ '
+                                     'be the number of seats per row. It '
+                                     'follows that $rs = 450$ and $(r + 5)(s - '
+                                     '3) = 450$. Expanding the second '
+                                     'equation, it follows that $rs - 3r + 5s '
+                                     '- 15 = 450$, and substituting the value '
+                                     'of $rs$, it follows that $3r - 5s + 15 = '
+                                     '0$. Substituting $s = \\frac{450}{r}$ '
+                                     'into this new equation, we obtain that '
+                                     '$$3r - 5 \\cdot \\frac{450}{r}+ 15 = 0 '
+                                     '\\Longrightarrow r +5 -\\frac{750}{r} = '
+                                     '0.$$ Multiplying both sides of the '
+                                     'equation by $r$ yields the quadratic '
+                                     'equation $r^2 + 5r - 750 = 0$, which '
+                                     'factors as $(r + 30)(r - 25) = 0$. Thus, '
+                                     '$r = 25$.',
+                   'informal_stmt': 'An audience of $450$ people is seated in '
+                                    'an auditorium. Each row contains the same '
+                                    'number of seats and each seat in the '
+                                    'auditorium is occupied. With three fewer '
+                                    'seats per row, and five extra rows, the '
+                                    'same audience could still be seated, '
+                                    'occupying all seats. How many rows does '
+                                    'the auditorium have? Show that it is 25.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_69 (rows seats : ℕ) (h₀ '
+                                ': rows * seats = 450)\n'
+                                '    (h₁ : (rows + 5) * (seats - 3) = 450) : '
+                                'rows = 25',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.0
+MiniF2F/Validation.lean
+mathd_algebra_433
+
+Current State:
+TacticState(pp='f : ℝ → ℝ\nh₀ : ∀ (x : ℝ), f x = 3 * Real.sqrt (2 * x - 7) - 8\n⊢ f 8 = 1', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+rw [h₀]
+
+step: rw [h₀]; score: -0.002
+
+Current State:
+TacticState(pp='f : ℝ → ℝ\nh₀ : ∀ (x : ℝ), f x = 3 * Real.sqrt (2 * x - 7) - 8\n⊢ 3 * Real.sqrt (2 * 8 - 7) - 8 = 1', id=1, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+rw [h₀ 8]
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_433'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_433',
+                   'informal_proof': '$f(8) = 3\\sqrt{2\\cdot 8 - 7} - 8 = '
+                                     '3\\sqrt{9} - 8 =1$.',
+                   'informal_stmt': 'Let $f(x) = 3\\sqrt{2x - 7} - 8$.  Find '
+                                    '$f(8)$. Show that it is 1.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_433 (f : ℝ → ℝ) (h₀ : ∀ '
+                                'x, f x = 3 * Real.sqrt (2 * x - 7) - 8) : f 8 '
+                                '= 1',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.0
+MiniF2F/Validation.lean
+mathd_algebra_126
