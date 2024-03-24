@@ -745,3 +745,43 @@ Search ended with no success.
 0.1
 MiniF2F/Validation.lean
 amc12a_2021_p7
+
+Current State:
+TacticState(pp='x y : ℝ\n⊢ 1 ≤ (x * y - 1) ^ 2 + (x + y) ^ 2', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+nlinarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'amc12a_2021_p7'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'amc12a_2021_p7',
+                   'informal_proof': 'Expanding, we get that the expression is '
+                                     '$x^2+2xy+y^2+x^2y^2-2xy+1$ or '
+                                     '$x^2+y^2+x^2y^2+1$. By the Trivial '
+                                     'Inequality (all squares are nonnegative) '
+                                     'the minimum value for this is '
+                                     '$\\textbf{(D)} ~1$, which can be '
+                                     'achieved at $x=y=0$.',
+                   'informal_stmt': 'What is the least possible value of '
+                                    '$(xy-1)^2+(x+y)^2$ for real numbers $x$ '
+                                    'and $y$?\n'
+                                    '\n'
+                                    '$\\textbf{(A)} ~0\\qquad\\textbf{(B)} '
+                                    '~\\frac{1}{4}\\qquad\\textbf{(C)} '
+                                    '~\\frac{1}{2} \\qquad\\textbf{(D)} ~1 '
+                                    '\\qquad\\textbf{(E)} Show that it is '
+                                    '\\textbf{(D)} ~1.',
+                   'split': 'valid',
+                   'statement': 'theorem amc12a_2021_p7 (x y : ℝ) : 1 ≤ (x * y '
+                                '- 1) ^ 2 + (x + y) ^ 2',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.09090909090909091
+MiniF2F/Validation.lean
+mathd_algebra_327
