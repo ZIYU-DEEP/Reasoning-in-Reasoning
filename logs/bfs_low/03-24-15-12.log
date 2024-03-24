@@ -819,3 +819,437 @@ Search ended with no success.
 0.08333333333333333
 MiniF2F/Validation.lean
 aime_1984_p15
+
+Current State:
+TacticState(pp='x y z w : ℝ\nh₀ : x ^ 2 / (2 ^ 2 - 1) + y ^ 2 / (2 ^ 2 - 3 ^ 2) + z ^ 2 / (2 ^ 2 - 5 ^ 2) + w ^ 2 / (2 ^ 2 - 7 ^ 2) = 1\nh₁ : x ^ 2 / (4 ^ 2 - 1) + y ^ 2 / (4 ^ 2 - 3 ^ 2) + z ^ 2 / (4 ^ 2 - 5 ^ 2) + w ^ 2 / (4 ^ 2 - 7 ^ 2) = 1\nh₂ : x ^ 2 / (6 ^ 2 - 1) + y ^ 2 / (6 ^ 2 - 3 ^ 2) + z ^ 2 / (6 ^ 2 - 5 ^ 2) + w ^ 2 / (6 ^ 2 - 7 ^ 2) = 1\nh₃ : x ^ 2 / (8 ^ 2 - 1) + y ^ 2 / (8 ^ 2 - 3 ^ 2) + z ^ 2 / (8 ^ 2 - 5 ^ 2) + w ^ 2 / (8 ^ 2 - 7 ^ 2) = 1\n⊢ x ^ 2 + y ^ 2 + z ^ 2 + w ^ 2 = 36', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+norm_num
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'aime_1984_p15'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'aime_1984_p15',
+                   'informal_proof': 'Rewrite the system of equations as $ '
+                                     '\\frac{x^{2}}{t-1}+\\frac{y^{2}}{t-3^{2}}+\\frac{z^{2}}{t-5^{2}}+\\frac{w^{2}}{t-7^{2}}=1. '
+                                     '$ This equation is satisfied when $t = '
+                                     '4,16,36,64$, as then the equation is '
+                                     'equivalent to the given equations.\n'
+                                     'After clearing fractions, for each of '
+                                     'the values $t=4,16,36,64$, we have the '
+                                     '[[equation]] '
+                                     '$x^2(t-9)(t-25)(t-49)+y^2(t-1)(t-25)(t-49)$ '
+                                     '$+z^2(t-1)(t-9)(t-49)+w^2(t-1)(t-9)(t-25) '
+                                     '= (t-1)(t-9)(t-25)(t-49)$. We can move '
+                                     'the expression $(t-1)(t-9)(t-25)(t-49)$ '
+                                     'to the left hand side to obtain the '
+                                     'difference of the polynomials: '
+                                     '$x^2(t-9)(t-25)(t-49)+y^2(t-1)(t-25)(t-49)$ '
+                                     '$+z^2(t-1)(t-9)(t-49)+w^2(t-1)(t-9)(t-25)$ '
+                                     'and $(t-1)(t-9)(t-25)(t-49)$\n'
+                                     '                          \n'
+                                     'Since the polynomials are equal at '
+                                     '$t=4,16,36,64$, we can express the '
+                                     'difference of the two polynomials with a '
+                                     'quartic polynomial that has roots at '
+                                     '$t=4,16,36,64$, so\n'
+                                     '\n'
+                                     '<div '
+                                     'style="text-align:center;">$x^2(t-9)(t-25)(t-49)+y^2(t-1)(t-25)(t-49)$ '
+                                     '$+z^2(t-1)(t-9)(t-49)+w^2(t-1)(t-9)(t-25) '
+                                     '- (t-1)(t-9)(t-25)(t-49) = '
+                                     '-(t-4)(t-16)(t-36)(t-64) $\n'
+                                     '</div>\n'
+                                     '\n'
+                                     'Note the leading coefficient of the RHS '
+                                     'is $-1$ because it must match the '
+                                     'leading coefficient of the LHS, which is '
+                                     '$-1$. \n'
+                                     '\n'
+                                     'Now we can plug in $t=1$ into the '
+                                     'polynomial equation. Most terms drop, '
+                                     'and we end up with\n'
+                                     '\n'
+                                     '$x^2(-8)(-24)(-48)=-(-3)(-15)(-35)(-63)$\n'
+                                     '\n'
+                                     'so that\n'
+                                     '\n'
+                                     '$x^2=\\frac{3\\cdot 15\\cdot 35\\cdot '
+                                     '63}{8\\cdot 24\\cdot '
+                                     '48}=\\frac{3^2\\cdot 5^2\\cdot '
+                                     '7^2}{2^{10}}$\n'
+                                     '\n'
+                                     'Similarly, we can plug in $t=9,25,49$ '
+                                     'and get\n'
+                                     '\n'
+                                     '$\\begin{align*}\n'
+                                     'y^2&=\\frac{5\\cdot 7\\cdot 27\\cdot '
+                                     '55}{8\\cdot 16\\cdot '
+                                     '40}=\\frac{3^3\\cdot 5\\cdot 7\\cdot '
+                                     '11}{2^{10}}\\\\\n'
+                                     'z^2&=\\frac{21\\cdot 9\\cdot 11\\cdot '
+                                     '39}{24\\cdot 16\\cdot '
+                                     '24}=\\frac{3^2\\cdot 7\\cdot 11\\cdot '
+                                     '13}{2^{10}}\\\\\n'
+                                     'w^2&=\\frac{45\\cdot 33\\cdot 13\\cdot '
+                                     '15}{48\\cdot 40\\cdot '
+                                     '24}=\\frac{3^2\\cdot 5\\cdot 11\\cdot '
+                                     '13}{2^{10}}\\end{align*}$\n'
+                                     '\n'
+                                     'Now adding them up,\n'
+                                     '\n'
+                                     '$\\begin{align*}z^2+w^2&=\\frac{3^2\\cdot '
+                                     '11\\cdot '
+                                     '13(7+5)}{2^{10}}=\\frac{3^3\\cdot '
+                                     '11\\cdot 13}{2^8}\\\\\n'
+                                     'x^2+y^2&=\\frac{3^2\\cdot 5\\cdot '
+                                     '7(5\\cdot 7+3\\cdot '
+                                     '11)}{2^{10}}=\\frac{3^2\\cdot 5\\cdot '
+                                     '7\\cdot 17}{2^8}\\end{align*}$\n'
+                                     '\n'
+                                     'with a sum of\n'
+                                     '\n'
+                                     '$\\frac{3^2(3\\cdot 11\\cdot 13+5\\cdot '
+                                     '7\\cdot 17)}{2^8}=3^2\\cdot 4=036.$\n'
+                                     '\n'
+                                     '/*Lengthy proof that any two cubic '
+                                     'polynomials in $t$ which are equal at 4 '
+                                     'values of $t$ are themselves '
+                                     'equivalent:\n'
+                                     'Let the two polynomials be $A(t)$ and '
+                                     '$B(t)$ and let them be equal at '
+                                     '$t=a,b,c,d$. Thus we have $A(a) - B(a) = '
+                                     '0, A(b) - B(b) = 0, A(c) - B(c) = 0, '
+                                     'A(d) - B(d) = 0$. Also the polynomial '
+                                     '$A(t) - B(t)$ is cubic, but it equals 0 '
+                                     'at 4 values of $t$. Thus it must be '
+                                     'equivalent to the polynomial 0, since if '
+                                     'it were nonzero it would necessarily be '
+                                     'able to be factored into '
+                                     '$(t-a)(t-b)(t-c)(t-d)($some nonzero '
+                                     'polynomial$)$ which would have a degree '
+                                     'greater than or equal to 4, '
+                                     'contradicting the statement that $A(t) - '
+                                     'B(t)$ is cubic. Because $A(t) - B(t) = '
+                                     '0, A(t)$ and $B(t)$ are equivalent and '
+                                     'must be equal for all $t$.\n'
+                                     '\n'
+                                     "'''Post script for the puzzled''': This "
+                                     'solution which is seemingly '
+                                     'unnecessarily redundant in that it '
+                                     'computes $x^2,y^2,z^2,$ and $w^2$ '
+                                     'separately before adding them to obtain '
+                                     'the final answer is appealing because it '
+                                     'gives the individual values of '
+                                     '$x^2,y^2,z^2,$ and $w^2$ which can be '
+                                     'plugged into the given equations to '
+                                     'check.',
+                   'informal_stmt': 'Determine $x^2+y^2+z^2+w^2$ if\n'
+                                    '\n'
+                                    '<div style="text-align:center;">$ '
+                                    '\\frac{x^2}{2^2-1}+\\frac{y^2}{2^2-3^2}+\\frac{z^2}{2^2-5^2}+\\frac{w^2}{2^2-7^2}=1 '
+                                    '$<br />$ '
+                                    '\\frac{x^2}{4^2-1}+\\frac{y^2}{4^2-3^2}+\\frac{z^2}{4^2-5^2}+\\frac{w^2}{4^2-7^2}=1 '
+                                    '$<br />$ '
+                                    '\\frac{x^2}{6^2-1}+\\frac{y^2}{6^2-3^2}+\\frac{z^2}{6^2-5^2}+\\frac{w^2}{6^2-7^2}=1 '
+                                    '$<br />$ '
+                                    '\\frac{x^2}{8^2-1}+\\frac{y^2}{8^2-3^2}+\\frac{z^2}{8^2-5^2}+\\frac{w^2}{8^2-7^2}=1 '
+                                    '$</div> Show that it is 036.',
+                   'split': 'valid',
+                   'statement': 'theorem aime_1984_p15 (x y z w : ℝ)\n'
+                                '    (h₀ :\n'
+                                '      x ^ 2 / (2 ^ 2 - 1) + y ^ 2 / (2 ^ 2 - '
+                                '3 ^ 2) + z ^ 2 / (2 ^ 2 - 5 ^ 2) +\n'
+                                '          w ^ 2 / (2 ^ 2 - 7 ^ 2) =\n'
+                                '        1)\n'
+                                '    (h₁ :\n'
+                                '      x ^ 2 / (4 ^ 2 - 1) + y ^ 2 / (4 ^ 2 - '
+                                '3 ^ 2) + z ^ 2 / (4 ^ 2 - 5 ^ 2) +\n'
+                                '          w ^ 2 / (4 ^ 2 - 7 ^ 2) =\n'
+                                '        1)\n'
+                                '    (h₂ :\n'
+                                '      x ^ 2 / (6 ^ 2 - 1) + y ^ 2 / (6 ^ 2 - '
+                                '3 ^ 2) + z ^ 2 / (6 ^ 2 - 5 ^ 2) +\n'
+                                '          w ^ 2 / (6 ^ 2 - 7 ^ 2) =\n'
+                                '        1)\n'
+                                '    (h₃ :\n'
+                                '      x ^ 2 / (8 ^ 2 - 1) + y ^ 2 / (8 ^ 2 - '
+                                '3 ^ 2) + z ^ 2 / (8 ^ 2 - 5 ^ 2) +\n'
+                                '          w ^ 2 / (8 ^ 2 - 7 ^ 2) =\n'
+                                '        1) :\n'
+                                '    x ^ 2 + y ^ 2 + z ^ 2 + w ^ 2 = 36',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.07692307692307693
+MiniF2F/Validation.lean
+algebra_amgm_sqrtxymulxmyeqxpy_xpygeq4
+
+Current State:
+TacticState(pp='x y : ℝ\nh₀ : 0 < x ∧ 0 < y\nh₁ : y ≤ x\nh₂ : Real.sqrt (x * y) * (x - y) = x + y\n⊢ x + y ≥ 4', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+nlinarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'algebra_amgm_sqrtxymulxmyeqxpy_xpygeq4'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'algebra_amgm_sqrtxymulxmyeqxpy_xpygeq4',
+                   'informal_proof': 'Since $x > y > 0$, it exists $\\alpha '
+                                     '\\in (0, \\pi/2)$ such that $y = x \\cos '
+                                     '\\alpha$. So the equality '
+                                     '$\\sqrt{xy}(x-y)=(x+y)$ can be rewritten '
+                                     'as\n'
+                                     '\\begin{eqnarray*}\n'
+                                     '\\frac{1}{\\sqrt{xy}} = '
+                                     '\\frac{1-\\frac{y}{x}}{1+\\frac{y}{x}} = '
+                                     '\\frac{1 - \\cos \\alpha}{1+\\cos '
+                                     '\\alpha} = \\frac{1}{x \\sqrt{\\cos '
+                                     '\\alpha}}.\n'
+                                     '\\end{eqnarray*}\n'
+                                     'So we have\n'
+                                     '\\[x = '
+                                     '\\frac{1+\\cos\\alpha}{\\sqrt{\\cos '
+                                     '\\alpha}(1 - \\cos \\alpha)}.\\]\n'
+                                     'Thus,\n'
+                                     '\\[x + y = x (1+\\cos\\alpha) = '
+                                     '\\frac{(1+\\cos\\alpha)^2}{\\sqrt{\\cos '
+                                     '\\alpha}(1 - \\cos \\alpha)}.\\]\n'
+                                     'Let $t = \\sqrt{\\cos\\alpha}$ and '
+                                     'consider the function\n'
+                                     '\\[f(t) = '
+                                     '\\frac{(1+t^2)^2}{t(1-t^2)}\\]\n'
+                                     'with $t \\in (0,1)$. The derivative of '
+                                     '$f$ is\n'
+                                     "\\[f'(t) = \\frac{(1+t^2)(-t^4 + 6t^2 "
+                                     '-1)}{t^2(1-t^2)^2}.\\]\n'
+                                     "Solving $f'(t) = 0$, we obtain\n"
+                                     '\\[t^2 = 3-2\\sqrt{2} \\quad \\mbox{ or '
+                                     '} \\quad t^2 = 3+2\\sqrt{2}.\\]\n'
+                                     'Since $t < 1$, we have\n'
+                                     '\\[t^2 = 3-2\\sqrt{2} \\quad '
+                                     '\\Longrightarrow \\quad t = \\sqrt{2} - '
+                                     '1.\\]\n'
+                                     'For $t^2 < 3 - 2\\sqrt{2}$, i.e., $0 < t '
+                                     "< \\sqrt{2} - 1$, we have $f'(t) < 0$, "
+                                     'so $f$ is strictly decreasing in $(0, '
+                                     '\\sqrt{2} - 1)$; for $1 > t^2 > 3 - '
+                                     '2\\sqrt{2}$, i.e., $\\sqrt{2} - 1 < t < '
+                                     "1$, we have $f'(t) > 0$, so $f$ is "
+                                     'strictly increasing in $(\\sqrt{2} - 1, '
+                                     '1)$.\n'
+                                     '\n'
+                                     'So, we have\n'
+                                     '\\[x + y = f(t) \\geq \\min_{0<t<1} f(t) '
+                                     '= f(\\sqrt{2} - 1) = 4.\\]',
+                   'informal_stmt': 'Suppose that $x$ and $y$ are positive '
+                                    'real numbers with $y\\leq x$, and that '
+                                    '$\\sqrt{xy}(x-y)=(x+y)$.\n'
+                                    'Prove that $x+y\\geq 4$.',
+                   'split': 'valid',
+                   'statement': 'theorem '
+                                'algebra_amgm_sqrtxymulxmyeqxpy_xpygeq4 (x y : '
+                                'ℝ) (h₀ : 0 < x ∧ 0 < y) (h₁ : y ≤ x)\n'
+                                '    (h₂ : Real.sqrt (x * y) * (x - y) = x + '
+                                'y) : x + y ≥ 4',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.07142857142857142
+MiniF2F/Validation.lean
+amc12a_2002_p21
+
+Current State:
+TacticState(pp='u : ℕ → ℕ\nh₀ : u 0 = 4\nh₁ : u 1 = 7\nh₂ : ∀ (n : ℕ), n ≥ 2 → u (n + 2) = (u n + u (n + 1)) % 10\n⊢ ∀ (n : ℕ), ∑ k in Finset.range n, u k > 10000 → 1999 ≤ n', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+contrapose
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'amc12a_2002_p21'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'amc12a_2002_p21',
+                   'informal_proof': 'The sequence is infinite. As there are '
+                                     'only $100$ pairs of digits, sooner or '
+                                     'later a pair of consecutive digits will '
+                                     'occur for the second time. As each next '
+                                     'digit only depends on the previous two, '
+                                     'from this point on the sequence will be '
+                                     'periodic.\n'
+                                     '\n'
+                                     '(Additionally, as every two consecutive '
+                                     'digits uniquely determine the '
+                                     '<i>previous</i> one as well, the first '
+                                     'pair of digits that will occur twice '
+                                     'must be the first pair $4,7$.)\n'
+                                     '\n'
+                                     'Hence it is a good idea to find the '
+                                     'period. Writing down more terms of the '
+                                     'sequence, we get:\n'
+                                     '\n'
+                                     '$4,7,1,8,9,7,6,3,9,2,1,3,4,7,\\dots$\n'
+                                     '\n'
+                                     'and we found the period. The length of '
+                                     'the period is $12$, and its sum is '
+                                     '$4+7+\\cdots+1+3 = 60$. Hence for each '
+                                     '$k$ we have $S_{12k} = 60k$.\n'
+                                     '\n'
+                                     'We have $\\lfloor 10000/60 \\rfloor = '
+                                     '166$ and $166\\cdot 12 = 1992$, '
+                                     'therefore $S_{1992} = 60\\cdot 166 = '
+                                     '9960$.\n'
+                                     'The rest can now be computed by hand, we '
+                                     'get $S_{1998} = 9960+4+7+1+8+9+7= 9996$, '
+                                     'and $S_{1999}=9996 + 6 = 10002$, thus '
+                                     'the answer is $(B)1999$.',
+                   'informal_stmt': 'Consider the sequence of numbers: '
+                                    '$4,7,1,8,9,7,6,\\dots$ For $n>2$, the '
+                                    '$n$-th term of the sequence is the units '
+                                    'digit of the sum of the two previous '
+                                    'terms. Let $S_n$ denote the sum of the '
+                                    'first $n$ terms of this sequence. The '
+                                    'smallest value of $n$ for which '
+                                    '$S_n>10,000$ is: \n'
+                                    '\n'
+                                    '$\n'
+                                    '\\text{(A) }1992\n'
+                                    '\\qquad\n'
+                                    '\\text{(B) }1999\n'
+                                    '\\qquad\n'
+                                    '\\text{(C) }2001\n'
+                                    '\\qquad\n'
+                                    '\\text{(D) }2002\n'
+                                    '\\qquad\n'
+                                    '\\text{(E) }2004\n'
+                                    '$ Show that it is (B)1999.',
+                   'split': 'valid',
+                   'statement': 'theorem amc12a_2002_p21 (u : ℕ → ℕ) (h₀ : u 0 '
+                                '= 4) (h₁ : u 1 = 7)\n'
+                                '    (h₂ : ∀ n ≥ 2, u (n + 2) = (u n + u (n + '
+                                '1)) % 10) :\n'
+                                '    ∀ n, (∑ k in Finset.range n, u k) > 10000 '
+                                '→ 1999 ≤ n',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.06666666666666667
+MiniF2F/Validation.lean
+mathd_algebra_192
+
+Current State:
+TacticState(pp='q e d : ℂ\nh₀ : q = 11 - 5 * Complex.I\nh₁ : e = 11 + 5 * Complex.I\nh₂ : d = 2 * Complex.I\n⊢ q * e * d = 292 * Complex.I', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+rw [h₀, h₁, h₂]
+
+step: rw [h₀, h₁, h₂]; score: -0.001
+
+Current State:
+TacticState(pp='q e d : ℂ\nh₀ : q = 11 - 5 * Complex.I\nh₁ : e = 11 + 5 * Complex.I\nh₂ : d = 2 * Complex.I\n⊢ (11 - 5 * Complex.I) * (11 + 5 * Complex.I) * (2 * Complex.I) = 292 * Complex.I', id=1, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+rw [h₀, h₁, h₂]
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_192'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_192',
+                   'informal_proof': '\\begin{align*}\n'
+                                     'QED &= (11-5i)(11+5i)2i\\\\\n'
+                                     '&=2i(121-(5i)^2)\\\\\n'
+                                     '&=2i(121+25)\\\\\n'
+                                     '&=292i.\n'
+                                     '\\end{align*}',
+                   'informal_stmt': 'If $Q = 11-5i$, $E = 11+5i$, and $D = '
+                                    '2i$, find $Q\\cdot E \\cdot D$. Show that '
+                                    'it is 292i.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_192 (q e d : ℂ) (h₀ : q '
+                                '= 11 - 5 * Complex.I) (h₁ : e = 11 + 5 * '
+                                'Complex.I)\n'
+                                '    (h₂ : d = 2 * Complex.I) : q * e * d = '
+                                '292 * Complex.I',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.0625
+MiniF2F/Validation.lean
+amc12b_2002_p6
+
+Current State:
+TacticState(pp='a b : ℝ\nh₀ : a ≠ 0 ∧ b ≠ 0\nh₁ : ∀ (x : ℝ), x ^ 2 + a * x + b = (x - a) * (x - b)\n⊢ a = 1 ∧ b = -2', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+have : a * b = b ∧ a + b = -a by simp [← h₁ a, ← h₁ b, pow_two]
+have : ∀ x, x^2 + a*x + b = x^2 - (a + b)*x + a*b := by rw [h₁]
+have : ∀ x, x^2 + a*x + b = x^2 - (a + b)*x + a*b := by simp [h₁, mul_sub, sub_mul, sub_sub]
+have ha : a = 1 := by norm_num [h₁ 1]
+have : a * b = b ∧ a + b = -a := by simp [← h₁ a, ← h₁ b, pow_two]
+have : a * b = b ∧ a + b = -a by simp [mul_comm, ← h₁ 0]
+have : a * b = b ∧ a + b = -a, by simp [← h₁ 0, pow_two]
+have : a * b = b by rw [← h₁ b, pow_two, mul_comm b, sub_self, zero_sub, mul_neg, neg_neg]
+have : a * b = b ∧ a + b = -a by simp [← h₁ b, pow_two, mul_comm b]
+have : a * -b = b by norm_num [h₁ (-a)]
+have : a * b = b ∧ a + b = -a by simp [h₁, mul_comm, mul_sub, sub_mul]
+have ha : a = 1 := by nlinarith
+simp [h₁, mul_comm, mul_sub, sub_mul]
+have : a * b = b by norm_num [h₁ b]
+simp [h₁, mul_comm, mul_assoc, mul_left_comm]
+have : a * b = b ∧ a + b = -a by simp [← h₁ b, pow_two, mul_comm a b, mul_assoc, mul_neg, neg_add_rev]
+simp [h₁]
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'amc12b_2002_p6'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'amc12b_2002_p6',
+                   'informal_proof': 'Since $(x-a)(x-b) = x^2 - (a+b)x + ab = '
+                                     'x^2 + ax + b = 0$, it follows by '
+                                     'comparing [[coefficient]]s that $-a - b '
+                                     '= a$ and that $ab = b$. Since $b$ is '
+                                     'nonzero, $a = 1$, and $-1 - b = 1 '
+                                     '\\Longrightarrow b = -2$. Thus $(a,b) = '
+                                     '\\mathrm{(C)}\\ (1,-2)$.',
+                   'informal_stmt': 'Suppose that $a$ and $b$ are nonzero real '
+                                    'numbers, and that the [[equation]] $x^2 + '
+                                    'ax + b = 0$ has solutions $a$ and $b$. '
+                                    'Then the pair $(a,b)$ is\n'
+                                    '\n'
+                                    '$\\mathrm{(A)}\\ (-2,1)\n'
+                                    '\\qquad\\mathrm{(B)}\\ (-1,2)\n'
+                                    '\\qquad\\mathrm{(C)}\\ (1,-2)\n'
+                                    '\\qquad\\mathrm{(D)}\\ (2,-1)\n'
+                                    '\\qquad\\mathrm{(E)}\\ (4,4)$ Show that '
+                                    'it is \\mathrm{(C)}\\ (1,-2).',
+                   'split': 'valid',
+                   'statement': 'theorem amc12b_2002_p6 (a b : ℝ) (h₀ : a ≠ 0 '
+                                '∧ b ≠ 0)\n'
+                                '    (h₁ : ∀ x, x ^ 2 + a * x + b = (x - a) * '
+                                '(x - b)) : a = 1 ∧ b = -2',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.058823529411764705
+MiniF2F/Validation.lean
+mathd_numbertheory_102
