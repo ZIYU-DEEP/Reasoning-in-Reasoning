@@ -1,0 +1,271 @@
+logs/bfs_low/03-23-20-29.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_mew.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'openai',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'gpt-4-0125-preview',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'stop': '----',
+    'temperatures': [0.4],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+MiniF2F/Validation.lean
+mathd_algebra_182
+
+Current State:
+TacticState(pp='y : ℂ\n⊢ 7 * (3 * y + 2) = 21 * y + 14', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+ring
+
+step: ring; score: -0.002
+Congrats. Proof is finished for this theorem.
+['ring']
+{   'attempt_results': [   {   'elapsed': -2.3832781314849854,
+                               'failure_reason': '',
+                               'iteration': 0,
+                               'proof': ['ring'],
+                               'score': 0.0015354545,
+                               'success': True,
+                               'temperature': [0.4],
+                               'theorem': 'mathd_algebra_182',
+                               'trace': [   {   'state_before': 'y : ℂ\n'
+                                                                '⊢ 7 * (3 * y '
+                                                                '+ 2) = 21 * y '
+                                                                '+ 14',
+                                                'tactic': 'ring'}]}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_182',
+                   'informal_proof': 'We apply the distributive property to '
+                                     'get\\begin{align*}\n'
+                                     '7(3y+2) &= 7\\cdot 3y+7\\cdot 2\\\\\n'
+                                     '&= 21y+14.\n'
+                                     '\\end{align*}',
+                   'informal_stmt': 'Expand the following expression: '
+                                    '$7(3y+2)$ Show that it is 21y+14.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_182 (y : ℂ) : 7 * (3 * '
+                                'y + 2) = 21 * y + 14',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': True}
+
+-----
+
+MiniF2F/Validation.lean
+aime_1984_p5
+
+Current State:
+TacticState(pp='a b : ℝ\nh₀ : logb 8 a + logb 4 (b ^ 2) = 5\nh₁ : logb 8 b + logb 4 (a ^ 2) = 7\n⊢ a * b = 512', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'aime_1984_p5'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'aime_1984_p5',
+                   'informal_proof': 'Use the [[change of base formula]] to '
+                                     'see that $\\frac{\\log a}{\\log 8} + '
+                                     '\\frac{2 \\log b}{\\log 4} = 5$; combine '
+                                     '[[denominator]]s to find that '
+                                     '$\\frac{\\log ab^3}{3\\log 2} = 5$. '
+                                     'Doing the same thing with the second '
+                                     'equation yields that $\\frac{\\log '
+                                     'a^3b}{3\\log 2} = 7$. This means that '
+                                     '$\\log ab^3 = 15\\log 2 \\Longrightarrow '
+                                     'ab^3 = 2^{15}$ and that $\\log a^3 b = '
+                                     '21\\log 2 \\Longrightarrow a^3 b = '
+                                     '2^{21}$. If we multiply the two '
+                                     'equations together, we get that $a^4b^4 '
+                                     '= 2^{36}$, so taking the fourth root of '
+                                     'that, $ab = 2^9 = 512$.',
+                   'informal_stmt': 'Determine the value of $ab$ if '
+                                    '$\\log_8a+\\log_4b^2=5$ and '
+                                    '$\\log_8b+\\log_4a^2=7$. Show that it is '
+                                    '512.',
+                   'split': 'valid',
+                   'statement': 'theorem aime_1984_p5 (a b : ℕ) (h₀ : '
+                                'Real.logb 8 a + Real.logb 4 (b ^ 2) = 5)\n'
+                                '    (h₁ : Real.logb 8 b + Real.logb 4 (a ^ 2) '
+                                '= 7) : a * b = 512',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_numbertheory_780
+
+Current State:
+TacticState(pp='m x : ℕ\nh₀ : 10 ≤ m\nh₁ : m ≤ 99\nh₂ : 6 * x % m = 1\nh₃ : (x - 6 ^ 2) % m = 0\n⊢ m = 43', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+have : m ∣ 6 * x - 1 := by rw [←Nat.mod_add_div (6 * x) m, h₂]; apply Nat.dvd_add_right; rw [Nat.mul_div_cancel' (Nat.dvd_of_mod_eq_zero h₃), Nat.sub_self, Nat.zero_add]; exact Nat.dvd_refl m
+have : m ∣ 6 * x - 1 := by rw [←Nat.mod_add_div (6 * x) m, h₂]; linarith
+have : m ∣ 6 * x - 1 ∧ m ∣ x - 36 := by
+  apply And.intro
+  rw [←Nat.dvd_iff_mod_eq_zero, ←h₂]
+  exact Nat.dvd_mul_left _ _
+  rw [←Nat.dvd_iff_mod_eq_zero, ←h₃]
+have : m ∣ 6 * x - 1 ∧ m ∣ x - 6 ^ 2 := by
+  split
+  · rw [←Nat.mod_add_div (6 * x) m] at h₂
+    linarith
+  · rw [←Nat.mod_add_div (x - 6 ^ 2) m] at h₃
+    linarith
+have : m ∣ 6 * x - 1 := by rw [←Nat.mod_add_div (6 * x) m, h₂]; apply Nat.dvd_add_right; rw [Nat.mod_eq_zero_of_dvd, zero_add]; exact h₃
+have : m ∣ 6 * x - 1 := by rw [← Nat.dvd_iff_mod_eq_zero, ← h₂]
+have : m ∣ 6 * x - 1 ∧ m ∣ x - 36 := by
+  split
+  · rw [←Nat.mod_add_div (6 * x) m, h₂]
+    simp
+  · rw [←Nat.mod_add_div (x - 36) m, h₃]
+    simp
+have : m ∣ 6 * x - 1 := by rw [←Nat.mod_add_div (6 * x) m, h₂]; apply Nat.dvd_add_left; rw [Nat.mod_eq_zero_of_dvd, zero_add]; exact h₃
+have : m ∣ 6 * x - 1 := by rw [←Nat.dvd_iff_mod_eq_zero, ←h₂]
+have : m ∣ 6 * x - 1 ∧ m ∣ x - 36 := by
+  apply And.intro
+  rw [←Nat.mod_add_div 6 x, mul_add, mul_one, ←sub_add, ←sub_add_eq_add_sub, h₂]
+  norm_num
+  rw [h₃]
+  norm_num
+have : m ∣ 6 * x - 1 := by rw [←Nat.mod_add_div (6 * x) m, h₂]; apply Nat.dvd_sub' (Nat.dvd_add_right (dvd_refl m))
+have : m ∣ 6 * x - 1, from Nat.dvd_of_mod_eq_zero (by rw [← Nat.sub_mod, h₃, zero_sub, Nat.mod_mod_of_dvd (show m ∣ 36 from by linarith [h₀])])
+have : m ∣ 6 * x - 1, from Nat.dvd_of_mod_eq_zero (by rw [← Nat.sub_mod, h₃, zero_sub, Nat.mod_mod_of_dvd (show m ∣ 36, from dvd_trans (dvd_mul_left _ _) h₃), Nat.mod_self])
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_numbertheory_780'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_numbertheory_780',
+                   'informal_proof': 'We can multiply both sides of the '
+                                     'congruence $6^{-1}\\equiv 6^2\\pmod m$ '
+                                     'by $6$: $$\n'
+                                     '\\underbrace{6\\cdot 6^{-1}}_1 \\equiv '
+                                     '\\underbrace{6\\cdot 6^2}_{6^3} \\pmod '
+                                     'm.\n'
+                                     '$$Thus $6^3-1=215$ is a multiple of $m$. '
+                                     'We know that $m$ has two digits. The '
+                                     'only two-digit positive divisor of $215$ '
+                                     'is $43$, so $m=43$.',
+                   'informal_stmt': 'Suppose $m$ is a two-digit positive '
+                                    'integer such that $6^{-1}\\pmod m$ exists '
+                                    'and $6^{-1}\\equiv 6^2\\pmod m$. What is '
+                                    '$m$? Show that it is 43.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_numbertheory_780 (m x : ℕ) (h₀ '
+                                ': 10 ≤ m) (h₁ : m ≤ 99) (h₂ : 6 * x % m = 1)\n'
+                                '    (h₃ : (x - 6 ^ 2) % m = 0) : m = 43',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_algebra_116
+
+Current State:
+TacticState(pp='k x : ℝ\nh₀ : x = (13 - Real.sqrt 131) / 4\nh₁ : 2 * x ^ 2 - 13 * x + k = 0\n⊢ k = 19 / 4', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+rw [h₀, h₁]
+rw [h₀, ← h₁]
+subst h₀
+
+step: subst h₀; score: -0.869
+
+Current State:
+TacticState(pp='k : ℝ\nh₁ : 2 * ((13 - Real.sqrt 131) / 4) ^ 2 - 13 * ((13 - Real.sqrt 131) / 4) + k = 0\n⊢ k = 19 / 4', id=1, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+ring_nf at h₁; norm_num at h₁
+ring_nf [h₁]
+ring_nf at h₁; rw [h₁]
+ring_nf at h₁; linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_116'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_116',
+                   'informal_proof': 'We could substitute $(13-\\sqrt{131})/4$ '
+                                     'for $x$ in the equation, but the '
+                                     'quadratic formula suggests a quicker '
+                                     'approach. Substituting $2$, $-13$, and '
+                                     '$k$ into the quadratic formula gives  '
+                                     '\\[\n'
+                                     '\\frac{-(-13)\\pm\\sqrt{(-13)^2-4(2)(k)}}{2(2)}= '
+                                     '\\frac{13\\pm\\sqrt{169-8k}}{4}.\n'
+                                     '\\]Setting $(13+\\sqrt{169-8k})/4$ and '
+                                     '$(13-\\sqrt{169-8k})/4$ equal to '
+                                     '$(13-\\sqrt{131})/4$, we find no '
+                                     'solution in the first case and '
+                                     '$169-8k=131$ in the second case.  '
+                                     'Solving yields '
+                                     '$k=(169-131)/8=38/8=\\frac{19}{4}$.',
+                   'informal_stmt': 'For what real value of $k$ is '
+                                    '$\\frac{13-\\sqrt{131}}{4}$ a root of '
+                                    '$2x^2-13x+k$? Show that it is '
+                                    '\\frac{19}{4}.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_116 (k x : ℝ) (h₀ : x = '
+                                '(13 - Real.sqrt 131) / 4)\n'
+                                '    (h₁ : 2 * x ^ 2 - 13 * x + k = 0) : k = '
+                                '19 / 4',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_numbertheory_13
+
+Current State:
+TacticState(pp='u v : ℕ\nS : Set ℕ\nh₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ 14 * n % 100 = 46\nh₁ : IsLeast S u\nh₂ : IsLeast (S \\ {u}) v\n⊢ (↑u + ↑v) / 2 = 64', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+simp [h₀] at h₁ h₂
+have h₃ : ∀ n ∈ S, 14 * n % 100 = 46 := by simp [h₀]
+simp [h₀, h₁, h₂]
+simp [h₀, IsLeast] at h₁ h₂
+
+step: have h₃ : ∀ n ∈ S, 14 * n % 100 = 46 := by simp [h₀]; score: -0.194
+
+step: simp [h₀, IsLeast] at h₁ h₂; score: -0.382
+
+Current State:
+TacticState(pp='u v : ℕ\nS : Set ℕ\nh₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ 14 * n % 100 = 46\nh₁ : IsLeast S u\nh₂ : IsLeast (S \\ {u}) v\nh₃ : ∀ (n : ℕ), n ∈ S → 14 * n % 100 = 46\n⊢ (↑u + ↑v) / 2 = 64', id=1, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+
+Current State:
+TacticState(pp='u v : ℕ\nS : Set ℕ\nh₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ 14 * n % 100 = 46\nh₁ : (0 < u ∧ 14 * u % 100 = 46) ∧ u ∈ lowerBounds S\nh₂ : ((0 < v ∧ 14 * v % 100 = 46) ∧ ¬v = u) ∧ v ∈ lowerBounds (S \\ {u})\n⊢ (↑u + ↑v) / 2 = 64', id=2, message='')
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+simp [h₀, h₁, h₂]
+simp [h₀, lowerBounds, Set.mem_diff, Set.singleton_def]
+simp [h₀, lowerBounds, Set.mem_diff, Set.singleton_def] at h₁ h₂
+simp [h₀, lowerBounds, Set.mem_diff, h₁, h₂]
+simp [h₀] at h₁ h₂
+linarith

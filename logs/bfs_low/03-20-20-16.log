@@ -1,0 +1,3639 @@
+logs/bfs_low/03-20-20-16.log
+None
+{   'dataset_name': 'minif2f-test',
+    'dataset_path': './data/minif2f.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ v = 65', id=0, message=None)
+
+
+step: rw [h₁, h₂, h₃]; score: -0.268
+
+step: field_simp [h₂, h₃] at h₁ ⊢; score: -0.326
+
+step: rw [h₂, h₃] at h₁; score: -0.395
+
+step: field_simp [*] at *; score: -0.569
+
+step: field_simp at h₁ ⊢; score: -0.584
+
+step: field_simp [*]; score: -0.612
+
+Current State:
+TacticState(pp='b h v : ℝ\nh₀ : 0 < b ∧ 0 < h ∧ 0 < v\nh₁ : v = 1 / 3 * (b * h)\nh₂ : b = 30\nh₃ : h = 13 / 2\n⊢ 1 / 3 * (30 * (13 / 2)) = 65', id=1, message='')
+
+
+step: field_simp [h₀.1, h₀.2.2]; score: -0.288
+
+step: field_simp [h₂, h₃]; score: -0.366
+
+step: simp [h₂, h₃] at h₁ ⊢; score: -0.384
+
+step: field_simp [h₀.2.2]; score: -0.423
+
+step: field_simp [h₀.1]; score: -0.44
+
+step: linarith; score: -0.469
+Congrats. Proof is finished for this theorem.
+['rw [h₁, h₂, h₃]', 'linarith']
+{   'attempt_results': [   {   'elapsed': -10.564539670944214,
+                               'failure_reason': '',
+                               'iteration': 1,
+                               'proof': ['rw [h₁, h₂, h₃]', 'linarith'],
+                               'score': 0.7364389961675832,
+                               'success': True,
+                               'temperature': [0.0],
+                               'theorem': 'mathd_algebra_478',
+                               'trace': [   {   'state_before': 'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ v = 65',
+                                                'tactic': 'rw [h₁, h₂, h₃]'},
+                                            {   'state_before': 'b h v : ℝ\n'
+                                                                'h₀ : 0 < b ∧ '
+                                                                '0 < h ∧ 0 < '
+                                                                'v\n'
+                                                                'h₁ : v = 1 / '
+                                                                '3 * (b * h)\n'
+                                                                'h₂ : b = 30\n'
+                                                                'h₃ : h = 13 / '
+                                                                '2\n'
+                                                                '⊢ 1 / 3 * (30 '
+                                                                '* (13 / 2)) = '
+                                                                '65',
+                                                'tactic': 'linarith'}]}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Test.lean',
+                   'full_name': 'mathd_algebra_478',
+                   'informal_proof': 'We are given that $B = 30$ and $h = 6.5$ '
+                                     'and asked to find $\\frac{1}{3}Bh$.  We '
+                                     'find that \\[\\frac{1}{3}Bh = '
+                                     '\\frac{1}{3}(30)(6.5) = (10)(6.5) = '
+                                     '65.\\]',
+                   'informal_stmt': 'The volume of a cone is given by the '
+                                    'formula $V = \\frac{1}{3}Bh$, where $B$ '
+                                    'is the area of the base and $h$ is the '
+                                    'height. The area of the base of a cone is '
+                                    '30 square units, and its height is 6.5 '
+                                    'units. What is the number of cubic units '
+                                    'in its volume? Show that it is 65.',
+                   'split': 'test',
+                   'statement': 'theorem mathd_algebra_478 (b h v : ℝ) (h₀ : 0 '
+                                '< b ∧ 0 < h ∧ 0 < v) (h₁ : v = 1 / 3 * (b * '
+                                'h))\n'
+                                '    (h₂ : b = 30) (h₃ : h = 13 / 2) : v = 65',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': True}
+
+-----
+
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=0, message=None)
+
+
+step: contrapose!; score: -0.618
+
+step: ring_nf; score: -0.62
+
+step: norm_num; score: -0.707
+
+step: by_contra h; score: -0.789
+
+step: intro h; score: -0.792
+
+step: ring_nf at *; score: -0.799
+
+step: by_contra' h; score: -0.888
+
+step: by_contra H; score: -0.934
+
+step: contrapose; score: -0.959
+
+step: field_simp; score: -0.964
+
+step: intros h; score: -1.022
+
+step: exfalso; score: -1.186
+
+step: ring; score: -1.193
+
+step: intro H; score: -1.29
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=1, message='')
+
+
+step: rw [not_false_iff]; score: -0.57
+
+step: intro h; score: -0.629
+
+step: contrapose!; score: -0.643
+
+step: by_contra h; score: -0.644
+
+step: by_contra; score: -0.74
+
+step: by_contra H; score: -0.778
+
+step: rintro h; score: -0.793
+
+step: by_contra'; score: -0.81
+
+step: rintro _; score: -0.893
+
+step: contrapose; score: -0.943
+
+step: intro; score: -0.948
+
+step: intros h; score: -0.961
+
+step: intro h1; score: -1.0
+
+step: intros; score: -1.004
+
+step: intro hf; score: -1.009
+
+step: intro H; score: -1.038
+
+step: intro _; score: -1.097
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=2, message='')
+
+
+step: contrapose!; score: -0.584
+
+step: norm_num; score: -0.656
+
+step: by_contra h; score: -0.844
+
+step: intro h; score: -0.849
+
+step: field_simp; score: -0.873
+
+step: contrapose; score: -0.922
+
+step: exfalso; score: -1.153
+
+step: intro H; score: -1.351
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=3, message='')
+
+
+step: by_contra h; score: -0.688
+
+step: ring_nf; score: -0.715
+
+step: by_contra' h; score: -0.809
+
+step: intro h; score: -0.83
+
+step: by_contra' H; score: -0.864
+
+step: by_contra H; score: -0.879
+
+step: contrapose; score: -0.97
+
+step: exfalso; score: -1.071
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=5, message='')
+
+
+step: ring_nf at h ⊢; score: -0.496
+
+step: contrapose! h; score: -0.601
+
+step: ring_nf at *; score: -0.735
+
+step: contrapose! h with h; score: -0.777
+
+step: ring_nf at h; score: -0.799
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=6, message='')
+
+
+step: ring_nf at h ⊢; score: -0.496
+
+step: contrapose! h; score: -0.601
+
+step: ring_nf at *; score: -0.735
+
+step: contrapose! h with h; score: -0.777
+
+step: ring_nf at h; score: -0.799
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=7, message='')
+
+
+step: contrapose!; score: -0.584
+
+step: norm_num; score: -0.656
+
+step: by_contra h; score: -0.844
+
+step: intro h; score: -0.849
+
+step: field_simp; score: -0.873
+
+step: contrapose; score: -0.922
+
+step: exfalso; score: -1.153
+
+step: intro H; score: -1.351
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=8, message='')
+
+
+step: ring_nf at h ⊢; score: -0.496
+
+step: contrapose! h; score: -0.601
+
+step: ring_nf at *; score: -0.735
+
+step: contrapose! h with h; score: -0.777
+
+step: ring_nf at h; score: -0.799
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=9, message='')
+
+
+step: ring_nf at H ⊢; score: -0.468
+
+step: contrapose! H; score: -0.565
+
+step: ring_nf at *; score: -0.739
+
+step: by_contra H1; score: -0.802
+
+step: by_contra h; score: -0.887
+
+step: by_contra'; score: -0.905
+
+step: contrapose H; score: -0.938
+
+step: revert H; score: -0.999
+
+step: clear H; score: -1.307
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=10, message='')
+
+
+step: rw [not_false_iff]; score: -0.549
+
+step: contrapose!; score: -0.596
+
+step: by_contra h; score: -0.613
+
+step: intro h; score: -0.634
+
+step: by_contra; score: -0.695
+
+step: by_contra H; score: -0.718
+
+step: by_contra'; score: -0.758
+
+step: contrapose; score: -0.859
+
+step: rintro h; score: -0.869
+
+step: exfalso; score: -0.967
+
+step: intros h; score: -0.981
+
+step: rintro _; score: -0.982
+
+step: intro; score: -0.992
+
+step: intros; score: -1.002
+
+step: intro H; score: -1.066
+
+step: intro _; score: -1.13
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=11, message='')
+
+
+step: ring_nf; score: -0.715
+
+step: exfalso; score: -1.071
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=12, message='')
+
+
+step: ring_nf at h ⊢; score: -0.496
+
+step: contrapose! h; score: -0.601
+
+step: ring_nf at *; score: -0.735
+
+step: contrapose! h with h; score: -0.777
+
+step: ring_nf at h; score: -0.799
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='case h\nx y : ℤ\n⊢ False', id=13, message='')
+
+
+step: exfalso; score: -0.582
+
+step: by_contra h; score: -0.779
+
+step: cases x; score: -0.961
+
+step: by_contra; score: -1.048
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ True → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=16, message='')
+
+
+step: intro h; score: -0.56
+
+step: by_contra h; score: -0.717
+
+step: contrapose!; score: -0.746
+
+step: rintro h; score: -0.795
+
+step: rintro _; score: -0.798
+
+step: intro; score: -0.801
+
+step: intro _; score: -0.826
+
+step: intro H; score: -0.827
+
+step: by_contra H; score: -0.846
+
+step: by_contra; score: -0.864
+
+step: by_contra'; score: -0.891
+
+step: rintro H; score: -0.939
+
+step: intros; score: -0.959
+
+step: intros _; score: -0.963
+
+step: intro h1; score: -0.967
+
+step: intro ht; score: -1.024
+
+step: contrapose; score: -1.058
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=14, message='')
+
+
+step: contrapose!; score: -0.584
+
+step: norm_num; score: -0.656
+
+step: by_contra h; score: -0.844
+
+step: intro h; score: -0.849
+
+step: field_simp; score: -0.873
+
+step: contrapose; score: -0.922
+
+step: intro H; score: -1.351
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=35, message='')
+
+
+step: contrapose!; score: -0.63
+
+step: intro h; score: -0.659
+
+step: by_contra h; score: -0.662
+
+step: by_contra; score: -0.728
+
+step: by_contra H; score: -0.779
+
+step: by_contra'; score: -0.794
+
+step: rintro h; score: -0.818
+
+step: rintro _; score: -0.884
+
+step: contrapose; score: -0.908
+
+step: intro; score: -0.929
+
+step: intros h; score: -0.974
+
+step: intros; score: -0.992
+
+step: intro h1; score: -0.997
+
+step: intro hf; score: -1.026
+
+step: intro H; score: -1.072
+
+step: intro _; score: -1.097
+
+step: simp; score: -1.433
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=17, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 = 2003 → False', id=18, message='')
+
+
+step: ring_nf; score: -0.778
+
+step: by_contra'; score: -0.899
+
+step: by_contra; score: -0.923
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=19, message='')
+
+
+step: push_neg at h ⊢; score: -0.377
+
+step: simp only [not_imp_not] at h ⊢; score: -0.415
+
+step: push_neg at h; score: -0.499
+
+step: contrapose! h; score: -0.504
+
+step: by_contra; score: -0.534
+
+step: by_contra h; score: -0.625
+
+step: by_contra'; score: -0.632
+
+step: by_contra H; score: -0.658
+
+step: push_neg at h; score: -0.662
+
+step: by_contra h1; score: -0.662
+
+step: by_contra hn; score: -0.682
+
+step: by_contra h'; score: -0.732
+
+step: by_contra' h; score: -0.757
+
+step: by_contra' H; score: -0.789
+
+step: by_contra h₁; score: -0.791
+
+step: by_contra h2; score: -0.81
+
+step: contrapose h; score: -0.831
+
+step: apply h; score: -0.836
+
+step: exfalso; score: -0.851
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=36, message='')
+
+
+step: by_contra h; score: -0.766
+
+step: intro h; score: -0.838
+
+step: contrapose; score: -0.895
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=57, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=71, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=15, message='')
+
+
+step: ring_nf at H ⊢; score: -0.468
+
+step: contrapose! H; score: -0.565
+
+step: ring_nf at *; score: -0.739
+
+step: by_contra H1; score: -0.802
+
+step: by_contra h; score: -0.887
+
+step: by_contra'; score: -0.905
+
+step: contrapose H; score: -0.938
+
+step: clear H; score: -1.307
+
+Current State:
+TacticState(pp='x y : ℤ\nx✝ : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=21, message='')
+
+
+step: by_contra h; score: -0.541
+
+step: by_contra; score: -0.591
+
+step: by_contra'; score: -0.609
+
+step: push_neg at *; score: -0.655
+
+step: by_contra' h; score: -0.681
+
+step: exfalso; score: -0.72
+
+step: by_contra H; score: -0.729
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=86, message='')
+
+
+step: contrapose!; score: -0.63
+
+step: intro h; score: -0.659
+
+step: by_contra h; score: -0.662
+
+step: by_contra; score: -0.728
+
+step: by_contra H; score: -0.779
+
+step: by_contra'; score: -0.794
+
+step: rintro h; score: -0.818
+
+step: rintro _; score: -0.884
+
+step: contrapose; score: -0.908
+
+step: intro; score: -0.929
+
+step: intros h; score: -0.974
+
+step: intros; score: -0.992
+
+step: intro h1; score: -0.997
+
+step: intro hf; score: -1.026
+
+step: intro H; score: -1.072
+
+step: intro _; score: -1.097
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=96, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=60, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=74, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=48, message='')
+
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=22, message='')
+
+
+step: push_neg at H ⊢; score: -0.423
+
+step: by_contra H1; score: -0.509
+
+step: contrapose! H; score: -0.521
+
+step: by_contra h; score: -0.547
+
+step: by_contra; score: -0.55
+
+step: push_neg at H; score: -0.618
+
+step: by_contra'; score: -0.639
+
+step: by_contra H; score: -0.67
+
+step: by_contra H2; score: -0.727
+
+step: by_contra' H; score: -0.742
+
+step: by_contra H'; score: -0.746
+
+step: exfalso; score: -0.778
+
+step: by_contra' h; score: -0.78
+
+step: apply H; score: -0.823
+
+step: contrapose H; score: -0.853
+
+Current State:
+TacticState(pp='x y : ℤ\nH : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=110, message='')
+
+
+step: contrapose! H; score: -0.513
+
+step: by_contra H1; score: -0.81
+
+step: contrapose H; score: -0.898
+
+step: by_contra h; score: -0.916
+
+step: by_contra'; score: -0.933
+
+step: revert H; score: -1.043
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=23, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=49, message='')
+
+
+step: contrapose; score: -0.895
+
+Current State:
+TacticState(pp='x y : ℤ\nthis : ¬False ∧ 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=24, message='')
+
+
+step: rcases this with ⟨_, h⟩; score: -0.503
+
+step: rcases this with ⟨-, h⟩; score: -0.557
+
+step: norm_num at this ⊢; score: -0.584
+
+step: contrapose! this; score: -0.6
+
+step: by_contra h; score: -0.681
+
+step: have := this.2; score: -0.773
+
+step: by_contra'; score: -0.791
+
+step: by_contra; score: -0.817
+
+step: have := this.1; score: -0.841
+
+step: by_contra H; score: -0.857
+
+step: cases this; score: -0.94
+
+step: exfalso; score: -1.017
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=87, message='')
+
+
+step: contrapose; score: -0.895
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=38, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=39, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=99, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=40, message='')
+
+
+step: contrapose; score: -0.895
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=113, message='')
+
+
+step: norm_num at H ⊢; score: -0.601
+
+step: by_contra H1; score: -0.741
+
+step: exfalso; score: -0.765
+
+step: norm_num; score: -0.771
+
+step: by_contra h; score: -0.791
+
+step: by_contra H; score: -0.827
+
+step: contrapose!; score: -0.837
+
+step: contrapose H; score: -0.853
+
+step: by_contra'; score: -0.882
+
+step: by_contra; score: -0.897
+
+step: intro H; score: -0.978
+
+step: intro h; score: -0.993
+
+step: convert H; score: -1.039
+
+step: intro; score: -1.352
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ True → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=125, message='')
+
+
+step: by_contra h; score: -0.63
+
+step: intro h
+contradiction; score: -0.643
+
+step: contrapose!; score: -0.679
+
+step: intro h; score: -0.679
+
+step: by_contra; score: -0.756
+
+step: by_contra H; score: -0.783
+
+step: by_contra' h; score: -0.796
+
+step: by_contra'; score: -0.8
+
+step: rintro h; score: -0.856
+
+step: intro _; score: -0.911
+
+step: rintro _; score: -0.953
+
+step: contrapose; score: -0.969
+
+step: intro; score: -0.977
+
+step: intro H; score: -0.981
+
+step: intros; score: -1.01
+
+step: rintro H; score: -1.037
+
+Current State:
+TacticState(pp='x y : ℤ\na✝ : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=25, message='')
+
+
+step: contrapose!; score: -0.585
+
+step: norm_num; score: -0.72
+
+step: by_contra h; score: -0.754
+
+step: intro h; score: -0.757
+
+step: ring_nf; score: -0.774
+
+step: norm_num at *; score: -0.811
+
+step: by_contra H; score: -0.888
+
+step: by_contra'; score: -0.909
+
+step: exfalso; score: -0.939
+
+step: by_contra; score: -0.943
+
+step: contrapose; score: -1.005
+
+step: intro; score: -1.198
+
+step: intro H; score: -1.252
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=51, message='')
+
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=154, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=62, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=76, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=52, message='')
+
+
+step: by_contra'; score: -0.894
+
+step: contrapose h; score: -0.921
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=41, message='')
+
+
+step: contrapose!; score: -0.576
+
+step: by_contra h; score: -0.651
+
+step: intro h; score: -0.685
+
+step: by_contra; score: -0.686
+
+step: by_contra H; score: -0.725
+
+step: by_contra'; score: -0.74
+
+step: contrapose; score: -0.817
+
+step: rintro h; score: -0.894
+
+step: rintro _; score: -0.925
+
+step: intros; score: -1.008
+
+step: intro; score: -1.013
+
+step: intro _; score: -1.111
+
+step: intro H; score: -1.118
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ 4 * x ^ 3 - 7 * y ^ 3 = 2003 → False', id=126, message='')
+
+
+step: ring_nf; score: -0.778
+
+step: by_contra'; score: -0.899
+
+step: by_contra; score: -0.923
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 ≠ 2003 → ¬¬False', id=26, message='')
+
+
+step: rw [not_not]; score: -0.584
+
+step: intro h
+contradiction; score: -0.626
+
+step: by_contra h; score: -0.665
+
+step: by_contra; score: -0.73
+
+step: by_contra H; score: -0.744
+
+step: by_contra'; score: -0.757
+
+step: contrapose; score: -0.825
+
+step: intro h; score: -0.845
+
+step: intros; score: -1.069
+
+step: intro; score: -1.229
+
+Current State:
+TacticState(pp='x y : ℤ\na✝ : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=27, message='')
+
+
+step: contrapose!; score: -0.585
+
+step: norm_num; score: -0.72
+
+step: by_contra h; score: -0.754
+
+step: intro h; score: -0.757
+
+step: ring_nf; score: -0.774
+
+step: norm_num at *; score: -0.811
+
+step: by_contra H; score: -0.888
+
+step: by_contra'; score: -0.909
+
+step: exfalso; score: -0.939
+
+step: by_contra; score: -0.943
+
+step: contrapose; score: -1.005
+
+step: intro; score: -1.198
+
+step: intro H; score: -1.252
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=65, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=79, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=53, message='')
+
+
+step: by_contra H1; score: -0.802
+
+step: by_contra h; score: -0.887
+
+step: by_contra'; score: -0.905
+
+step: contrapose H; score: -0.938
+
+step: clear H; score: -1.307
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬(¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003)\n⊢ False', id=127, message='')
+
+
+step: push_neg at h ⊢; score: -0.366
+
+step: contrapose! h; score: -0.501
+
+step: push_neg at h; score: -0.519
+
+step: by_contra; score: -0.53
+
+step: by_contra'; score: -0.616
+
+step: by_contra h; score: -0.627
+
+step: push_neg at h; score: -0.646
+
+step: by_contra h1; score: -0.647
+
+step: by_contra H; score: -0.649
+
+step: by_contra hn; score: -0.67
+
+step: by_contra h'; score: -0.729
+
+step: push_neg at *; score: -0.747
+
+step: by_contra' h; score: -0.767
+
+step: by_contra' H; score: -0.788
+
+step: by_contra h₁; score: -0.79
+
+step: by_contra h2; score: -0.792
+
+step: apply h; score: -0.801
+
+step: contrapose h; score: -0.814
+
+step: by_contra he; score: -0.856
+
+step: exfalso; score: -0.89
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=28, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: norm_num; score: -0.784
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=54, message='')
+
+
+step: by_contra H1; score: -0.802
+
+step: by_contra h; score: -0.887
+
+step: by_contra'; score: -0.905
+
+step: contrapose H; score: -0.938
+
+step: clear H; score: -1.307
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=66, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=80, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=129, message='')
+
+
+step: norm_num at h ⊢; score: -0.582
+
+step: exfalso; score: -0.718
+
+step: by_contra h; score: -0.785
+
+step: by_contra H; score: -0.805
+
+step: contrapose h; score: -0.81
+
+step: by_contra'; score: -0.825
+
+step: by_contra; score: -0.83
+
+step: contrapose!; score: -0.867
+
+step: intro h; score: -0.922
+
+step: convert h; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\nh1 : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=29, message='')
+
+
+step: contrapose! h1; score: -0.451
+
+step: by_contra h2; score: -0.591
+
+step: contrapose h1; score: -0.745
+
+step: ring_nf; score: -0.777
+
+step: intro h2; score: -0.788
+
+step: norm_num; score: -0.808
+
+step: convert h1; score: -0.827
+
+step: by_contra h; score: -0.837
+
+step: exfalso; score: -0.838
+
+step: contrapose!; score: -0.862
+
+step: by_contra H; score: -0.884
+
+step: by_contra; score: -0.934
+
+step: intro h; score: -0.943
+
+step: intro; score: -1.388
+
+Current State:
+TacticState(pp='x y : ℤ\na✝ : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=30, message='')
+
+
+step: contrapose!; score: -0.585
+
+step: norm_num; score: -0.72
+
+step: by_contra h; score: -0.754
+
+step: intro h; score: -0.757
+
+step: ring_nf; score: -0.774
+
+step: norm_num at *; score: -0.811
+
+step: by_contra H; score: -0.888
+
+step: by_contra'; score: -0.909
+
+step: exfalso; score: -0.939
+
+step: by_contra; score: -0.943
+
+step: contrapose; score: -1.005
+
+step: intro; score: -1.198
+
+step: intro H; score: -1.252
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=101, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=157, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nhf : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=31, message='')
+
+
+step: contrapose! hf; score: -0.468
+
+step: norm_num at hf ⊢; score: -0.549
+
+step: by_contra h; score: -0.699
+
+step: contrapose hf; score: -0.768
+
+step: convert hf; score: -0.784
+
+step: norm_num; score: -0.785
+
+step: ring_nf; score: -0.792
+
+step: exfalso; score: -0.853
+
+step: by_contra H; score: -0.856
+
+step: contrapose!; score: -0.881
+
+step: intro h; score: -0.881
+
+step: by_contra'; score: -0.885
+
+step: by_contra; score: -0.936
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False ∧ 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=252, message='')
+
+
+step: rcases h with ⟨h₁, h₂⟩; score: -0.496
+
+step: rcases h with ⟨_, h⟩; score: -0.508
+
+step: contrapose! h; score: -0.589
+
+step: by_contra'; score: -0.793
+
+step: have := h.2; score: -0.842
+
+step: have := h.1; score: -0.845
+
+step: by_contra; score: -0.854
+
+step: by_contra h; score: -0.867
+
+step: by_contra H; score: -0.886
+
+step: cases h; score: -0.993
+
+step: exfalso; score: -1.048
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=89, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=90, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nx✝ : ¬(¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003)\n⊢ False', id=130, message='')
+
+
+step: by_contra h; score: -0.547
+
+step: by_contra; score: -0.594
+
+step: by_contra'; score: -0.607
+
+step: push_neg at *; score: -0.617
+
+step: by_contra' h; score: -0.699
+
+step: by_contra H; score: -0.722
+
+step: exfalso; score: -0.756
+
+step: by_contra' H; score: -0.757
+
+step: cases x; score: -1.13
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=32, message='')
+
+
+step: norm_num at H ⊢; score: -0.601
+
+step: by_contra H1; score: -0.741
+
+step: exfalso; score: -0.765
+
+step: norm_num; score: -0.771
+
+step: by_contra h; score: -0.791
+
+step: by_contra H; score: -0.827
+
+step: contrapose!; score: -0.837
+
+step: contrapose H; score: -0.853
+
+step: by_contra'; score: -0.882
+
+step: by_contra; score: -0.897
+
+step: intro H; score: -0.978
+
+step: intro h; score: -0.993
+
+step: convert H; score: -1.039
+
+step: intro; score: -1.352
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=104, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose!; score: -0.838
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=91, message='')
+
+
+Current State:
+TacticState(pp='x y : ℤ\nH : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=115, message='')
+
+
+step: contrapose! H; score: -0.513
+
+step: by_contra H1; score: -0.81
+
+step: contrapose H; score: -0.898
+
+step: by_contra h; score: -0.916
+
+step: by_contra'; score: -0.933
+
+step: revert H; score: -1.043
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬(True → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\n⊢ False', id=253, message='')
+
+
+step: by_cases h' : 4 * x ^ 3 - 7 * y ^ 3 = 2003; score: -0.233
+
+step: push_neg at h ⊢; score: -0.399
+
+step: simp only [not_imp] at h ⊢; score: -0.477
+
+step: contrapose! h; score: -0.517
+
+step: push_neg at h; score: -0.558
+
+step: rw [not_imp] at h; score: -0.563
+
+step: by_contra; score: -0.568
+
+step: by_contra'; score: -0.648
+
+step: by_contra h; score: -0.649
+
+step: by_contra H; score: -0.676
+
+step: push_neg at h; score: -0.683
+
+step: by_contra h1; score: -0.685
+
+step: by_contra hn; score: -0.696
+
+step: by_contra h'; score: -0.753
+
+step: by_contra' h; score: -0.786
+
+step: by_contra' H; score: -0.807
+
+step: contrapose h; score: -0.835
+
+step: exfalso; score: -0.873
+
+step: apply h; score: -1.002
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=55, message='')
+
+
+step: by_contra H; score: -0.718
+
+step: contrapose; score: -0.859
+
+step: rintro _; score: -0.982
+
+step: intro; score: -0.992
+
+step: intros; score: -1.002
+
+step: intro H; score: -1.066
+
+step: intro _; score: -1.13
+
+Current State:
+TacticState(pp='x y : ℤ\nH : ¬(¬False → ¬4 * x ^ 3 - 7 * y ^ 3 = 2003)\n⊢ False', id=131, message='')
+
+
+step: push_neg at H ⊢; score: -0.408
+
+step: by_contra H1; score: -0.506
+
+step: contrapose! H; score: -0.517
+
+step: by_contra; score: -0.548
+
+step: by_contra h; score: -0.549
+
+step: by_contra'; score: -0.631
+
+step: push_neg at H; score: -0.651
+
+step: by_contra H; score: -0.666
+
+step: by_contra H2; score: -0.721
+
+step: by_contra H'; score: -0.741
+
+step: by_contra' H; score: -0.744
+
+step: push_neg at *; score: -0.759
+
+step: by_contra H0; score: -0.793
+
+step: apply H; score: -0.801
+
+step: exfalso; score: -0.804
+
+step: contrapose H; score: -0.834
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=146, message='')
+
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nthis : ¬False\n⊢ False', id=67, message='')
+
+
+step: ring_nf at h ⊢; score: -0.543
+
+step: norm_num at this ⊢; score: -0.595
+
+step: norm_num at *; score: -0.652
+
+step: ring_nf at *; score: -0.696
+
+step: exfalso; score: -0.753
+
+step: contrapose! h; score: -0.759
+
+step: by_contra'; score: -0.816
+
+step: by_contra h; score: -0.831
+
+step: by_contra; score: -0.84
+
+step: by_contra H; score: -0.889
+
+step: revert this; score: -0.994
+
+step: convert h; score: -1.116
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nthis : ¬False\n⊢ False', id=81, message='')
+
+
+step: ring_nf at h ⊢; score: -0.543
+
+step: norm_num at this ⊢; score: -0.595
+
+step: norm_num at *; score: -0.652
+
+step: ring_nf at *; score: -0.696
+
+step: exfalso; score: -0.753
+
+step: contrapose! h; score: -0.759
+
+step: by_contra'; score: -0.816
+
+step: by_contra h; score: -0.831
+
+step: by_contra; score: -0.84
+
+step: by_contra H; score: -0.889
+
+step: revert this; score: -0.994
+
+step: convert h; score: -1.116
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=105, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=69, message='')
+
+
+step: norm_num at h ⊢; score: -0.582
+
+step: exfalso; score: -0.718
+
+step: by_contra h; score: -0.785
+
+step: by_contra H; score: -0.805
+
+step: contrapose h; score: -0.81
+
+step: by_contra'; score: -0.825
+
+step: by_contra; score: -0.83
+
+step: contrapose!; score: -0.867
+
+step: intro h; score: -0.922
+
+step: convert h; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=83, message='')
+
+
+step: norm_num at h ⊢; score: -0.582
+
+step: exfalso; score: -0.718
+
+step: by_contra h; score: -0.785
+
+step: by_contra H; score: -0.805
+
+step: contrapose h; score: -0.81
+
+step: by_contra'; score: -0.825
+
+step: by_contra; score: -0.83
+
+step: contrapose!; score: -0.867
+
+step: intro h; score: -0.922
+
+step: convert h; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\na✝ : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=33, message='')
+
+
+step: contrapose!; score: -0.585
+
+step: norm_num; score: -0.72
+
+step: by_contra h; score: -0.754
+
+step: intro h; score: -0.757
+
+step: ring_nf; score: -0.774
+
+step: norm_num at *; score: -0.811
+
+step: by_contra H; score: -0.888
+
+step: by_contra'; score: -0.909
+
+step: exfalso; score: -0.939
+
+step: by_contra; score: -0.943
+
+step: contrapose; score: -1.005
+
+step: intro; score: -1.198
+
+step: intro H; score: -1.252
+
+Current State:
+TacticState(pp='x y : ℤ\nthis : ¬False ∧ 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=132, message='')
+
+
+step: rcases this with ⟨_, h⟩; score: -0.503
+
+step: rcases this with ⟨-, h⟩; score: -0.557
+
+step: norm_num at this ⊢; score: -0.584
+
+step: contrapose! this; score: -0.6
+
+step: by_contra h; score: -0.681
+
+step: have := this.2; score: -0.773
+
+step: by_contra'; score: -0.791
+
+step: by_contra; score: -0.817
+
+step: have := this.1; score: -0.841
+
+step: by_contra H; score: -0.857
+
+step: cases this; score: -0.94
+
+step: exfalso; score: -1.017
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → ¬x ^ 3 * 4 - y ^ 3 * 7 = 2003', id=92, message='')
+
+
+step: contrapose!; score: -0.576
+
+step: by_contra h; score: -0.651
+
+step: intro h; score: -0.685
+
+step: by_contra; score: -0.686
+
+step: by_contra H; score: -0.725
+
+step: by_contra'; score: -0.74
+
+step: contrapose; score: -0.817
+
+step: rintro h; score: -0.894
+
+step: rintro _; score: -0.925
+
+step: intros; score: -1.008
+
+step: intro; score: -1.013
+
+step: intro _; score: -1.111
+
+step: intro H; score: -1.118
+
+Current State:
+TacticState(pp='x y : ℤ\nH : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nH1 : ¬False\n⊢ False', id=116, message='')
+
+
+step: ring_nf at H ⊢; score: -0.478
+
+step: norm_num at H1 ⊢; score: -0.592
+
+step: ring_nf at *; score: -0.636
+
+step: norm_num at *; score: -0.693
+
+step: by_contra H2; score: -0.726
+
+step: contrapose! H; score: -0.77
+
+step: exfalso; score: -0.77
+
+step: revert H1; score: -0.845
+
+step: by_contra'; score: -0.883
+
+step: by_contra; score: -0.924
+
+Current State:
+TacticState(pp='x y : ℤ\nh : True\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=175, message='')
+
+
+step: contrapose! h; score: -0.45
+
+step: norm_num at h ⊢; score: -0.653
+
+step: ring_nf; score: -0.757
+
+step: contrapose!; score: -0.771
+
+step: norm_num; score: -0.797
+
+step: contrapose h; score: -0.823
+
+step: by_contra H; score: -0.847
+
+step: by_contra h; score: -0.872
+
+step: intro h; score: -0.896
+
+step: by_contra'; score: -0.907
+
+step: by_contra; score: -0.927
+
+step: exfalso; score: -0.967
+
+step: cases h; score: -1.083
+
+step: contrapose; score: -1.085
+
+step: intro; score: -1.263
+
+step: intro H; score: -1.264
+
+Current State:
+TacticState(pp='x y : ℤ\nh : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=159, message='')
+
+
+step: contrapose! h; score: -0.535
+
+step: contrapose! h with h; score: -0.772
+
+step: have := h.symm; score: -0.863
+
+step: contrapose h; score: -0.877
+
+step: by_contra'; score: -0.926
+
+Current State:
+TacticState(pp='x y : ℤ\nH : x ^ 3 * 4 - y ^ 3 * 7 = 2003\n⊢ False', id=313, message='')
+
+
+step: contrapose! H; score: -0.513
+
+step: by_contra H1; score: -0.81
+
+step: contrapose H; score: -0.898
+
+step: by_contra h; score: -0.916
+
+step: by_contra'; score: -0.933
+
+step: revert H; score: -1.043
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False ∧ 4 * x ^ 3 - 7 * y ^ 3 = 2003\n⊢ False', id=254, message='')
+
+
+step: rcases h with ⟨h₁, h₂⟩; score: -0.496
+
+step: rcases h with ⟨_, h⟩; score: -0.508
+
+step: contrapose! h; score: -0.589
+
+step: by_contra'; score: -0.793
+
+step: have := h.2; score: -0.842
+
+step: have := h.1; score: -0.845
+
+step: by_contra; score: -0.854
+
+step: by_contra h; score: -0.867
+
+step: by_contra H; score: -0.886
+
+step: cases h; score: -0.993
+
+step: exfalso; score: -1.048
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ ¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=255, message='')
+
+
+step: rw [not_false_iff]; score: -0.558
+
+step: by_contra h; score: -0.753
+
+step: by_contra; score: -0.759
+
+step: by_contra H; score: -0.77
+
+step: intro h; score: -0.774
+
+step: by_contra'; score: -0.777
+
+step: intro h'; score: -0.805
+
+step: contrapose!; score: -0.81
+
+step: intros; score: -0.903
+
+step: rintro h; score: -0.904
+
+step: intro h1; score: -0.937
+
+step: intro; score: -0.938
+
+step: intro hf; score: -0.941
+
+step: intro hn; score: -0.964
+
+step: intro h₁; score: -1.018
+
+step: intro H; score: -1.026
+
+Current State:
+TacticState(pp='case h.h\nx y : ℤ\n⊢ False', id=168, message='')
+
+
+step: exfalso; score: -0.563
+
+step: by_contra h; score: -0.823
+
+step: cases x; score: -0.96
+
+step: by_contra; score: -1.071
+
+Current State:
+TacticState(pp='case h\nx y : ℤ\n⊢ False', id=43, message='')
+
+
+step: by_contra h; score: -0.779
+
+step: cases x; score: -0.961
+
+step: by_contra; score: -1.048
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬False → x ^ 3 * 4 - y ^ 3 * 7 ≠ 2003', id=194, message='')
+
+
+step: contrapose!; score: -0.63
+
+step: intro h; score: -0.659
+
+step: by_contra h; score: -0.662
+
+step: by_contra; score: -0.728
+
+step: by_contra H; score: -0.779
+
+step: by_contra'; score: -0.794
+
+step: rintro h; score: -0.818
+
+step: rintro _; score: -0.884
+
+step: contrapose; score: -0.908
+
+step: intro; score: -0.929
+
+step: intros h; score: -0.974
+
+step: intros; score: -0.992
+
+step: intro h1; score: -0.997
+
+step: intro hf; score: -1.026
+
+step: intro H; score: -1.072
+
+step: intro _; score: -1.097
+
+Current State:
+TacticState(pp='case h\nx y : ℤ\n⊢ False', id=56, message='')
+
+
+step: by_contra h; score: -0.779
+
+step: cases x; score: -0.961
+
+step: by_contra; score: -1.048
+
+Current State:
+TacticState(pp='x y : ℤ\nh : 4 * x ^ 3 - 7 * y ^ 3 = 2003\nthis : ¬False\n⊢ False', id=106, message='')
+
+
+step: ring_nf at h ⊢; score: -0.543
+
+step: norm_num at this ⊢; score: -0.595
+
+step: norm_num at *; score: -0.652
+
+step: ring_nf at *; score: -0.696
+
+step: exfalso; score: -0.753
+
+step: contrapose! h; score: -0.759
+
+step: by_contra'; score: -0.816
+
+step: by_contra h; score: -0.831
+
+step: by_contra; score: -0.84
+
+step: by_contra H; score: -0.889
+
+step: revert this; score: -0.994
+
+step: convert h; score: -1.116
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬(¬False → 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003)\nx✝ : ¬False\n⊢ False', id=256, message='')
+
+
+step: push_neg at h ⊢; score: -0.45
+
+step: by_contra; score: -0.6
+
+step: apply h; score: -0.616
+
+step: exfalso; score: -0.619
+
+step: by_contra h; score: -0.66
+
+step: by_contra'; score: -0.677
+
+step: push_neg at h; score: -0.679
+
+step: contrapose! h; score: -0.685
+
+step: by_contra h1; score: -0.722
+
+step: by_contra h₁; score: -0.752
+
+step: by_contra hx; score: -0.763
+
+step: by_contra H; score: -0.776
+
+step: by_contra hn; score: -0.78
+
+step: push_neg at *; score: -0.789
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003', id=162, message='')
+
+
+step: norm_num at h ⊢; score: -0.61
+
+step: ring_nf; score: -0.786
+
+step: by_contra H; score: -0.834
+
+step: exfalso; score: -0.835
+
+step: contrapose h; score: -0.841
+
+step: by_contra h; score: -0.841
+
+step: by_contra'; score: -0.892
+
+step: intro h; score: -0.908
+
+step: by_contra; score: -0.911
+
+step: convert h; score: -0.958
+
+step: intro; score: -1.371
+
+Current State:
+TacticState(pp='x y : ℤ\nh : ¬False\n⊢ ¬4 * x ^ 3 - 7 * y ^ 3 = 2003', id=108, message='')
+
+
+step: norm_num at h ⊢; score: -0.582
+
+step: exfalso; score: -0.718
+
+step: by_contra h; score: -0.785
+
+step: by_contra H; score: -0.805
+
+step: contrapose h; score: -0.81
+
+step: by_contra'; score: -0.825
+
+step: by_contra; score: -0.83
+
+step: intro h; score: -0.922
+
+step: convert h; score: -0.992
+
+Current State:
+TacticState(pp='x y : ℤ\n⊢ ¬¬4 * x ^ 3 - 7 * y ^ 3 = 2003 → ¬¬False', id=133, message='')
+
+
+step: simp only [not_false_iff]; score: -0.538
+
+step: rw [not_not]; score: -0.616
+
+step: by_contra h; score: -0.624
+
+step: by_contra H; score: -0.663
+
+step: by_contra; score: -0.696
+
+step: by_contra'; score: -0.708
+
+step: contrapose; score: -0.768
+
+step: by_contra' h; score: -0.797
+
+step: intro h; score: -0.861
+
+step: intros h; score: -1.029
+
+step: intros; score: -1.048
+
+step: rintro h; score: -1.057
+
+step: intro H; score: -1.265
+
+step: intro; score: -1.28
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'numbertheory_4x3m7y3neq2003'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Test.lean',
+                   'full_name': 'numbertheory_4x3m7y3neq2003',
+                   'informal_proof': 'We have that $2003 = 1 + 7 \\times 286$. '
+                                     'So $4x^3 - 7y^3 = 2003 \\iff '
+                                     '4x^3-1=7(y^3+286)$.\n'
+                                     'We also observe that for every integer '
+                                     '$x$, the rest of the division of $x^3$ '
+                                     'by $7$ is $0$, $1$, or $6$. So the rest '
+                                     'of the division of $4x^3-1$ by $7$ is '
+                                     '$6$, $3$, or $2$.\n'
+                                     'As a result, $7$ does not divide '
+                                     '$4x^3-1$, but since $7(y^3+286)$ is '
+                                     'divisible by $7$, the equation cannot '
+                                     'have integers solutions.',
+                   'informal_stmt': 'Show that there are no integers $x$ and '
+                                    '$y$ such that $4x^3 - 7y^3 = 2003$.',
+                   'split': 'test',
+                   'statement': 'theorem numbertheory_4x3m7y3neq2003 (x y : ℤ) '
+                                ': 4 * x ^ 3 - 7 * y ^ 3 ≠ 2003',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ Real.log ↑w / Real.log ↑z = 60', id=0, message=None)
+
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.373
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.404
+
+step: field_simp [h0, h1, h2] at hw ⊢; score: -0.409
+
+step: field_simp [h0, h1, h2] at *; score: -0.438
+
+step: refine' le_antisymm _ _; score: -0.513
+
+step: by_cases hz : z = 0; score: -0.604
+
+step: by_cases hz : z = 1; score: -0.614
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=1, message='')
+
+
+step: field_simp [h1, h2, h3] at *; score: -0.456
+
+step: by_cases hz : z = 1; score: -0.555
+
+step: by_cases hx : x = 1; score: -0.636
+
+step: apply le_antisymm; score: -0.805
+
+step: ring_nf; score: -0.828
+
+step: ring; score: -1.319
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=2, message='')
+
+
+step: field_simp [h0, h1, h2] at hw ⊢; score: -0.392
+
+step: field_simp [hx, hy, hz] at *; score: -0.424
+
+step: field_simp [h0, h1, h2] at *; score: -0.443
+
+step: refine' le_antisymm ?_ ?_; score: -0.513
+
+step: refine' le_antisymm _ _; score: -0.535
+
+step: field_simp at *; score: -0.787
+
+step: apply le_antisymm; score: -0.827
+
+step: ring_nf; score: -0.829
+
+step: ring; score: -1.3
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=3, message='')
+
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.368
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.375
+
+step: field_simp [h0, h1, h2] at *; score: -0.499
+
+step: refine' le_antisymm _ _; score: -0.526
+
+step: by_cases hz : z = 0; score: -0.595
+
+step: by_cases hz : z = 1; score: -0.608
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=4, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.344
+
+step: rcases ht with ⟨h0, ⟨h1, h2⟩⟩; score: -0.369
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.39
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.405
+
+step: rcases ht with ⟨hx0, hy0, hz0⟩; score: -0.409
+
+step: refine' div_eq_of_eq_mul _ _; score: -0.547
+
+step: rw [div_eq_mul_inv]; score: -0.547
+
+step: apply div_eq_of_eq_mul; score: -0.584
+
+step: by_cases hz : z = 0; score: -0.612
+
+step: by_cases hz : z = 1; score: -0.675
+
+step: rw [div_eq_iff]; score: -0.725
+
+step: apply le_antisymm; score: -0.753
+
+Current State:
+TacticState(pp="case refine'_1\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=5, message='')
+
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.354
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.367
+
+step: rcases ht with ⟨h1x, h1y, h1z⟩; score: -0.367
+
+step: rcases ht with ⟨h1x, ⟨h1y, h1z⟩⟩; score: -0.371
+
+step: rcases ht with ⟨hx0, hy0, hz0⟩; score: -0.414
+
+step: rcases ht with ⟨h1, h2, h3⟩; score: -0.426
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=6, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.27
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.319
+
+step: by_cases hz : z = 0; score: -0.362
+
+step: rcases ht with ⟨htx, hty, htz⟩; score: -0.382
+
+step: by_cases z = 0; score: -0.409
+
+step: by_cases h : z = 0; score: -0.567
+
+step: by_cases (z = 0); score: -0.568
+
+step: cases' hz with hz hz; score: -0.572
+
+step: cases hz; score: -0.606
+
+step: cases ht.2.2; score: -0.661
+
+step: rw [hz]; score: -0.797
+
+step: sorry; score: -1.038
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=7, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.289
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.333
+
+step: by_cases hz : z = 1; score: -0.335
+
+step: by_cases z = 1; score: -0.421
+
+step: rcases hz with (rfl | hz); score: -0.447
+
+step: cases' hz with hz hz; score: -0.514
+
+step: by_cases h : z = 1; score: -0.552
+
+step: rcases hz with hz | hz; score: -0.559
+
+step: by_cases (z = 1); score: -0.568
+
+step: cases hz; score: -0.584
+
+step: rw [hz]; score: -0.728
+
+step: cases' hz; score: -0.871
+
+step: sorry; score: -1.032
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=24, message='')
+
+
+step: field_simp [h1, h2, h3] at *; score: -0.461
+
+step: by_cases hz : z = 1; score: -0.538
+
+step: rw [div_eq_iff] at h0 ⊢; score: -0.577
+
+step: by_cases hx : x = 1; score: -0.625
+
+step: by_cases hw : w = 0; score: -0.654
+
+step: norm_num at *; score: -0.779
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw h0 h1 h2 : True\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=31, message='')
+
+
+step: refine' le_antisymm ?_ ?_; score: -0.49
+
+step: rw [div_eq_mul_inv]; score: -0.53
+
+step: refine' le_antisymm _ _; score: -0.535
+
+step: refine' div_eq_of_eq_mul _ _; score: -0.588
+
+step: apply div_eq_of_eq_mul; score: -0.644
+
+step: rw [div_eq_iff]; score: -0.715
+
+step: apply le_antisymm; score: -0.727
+
+step: ring_nf; score: -0.743
+
+step: norm_num at *; score: -0.843
+
+step: ring; score: -1.289
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=25, message='')
+
+
+step: field_simp [hx, hy, hz] at *; score: -0.424
+
+step: field_simp [h0, h1, h2] at *; score: -0.5
+
+step: by_cases hz' : z = 1; score: -0.574
+
+step: norm_num at *; score: -0.783
+
+step: ring; score: -1.338
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\nhw : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=15, message='')
+
+
+step: field_simp [hx, hy, hz, hw] at *; score: -0.431
+
+step: field_simp [hx, hy, hz] at *; score: -0.433
+
+step: field_simp [h0, h1, h2] at *; score: -0.472
+
+step: by_cases hx0 : x = 0; score: -0.572
+
+step: by_cases hx0 : x = 1; score: -0.617
+
+step: ring_nf; score: -0.826
+
+step: ring; score: -1.288
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw h0✝ h1✝ h2✝ : True\nh0 : 1 < x\nh1 : 1 < y\nh2 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=32, message='')
+
+
+step: refine' le_antisymm ?_ ?_; score: -0.507
+
+step: rw [div_eq_mul_inv]; score: -0.511
+
+step: refine' le_antisymm _ _; score: -0.55
+
+step: by_cases hz : z = 1; score: -0.62
+
+step: apply div_eq_of_eq_mul; score: -0.622
+
+step: by_cases hz : z = 0; score: -0.628
+
+step: ring_nf; score: -0.699
+
+step: rw [div_eq_iff]; score: -0.705
+
+step: apply le_antisymm; score: -0.749
+
+step: norm_num at *; score: -0.79
+
+step: ring; score: -1.223
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw hx hy hz : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=16, message='')
+
+
+step: field_simp [h0, h1, h2] at *; score: -0.417
+
+step: by_cases hx0 : x = 0; score: -0.544
+
+step: by_cases hz : z = 0; score: -0.571
+
+step: by_cases hz : z = 1; score: -0.657
+
+step: ring_nf; score: -0.777
+
+step: ring; score: -1.216
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw h0 h1✝ h2✝ : True\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=33, message='')
+
+
+step: refine' le_antisymm ?_ ?_; score: -0.501
+
+step: rw [div_eq_mul_inv]; score: -0.521
+
+step: refine' le_antisymm _ _; score: -0.548
+
+step: by_cases hz : z = 1; score: -0.584
+
+step: apply div_eq_of_eq_mul; score: -0.62
+
+step: by_cases hz : z = 0; score: -0.621
+
+step: rw [div_eq_iff]; score: -0.695
+
+step: ring_nf; score: -0.722
+
+step: apply le_antisymm; score: -0.765
+
+step: norm_num at *; score: -0.806
+
+step: ring; score: -1.265
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw h1 h2 h3 : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=8, message='')
+
+
+step: simp only [h0, h1, h2, h3] at *; score: -0.486
+
+step: refine' le_antisymm ?_ ?_; score: -0.52
+
+step: by_cases hz : z = 0; score: -0.551
+
+step: refine' le_antisymm _ _; score: -0.568
+
+step: by_cases hx : x = 0; score: -0.608
+
+step: by_cases hz : z = 1; score: -0.617
+
+step: apply div_eq_of_eq_mul; score: -0.733
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw h0✝ h1✝ h2✝ : True\nh0 : 1 < x\nh1 : 1 < y\nh2 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=34, message='')
+
+
+step: refine' le_antisymm ?_ ?_; score: -0.507
+
+step: rw [div_eq_mul_inv]; score: -0.511
+
+step: refine' le_antisymm _ _; score: -0.55
+
+step: by_cases hz : z = 1; score: -0.62
+
+step: apply div_eq_of_eq_mul; score: -0.622
+
+step: by_cases hz : z = 0; score: -0.628
+
+step: ring_nf; score: -0.699
+
+step: rw [div_eq_iff]; score: -0.705
+
+step: apply le_antisymm; score: -0.749
+
+step: norm_num at *; score: -0.79
+
+step: ring; score: -1.223
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=17, message='')
+
+
+step: refine' le_antisymm ?_ ?_; score: -0.492
+
+step: rw [div_eq_mul_inv]; score: -0.534
+
+step: refine' le_antisymm _ _; score: -0.543
+
+step: simp only [div_eq_mul_inv]; score: -0.562
+
+step: apply div_eq_of_eq_mul; score: -0.611
+
+step: rw [div_eq_iff]; score: -0.673
+
+step: ring_nf; score: -0.721
+
+step: ring; score: -1.262
+
+Current State:
+TacticState(pp='case intro.intro\nx y z w : ℕ\nhw h0 h1 h2 : True\nhx0 : 1 < x\nhy0 : 1 < y\nhz0 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60', id=35, message='')
+
+
+step: field_simp [hx0, hy0, hz0] at *; score: -0.465
+
+step: refine' le_antisymm ?_ ?_; score: -0.501
+
+step: rw [div_eq_mul_inv]; score: -0.518
+
+step: refine' le_antisymm _ _; score: -0.544
+
+step: by_cases hz : z = 1; score: -0.589
+
+step: by_cases hz : z = 0; score: -0.623
+
+step: apply div_eq_of_eq_mul; score: -0.634
+
+step: rw [div_eq_iff]; score: -0.69
+
+step: apply le_antisymm; score: -0.728
+
+step: ring_nf; score: -0.742
+
+step: ring; score: -1.27
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=44, message='')
+
+
+step: apply le_of_lt; score: -0.871
+
+step: exfalso; score: -1.284
+
+Current State:
+TacticState(pp='case pos.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 0\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=51, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.197
+
+step: by_cases hz : z = 0; score: -0.441
+
+step: by_cases h : z = 0; score: -0.519
+
+step: by_cases hw : w = 0; score: -0.575
+
+step: by_cases z = 0; score: -0.642
+
+step: cases hz; score: -0.913
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=45, message='')
+
+
+step: apply le_of_lt; score: -0.887
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1x : 1 < x\nh1y : 1 < y\nh1z : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=46, message='')
+
+
+step: apply le_of_lt; score: -0.848
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1x : 1 < x\nh1y : 1 < y\nh1z : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=47, message='')
+
+
+step: apply le_of_lt; score: -0.848
+
+Current State:
+TacticState(pp='case pos.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 1\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=63, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.286
+
+step: by_cases hz : z = 1; score: -0.372
+
+step: by_cases h : z = 1; score: -0.519
+
+step: by_cases z = 1; score: -0.569
+
+step: by_cases (z = 1); score: -0.604
+
+step: cases hz; score: -0.807
+
+step: sorry; score: -1.116
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w / Real.log ↑z = 60', id=26, message='')
+
+
+step: refine' div_eq_of_eq_mul _ _; score: -0.547
+
+step: rw [div_eq_mul_inv]; score: -0.547
+
+step: apply div_eq_of_eq_mul; score: -0.584
+
+step: by_cases hz : z = 0; score: -0.612
+
+step: by_cases hz : z = 1; score: -0.675
+
+step: rw [div_eq_iff]; score: -0.725
+
+step: apply le_antisymm; score: -0.753
+
+Current State:
+TacticState(pp="case intro.intro.refine'_1\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase intro.intro.refine'_2\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=18, message='')
+
+
+step: norm_num at *; score: -0.851
+
+step: apply le_of_lt; score: -0.86
+
+step: apply le_of_eq; score: -0.885
+
+step: sorry; score: -0.963
+
+Current State:
+TacticState(pp='case pos.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=52, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.217
+
+step: by_cases hz : z = 0; score: -0.46
+
+step: by_cases h : z = 0; score: -0.538
+
+step: by_cases z = 0; score: -0.607
+
+step: rw [hz]; score: -0.849
+
+step: cases hz; score: -0.882
+
+step: sorry; score: -1.115
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx0 : 1 < x\nhy0 : 1 < y\nhz0 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=48, message='')
+
+
+step: apply le_of_lt; score: -0.851
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nhz : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=10, message='')
+
+
+step: by_cases hz : z = 1; score: -0.334
+
+step: rcases hz with (rfl | hz); score: -0.366
+
+step: by_cases z = 1; score: -0.404
+
+step: rcases hz with hz | hz; score: -0.467
+
+step: rcases h3 with (rfl | hz); score: -0.496
+
+step: rcases hz with (hz | hz); score: -0.502
+
+step: rcases hz with rfl | hz; score: -0.504
+
+step: by_cases (z = 1); score: -0.521
+
+step: cases' hz with hz hz; score: -0.525
+
+step: rcases hz with (_ | hz); score: -0.544
+
+step: by_cases h : z = 1; score: -0.558
+
+step: cases hz; score: -0.586
+
+step: rw [hz]; score: -0.696
+
+step: cases' hz; score: -0.858
+
+step: sorry; score: -0.934
+
+step: cases z; score: -1.094
+
+Current State:
+TacticState(pp="case refine'_1\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=27, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.357
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.361
+
+step: rcases ht with ⟨h1x, ⟨h1y, h1z⟩⟩; score: -0.374
+
+step: rcases ht with ⟨h1x, h1y, h1z⟩; score: -0.381
+
+step: rcases ht with ⟨hx0, hy0, hz0⟩; score: -0.427
+
+step: rcases ht with ⟨h1, h2, h3⟩; score: -0.438
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.464
+
+step: by_cases hz : z = 1; score: -0.699
+
+step: apply le_of_lt; score: -0.808
+
+Current State:
+TacticState(pp="case intro.intro.refine'_1\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase intro.intro.refine'_2\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=19, message='')
+
+
+step: norm_num at *; score: -0.851
+
+step: apply le_of_lt; score: -0.86
+
+step: apply le_of_eq; score: -0.885
+
+step: sorry; score: -0.963
+
+Current State:
+TacticState(pp="case refine'_1.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z", id=49, message='')
+
+
+step: apply le_of_lt; score: -0.871
+
+step: exfalso; score: -1.284
+
+Current State:
+TacticState(pp='case pos.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 1\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=64, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.284
+
+step: by_cases hz : z = 1; score: -0.416
+
+step: by_cases h : z = 1; score: -0.553
+
+step: by_cases z = 1; score: -0.569
+
+step: by_cases (z = 1); score: -0.591
+
+step: cases hz; score: -0.764
+
+step: rw [hz]; score: -0.809
+
+step: sorry; score: -1.074
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ hz : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 1\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=65, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.321
+
+step: rcases hz with (rfl | hz); score: -0.384
+
+step: by_cases hz : z = 1; score: -0.39
+
+step: by_cases z = 1; score: -0.45
+
+step: rcases hz with (hz | hz); score: -0.451
+
+step: rcases hz with hz | hz; score: -0.493
+
+step: cases' hz with hz hz; score: -0.498
+
+step: by_cases (z = 1); score: -0.543
+
+step: cases hz; score: -0.708
+
+step: rw [hz]; score: -0.817
+
+step: sorry; score: -0.84
+
+step: cases' hz; score: -0.883
+
+step: cases z; score: -1.031
+
+step: exfalso; score: -1.129
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ hz : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 0\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=53, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.308
+
+step: rcases hz with (rfl | hz); score: -0.418
+
+step: by_cases hz : z = 0; score: -0.422
+
+step: rcases hz with (hz | hz); score: -0.455
+
+step: by_cases z = 0; score: -0.482
+
+step: cases' hz with hz hz; score: -0.496
+
+step: rcases hz with hz | hz; score: -0.509
+
+step: rcases hz with (_ | hz); score: -0.535
+
+step: by_cases (z = 0); score: -0.576
+
+step: cases hz; score: -0.696
+
+step: sorry; score: -0.873
+
+step: cases' hz; score: -0.912
+
+step: exfalso; score: -1.14
+
+step: cases z; score: -1.156
+
+Current State:
+TacticState(pp="case refine'_1\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑z ≠ 0\n\ncase refine'_2\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w = 60 * Real.log ↑z", id=36, message='')
+
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.369
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.373
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.444
+
+step: by_cases hz : z = 1; score: -0.617
+
+step: by_cases hz : z = 0; score: -0.626
+
+step: apply Real.log_ne_zero.2; score: -0.63
+
+step: rw [Real.log_ne_zero]; score: -0.644
+
+step: norm_num; score: -0.94
+
+step: sorry; score: -0.942
+
+step: intro h; score: -1.146
+
+step: intro; score: -1.584
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w * (Real.log ↑z)⁻¹ = 60', id=37, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.382
+
+step: rcases ht with ⟨h0, ⟨h1, h2⟩⟩; score: -0.394
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.447
+
+step: have hx : 1 < x := ht.1; score: -0.673
+
+step: have hx : 1 < x := ht.left; score: -0.699
+
+Current State:
+TacticState(pp='case pos.intro.intro\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nhtx : 1 < x\nhty : 1 < y\nhtz : 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=54, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.18
+
+step: by_cases (1 < x ∧ 1 < y ∧ 1 < z); score: -0.311
+
+step: by_cases h : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.324
+
+step: by_cases h : z = 0; score: -0.481
+
+step: by_cases x * y * z = 0; score: -0.537
+
+step: by_cases hz : z = 0; score: -0.541
+
+step: by_cases h : 1 < z; score: -0.553
+
+step: by_cases z = 0; score: -0.613
+
+step: by_cases (1 < z); score: -0.656
+
+step: by_cases 1 < z; score: -0.71
+
+step: sorry; score: -1.131
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nhz : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=28, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.297
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.337
+
+step: by_cases hz : z = 0; score: -0.376
+
+step: by_cases z = 0; score: -0.383
+
+step: rcases hz with (rfl | hz); score: -0.479
+
+step: by_cases (z = 0); score: -0.546
+
+step: by_cases h : z = 0; score: -0.593
+
+step: cases' hz with hz hz; score: -0.625
+
+step: cases hz; score: -0.653
+
+step: cases ht.2.2; score: -0.672
+
+step: rw [hz]; score: -0.771
+
+step: sorry; score: -0.986
+
+step: cases z; score: -1.075
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nhx : x = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nhx : ¬x = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=11, message='')
+
+
+step: by_cases hx : x = 1; score: -0.317
+
+step: rcases hx with (rfl | hx); score: -0.378
+
+step: by_cases x = 1; score: -0.413
+
+step: rcases hx with hx | hx; score: -0.435
+
+step: rcases hx with (hx | hx); score: -0.475
+
+step: cases hx; score: -0.486
+
+step: rcases hx with rfl | hx; score: -0.491
+
+step: by_cases hz : z = 1; score: -0.501
+
+step: rcases h1 with (rfl | hx); score: -0.511
+
+step: by_cases (x = 1); score: -0.523
+
+step: by_cases hx: x = 1; score: -0.548
+
+step: by_cases h : x = 1; score: -0.583
+
+step: cases' hx with hx hx; score: -0.591
+
+step: rcases hx with rfl | rfl; score: -0.598
+
+step: cases' hx; score: -0.817
+
+step: sorry; score: -0.943
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz h : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=55, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.307
+
+step: by_cases hz : z = 0; score: -0.481
+
+step: by_cases z = 0; score: -0.545
+
+step: cases' hz with hz hz; score: -0.564
+
+step: cases hz; score: -0.648
+
+step: cases' hz; score: -0.929
+
+step: sorry; score: -0.942
+
+step: exfalso; score: -1.101
+
+step: cases z; score: -1.187
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nhz : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhw : True\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=29, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.318
+
+step: by_cases hz : z = 1; score: -0.341
+
+step: by_cases z = 1; score: -0.401
+
+step: rcases hz with (rfl | hz); score: -0.435
+
+step: rcases hz with hz | hz; score: -0.535
+
+step: by_cases (z = 1); score: -0.55
+
+step: by_cases h : z = 1; score: -0.58
+
+step: cases' hz with hz hz; score: -0.587
+
+step: cases hz; score: -0.64
+
+step: cases ht.2.2; score: -0.723
+
+step: rw [hz]; score: -0.743
+
+step: sorry; score: -0.963
+
+step: cases z; score: -1.175
+
+Current State:
+TacticState(pp='case hb\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑z ≠ 0\n\ncase a\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w = 60 * Real.log ↑z', id=38, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.379
+
+step: by_cases hz : z = 1; score: -0.557
+
+step: by_cases hz : z = 0; score: -0.577
+
+step: rw [Real.log_ne_zero]; score: -0.611
+
+step: norm_num at *; score: -0.802
+
+step: norm_num; score: -0.816
+
+step: intro h; score: -1.142
+
+step: exfalso; score: -1.258
+
+step: intro; score: -1.539
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz h : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 1\nh : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=66, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.31
+
+step: by_cases hz : z = 1; score: -0.476
+
+step: by_cases z = 1; score: -0.539
+
+step: rcases h with (rfl | h); score: -0.565
+
+step: by_cases (z = 1); score: -0.61
+
+step: cases' hz with hz hz; score: -0.616
+
+step: by_cases h : z = 1; score: -0.628
+
+step: cases hz; score: -0.641
+
+step: rw [hz] at *; score: -0.765
+
+step: rw [hz]; score: -0.803
+
+step: cases' hz; score: -0.898
+
+step: sorry; score: -0.938
+
+step: cases z; score: -1.019
+
+step: exfalso; score: -1.091
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\nhz : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=39, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.329
+
+step: by_cases hz : z = 0; score: -0.362
+
+step: by_cases z = 0; score: -0.38
+
+step: rcases hz with (hz | hz); score: -0.529
+
+step: cases hz; score: -0.564
+
+step: by_cases h : z = 0; score: -0.587
+
+step: rw [hz] at *; score: -0.789
+
+step: rw [hz]; score: -0.79
+
+step: cases' hz; score: -0.87
+
+step: sorry; score: -1.029
+
+step: cases z; score: -1.092
+
+Current State:
+TacticState(pp='case pos.refl\nx y w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nht : 1 < x ∧ 1 < y ∧ 1 < 1\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑1) = 12\n⊢ Real.log ↑w / Real.log ↑1 = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=67, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.389
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.444
+
+step: rcases ht with ⟨hx, hy, _⟩; score: -0.498
+
+step: cases' ht with hx hy hz; score: -0.579
+
+step: cases ht.2.2; score: -0.748
+
+step: sorry; score: -0.968
+
+step: cases ht; score: -0.986
+
+step: tauto; score: -1.104
+
+step: exfalso; score: -1.182
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 0\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\nht : 1 < x ∧ 1 < y ∧ 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz✝ : z = 0\nhx : 1 < x\nhy : 1 < y\nhz : 1 < z\nht : ¬(1 < x ∧ 1 < y ∧ 1 < z)\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=205, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.294
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.359
+
+step: by_cases hz : z = 0; score: -0.498
+
+step: by_cases hx : x = 0; score: -0.511
+
+step: by_cases h : z = 0; score: -0.619
+
+step: by_cases z = 0; score: -0.644
+
+step: by_cases (1 < z); score: -0.698
+
+step: cases hz; score: -0.734
+
+step: sorry; score: -0.905
+
+step: cases ht; score: -0.96
+
+step: exfalso; score: -1.161
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\nhz : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=40, message='')
+
+
+step: by_cases hz : z = 1; score: -0.337
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.348
+
+step: by_cases z = 1; score: -0.365
+
+step: rcases hz with (hz | hz); score: -0.506
+
+step: rcases hz with (rfl | hz); score: -0.517
+
+step: by_cases h : z = 1; score: -0.553
+
+step: rcases hz with hz | hz; score: -0.57
+
+step: cases hz; score: -0.586
+
+step: cases' hz with hz hz; score: -0.642
+
+step: rw [hz] at *; score: -0.749
+
+step: rw [hz]; score: -0.796
+
+step: cases' hz; score: -0.849
+
+step: sorry; score: -1.024
+
+step: cases z; score: -1.11
+
+Current State:
+TacticState(pp='case pos.refl\nx y w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nht : 1 < x ∧ 1 < y ∧ 1 < 1\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑1) = 12\n⊢ Real.log ↑w / Real.log ↑1 = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=68, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.389
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.444
+
+step: rcases ht with ⟨hx, hy, _⟩; score: -0.498
+
+step: cases' ht with hx hy hz; score: -0.579
+
+step: cases ht.2.2; score: -0.748
+
+step: sorry; score: -0.968
+
+step: cases ht; score: -0.986
+
+step: tauto; score: -1.104
+
+step: exfalso; score: -1.182
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nht : 1 < x ∧ 1 < y ∧ 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\nht : ¬(1 < x ∧ 1 < y ∧ 1 < z)\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=242, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.275
+
+step: rcases ht with ⟨h1, h2, h3⟩; score: -0.37
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.416
+
+step: by_cases hz : z = 0; score: -0.51
+
+step: by_cases z = 0; score: -0.597
+
+step: by_cases h : z = 0; score: -0.613
+
+step: cases ht.2.2; score: -0.737
+
+step: cases ht; score: -0.87
+
+step: cases hz; score: -0.881
+
+step: sorry; score: -0.933
+
+step: exfalso; score: -1.122
+
+Current State:
+TacticState(pp='x y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑w = 60 * Real.log ↑z\n\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw h0 h1 h2 : True\n⊢ Real.log ↑z ≠ 0', id=41, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.357
+
+step: rcases ht with ⟨h1, ⟨h2, h3⟩⟩; score: -0.368
+
+step: by_cases hz : z = 0; score: -0.593
+
+step: by_cases hz : z = 1; score: -0.661
+
+step: sorry; score: -1.089
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz h : z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 1\nh : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=69, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.31
+
+step: by_cases hz : z = 1; score: -0.476
+
+step: by_cases z = 1; score: -0.539
+
+step: rcases h with (rfl | h); score: -0.565
+
+step: by_cases (z = 1); score: -0.61
+
+step: cases' hz with hz hz; score: -0.616
+
+step: by_cases h : z = 1; score: -0.628
+
+step: cases hz; score: -0.641
+
+step: rw [hz] at *; score: -0.765
+
+step: rw [hz]; score: -0.803
+
+step: cases' hz; score: -0.898
+
+step: sorry; score: -0.938
+
+step: cases z; score: -1.019
+
+step: exfalso; score: -1.091
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nhtx : 1 < x\nhty : 1 < y\nhtz : 1 < z\nht : 1 < x ∧ 1 < y ∧ 1 < z\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nhtx : 1 < x\nhty : 1 < y\nhtz : 1 < z\nht : ¬(1 < x ∧ 1 < y ∧ 1 < z)\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=345, message='')
+
+
+step: by_cases ht : 1 < x ∧ 1 < y ∧ 1 < z; score: -0.248
+
+step: by_cases (1 < x ∧ 1 < y ∧ 1 < z); score: -0.334
+
+step: rcases ht with ⟨htx, hty, htz⟩; score: -0.404
+
+step: by_cases hz : z = 0; score: -0.54
+
+step: by_cases z = 0; score: -0.58
+
+step: by_cases h : z = 0; score: -0.59
+
+step: by_cases hw : w = 0; score: -0.627
+
+step: by_cases (1 < z); score: -0.686
+
+step: by_cases w = 0; score: -0.728
+
+step: by_cases x = 0; score: -0.778
+
+step: cases ht; score: -0.822
+
+step: cases hz; score: -0.851
+
+step: cases' ht; score: -0.9
+
+step: sorry; score: -0.921
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz h : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=56, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.307
+
+step: by_cases hz : z = 0; score: -0.481
+
+step: by_cases z = 0; score: -0.545
+
+step: cases' hz with hz hz; score: -0.564
+
+step: cases hz; score: -0.648
+
+step: cases' hz; score: -0.929
+
+step: sorry; score: -0.942
+
+step: exfalso; score: -1.101
+
+step: cases z; score: -1.187
+
+Current State:
+TacticState(pp='case pos\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz h : z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : z = 0\nh : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=57, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.307
+
+step: by_cases hz : z = 0; score: -0.481
+
+step: by_cases z = 0; score: -0.545
+
+step: cases' hz with hz hz; score: -0.564
+
+step: cases hz; score: -0.648
+
+step: cases' hz; score: -0.929
+
+step: sorry; score: -0.942
+
+step: exfalso; score: -1.101
+
+step: cases z; score: -1.187
+
+Current State:
+TacticState(pp='case pos.refl\nx y w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nht : 1 < x ∧ 1 < y ∧ 1 < 1\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑1) = 12\n⊢ Real.log ↑w / Real.log ↑1 = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 1\n⊢ Real.log ↑w / Real.log ↑z = 60', id=70, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.389
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.444
+
+step: rcases ht with ⟨hx, hy, _⟩; score: -0.498
+
+step: cases' ht with hx hy hz; score: -0.579
+
+step: cases ht.2.2; score: -0.748
+
+step: sorry; score: -0.968
+
+step: cases ht; score: -0.986
+
+step: tauto; score: -1.104
+
+step: exfalso; score: -1.182
+
+Current State:
+TacticState(pp='case pos.refl\nx y w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nht : 1 < x ∧ 1 < y ∧ 1 < 0\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑0) = 12\n⊢ Real.log ↑w / Real.log ↑0 = 60\n\ncase neg\nx y z w : ℕ\nht : 1 < x ∧ 1 < y ∧ 1 < z\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1 : Real.log ↑w / Real.log ↑y = 40\nh2 : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nhz : ¬z = 0\n⊢ Real.log ↑w / Real.log ↑z = 60', id=58, message='')
+
+
+step: rcases ht with ⟨hx, hy, hz⟩; score: -0.385
+
+step: rcases ht with ⟨h0, h1, h2⟩; score: -0.448
+
+step: rcases ht with ⟨h1, h2, h3⟩; score: -0.455
+
+step: cases' ht with hx hy hz; score: -0.599
+
+step: by_cases x = 0; score: -0.754
+
+step: sorry; score: -0.951
+
+step: cases ht; score: -1.006
+
+step: tauto; score: -1.128
+
+step: exfalso; score: -1.199
+
+Current State:
+TacticState(pp='case intro.intro.a\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ Real.log ↑w / Real.log ↑z ≤ 60\n\ncase intro.intro.a\nx y z w : ℕ\nhw : 0 ≤ w\nh0 : Real.log ↑w / Real.log ↑x = 24\nh1✝ : Real.log ↑w / Real.log ↑y = 40\nh2✝ : Real.log ↑w / Real.log (↑x * ↑y * ↑z) = 12\nh1 : 1 < x\nh2 : 1 < y\nh3 : 1 < z\n⊢ 60 ≤ Real.log ↑w / Real.log ↑z', id=12, message='')
+

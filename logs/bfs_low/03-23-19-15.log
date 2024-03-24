@@ -1,0 +1,27 @@
+logs/bfs_low/03-23-19-15.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_mew.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, z ^ ↑k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ ↑k ^ 2 = 36', id=0, message=None)
+

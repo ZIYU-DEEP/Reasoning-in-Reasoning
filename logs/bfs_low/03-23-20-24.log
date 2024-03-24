@@ -1,0 +1,398 @@
+logs/bfs_low/03-23-20-24.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_mew.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'openai',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'gpt-4-0125-preview',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'stop': '----',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+MiniF2F/Validation.lean
+mathd_algebra_182
+
+Current State:
+TacticState(pp='y : ℂ\n⊢ 7 * (3 * y + 2) = 21 * y + 14', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```
+ring
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_182'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_182',
+                   'informal_proof': 'We apply the distributive property to '
+                                     'get\\begin{align*}\n'
+                                     '7(3y+2) &= 7\\cdot 3y+7\\cdot 2\\\\\n'
+                                     '&= 21y+14.\n'
+                                     '\\end{align*}',
+                   'informal_stmt': 'Expand the following expression: '
+                                    '$7(3y+2)$ Show that it is 21y+14.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_182 (y : ℂ) : 7 * (3 * '
+                                'y + 2) = 21 * y + 14',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+aime_1984_p5
+
+Current State:
+TacticState(pp='a b : ℝ\nh₀ : logb 8 a + logb 4 (b ^ 2) = 5\nh₁ : logb 8 b + logb 4 (a ^ 2) = 7\n⊢ a * b = 512', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```
+nlinarith
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'aime_1984_p5'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'aime_1984_p5',
+                   'informal_proof': 'Use the [[change of base formula]] to '
+                                     'see that $\\frac{\\log a}{\\log 8} + '
+                                     '\\frac{2 \\log b}{\\log 4} = 5$; combine '
+                                     '[[denominator]]s to find that '
+                                     '$\\frac{\\log ab^3}{3\\log 2} = 5$. '
+                                     'Doing the same thing with the second '
+                                     'equation yields that $\\frac{\\log '
+                                     'a^3b}{3\\log 2} = 7$. This means that '
+                                     '$\\log ab^3 = 15\\log 2 \\Longrightarrow '
+                                     'ab^3 = 2^{15}$ and that $\\log a^3 b = '
+                                     '21\\log 2 \\Longrightarrow a^3 b = '
+                                     '2^{21}$. If we multiply the two '
+                                     'equations together, we get that $a^4b^4 '
+                                     '= 2^{36}$, so taking the fourth root of '
+                                     'that, $ab = 2^9 = 512$.',
+                   'informal_stmt': 'Determine the value of $ab$ if '
+                                    '$\\log_8a+\\log_4b^2=5$ and '
+                                    '$\\log_8b+\\log_4a^2=7$. Show that it is '
+                                    '512.',
+                   'split': 'valid',
+                   'statement': 'theorem aime_1984_p5 (a b : ℕ) (h₀ : '
+                                'Real.logb 8 a + Real.logb 4 (b ^ 2) = 5)\n'
+                                '    (h₁ : Real.logb 8 b + Real.logb 4 (a ^ 2) '
+                                '= 7) : a * b = 512',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_numbertheory_780
+
+Current State:
+TacticState(pp='m x : ℕ\nh₀ : 10 ≤ m\nh₁ : m ≤ 99\nh₂ : 6 * x % m = 1\nh₃ : (x - 6 ^ 2) % m = 0\n⊢ m = 43', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```lean
+linarith
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_numbertheory_780'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_numbertheory_780',
+                   'informal_proof': 'We can multiply both sides of the '
+                                     'congruence $6^{-1}\\equiv 6^2\\pmod m$ '
+                                     'by $6$: $$\n'
+                                     '\\underbrace{6\\cdot 6^{-1}}_1 \\equiv '
+                                     '\\underbrace{6\\cdot 6^2}_{6^3} \\pmod '
+                                     'm.\n'
+                                     '$$Thus $6^3-1=215$ is a multiple of $m$. '
+                                     'We know that $m$ has two digits. The '
+                                     'only two-digit positive divisor of $215$ '
+                                     'is $43$, so $m=43$.',
+                   'informal_stmt': 'Suppose $m$ is a two-digit positive '
+                                    'integer such that $6^{-1}\\pmod m$ exists '
+                                    'and $6^{-1}\\equiv 6^2\\pmod m$. What is '
+                                    '$m$? Show that it is 43.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_numbertheory_780 (m x : ℕ) (h₀ '
+                                ': 10 ≤ m) (h₁ : m ≤ 99) (h₂ : 6 * x % m = 1)\n'
+                                '    (h₃ : (x - 6 ^ 2) % m = 0) : m = 43',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_algebra_116
+
+Current State:
+TacticState(pp='k x : ℝ\nh₀ : x = (13 - Real.sqrt 131) / 4\nh₁ : 2 * x ^ 2 - 13 * x + k = 0\n⊢ k = 19 / 4', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```lean
+rw [h₀, h₁] at h₁; norm_num at h₁
+```
+```lean
+rw [h₀, ← h₁]
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_116'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_116',
+                   'informal_proof': 'We could substitute $(13-\\sqrt{131})/4$ '
+                                     'for $x$ in the equation, but the '
+                                     'quadratic formula suggests a quicker '
+                                     'approach. Substituting $2$, $-13$, and '
+                                     '$k$ into the quadratic formula gives  '
+                                     '\\[\n'
+                                     '\\frac{-(-13)\\pm\\sqrt{(-13)^2-4(2)(k)}}{2(2)}= '
+                                     '\\frac{13\\pm\\sqrt{169-8k}}{4}.\n'
+                                     '\\]Setting $(13+\\sqrt{169-8k})/4$ and '
+                                     '$(13-\\sqrt{169-8k})/4$ equal to '
+                                     '$(13-\\sqrt{131})/4$, we find no '
+                                     'solution in the first case and '
+                                     '$169-8k=131$ in the second case.  '
+                                     'Solving yields '
+                                     '$k=(169-131)/8=38/8=\\frac{19}{4}$.',
+                   'informal_stmt': 'For what real value of $k$ is '
+                                    '$\\frac{13-\\sqrt{131}}{4}$ a root of '
+                                    '$2x^2-13x+k$? Show that it is '
+                                    '\\frac{19}{4}.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_116 (k x : ℝ) (h₀ : x = '
+                                '(13 - Real.sqrt 131) / 4)\n'
+                                '    (h₁ : 2 * x ^ 2 - 13 * x + k = 0) : k = '
+                                '19 / 4',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_numbertheory_13
+
+Current State:
+TacticState(pp='u v : ℕ\nS : Set ℕ\nh₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ 14 * n % 100 = 46\nh₁ : IsLeast S u\nh₂ : IsLeast (S \\ {u}) v\n⊢ (↑u + ↑v) / 2 = 64', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_numbertheory_13'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_numbertheory_13',
+                   'informal_proof': 'Note that $14$, $46$, and $100$ all have '
+                                     'a common factor of $2$, so we can divide '
+                                     'it out: the solutions to $$14u \\equiv '
+                                     '46 \\pmod{100}$$ are identical to the '
+                                     'solutions to $$7u \\equiv 23 '
+                                     '\\pmod{50}.$$ Make sure you see why this '
+                                     'is the case.\n'
+                                     '\n'
+                                     'Now we can multiply both sides of the '
+                                     'congruence by $7$ to obtain $$49u '
+                                     '\\equiv 161 \\pmod{50},$$ which also has '
+                                     'the same solutions as the previous '
+                                     'congruence, since we could reverse the '
+                                     'step above by multiplying both sides by '
+                                     '$7^{-1}$. (We know that $7^{-1}$ exists '
+                                     'modulo $50$ because $7$ and $50$ are '
+                                     'relatively prime.)\n'
+                                     '\n'
+                                     'Replacing each side of $49u\\equiv 161$ '
+                                     'by a $\\pmod{50}$ equivalent, we have '
+                                     '$$-u \\equiv 11\\pmod{50},$$ and thus '
+                                     '$$u \\equiv -11\\pmod{50}.$$ This is the '
+                                     'set of solutions to our original '
+                                     'congruence. The two smallest positive '
+                                     'solutions are $-11+50 = 39$ and '
+                                     '$-11+2\\cdot 50 = 89$. Their average is '
+                                     '$64$.',
+                   'informal_stmt': 'What is the average of the two smallest '
+                                    'positive integer solutions to the '
+                                    'congruence $$14u \\equiv 46 '
+                                    '\\pmod{100}~?$$ Show that it is 64.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_numbertheory_13 (u v : ℕ) (S : '
+                                'Set ℕ)\n'
+                                '    (h₀ : ∀ n : ℕ, n ∈ S ↔ 0 < n ∧ 14 * n % '
+                                '100 = 46) (h₁ : IsLeast S u)\n'
+                                '    (h₂ : IsLeast (S \\ {u}) v) : (u + v : ℚ) '
+                                '/ 2 = 64',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_numbertheory_169
+
+Current State:
+TacticState(pp='⊢ Nat.gcd 20! 200000 = 40000', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```lean
+norm_num
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_numbertheory_169'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_numbertheory_169',
+                   'informal_proof': 'The prime factorization of $200,000$ is '
+                                     '$2^6 \\cdot 5^5$. Then count the number '
+                                     'of factors of $2$ and $5$ in $20!$. '
+                                     'Since there are $10$ even numbers, there '
+                                     'are more than $6$ factors of $2$. There '
+                                     'are $4$ factors of $5$. So the greatest '
+                                     'common factor is $2^6 \\cdot '
+                                     '5^4=40,\\!000$.',
+                   'informal_stmt': 'What is the greatest common factor of $20 '
+                                    '!$ and $200,\\!000$?  (Reminder: If $n$ '
+                                    'is a positive integer, then $n!$ stands '
+                                    'for the product $1\\cdot 2\\cdot 3\\cdot '
+                                    '\\cdots \\cdot (n-1)\\cdot n$.) Show that '
+                                    'it is 40,\\!000.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_numbertheory_169 : Nat.gcd 20! '
+                                '200000 = 40000',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+amc12a_2009_p9
+
+Current State:
+TacticState(pp='a b c : ℝ\nf : ℝ → ℝ\nh₀ : ∀ (x : ℝ), f (x + 3) = 3 * x ^ 2 + 7 * x + 4\nh₁ : ∀ (x : ℝ), f x = a * x ^ 2 + b * x + c\n⊢ a + b + c = 2', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```lean
+have : f 3 = 3 * 3 ^ 2 + 7 * 3 + 4 := by rw [h₀]
+```
+```lean
+rw [h₁ 0, h₀ 0]
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'amc12a_2009_p9'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'amc12a_2009_p9',
+                   'informal_proof': 'As $f(x)=ax^2 + bx + c$, we have '
+                                     '$f(1)=a\\cdot 1^2 + b\\cdot 1 + c = '
+                                     'a+b+c$. \n'
+                                     '\n'
+                                     'To compute $f(1)$, set $x=-2$ in the '
+                                     'first formula. We get $f(1) = f(-2+3) = '
+                                     '3(-2)^2 + 7(-2) + 4 = 12 - 14 + 4 = 2$.',
+                   'informal_stmt': 'Suppose that $f(x+3)=3x^2 + 7x + 4$ and '
+                                    '$f(x)=ax^2 + bx + c$. What is $a+b+c$?\n'
+                                    '\n'
+                                    '$\\textbf{(A)}\\ -1 \\qquad '
+                                    '\\textbf{(B)}\\ 0 \\qquad \\textbf{(C)}\\ '
+                                    '1 \\qquad \\textbf{(D)}\\ 2 \\qquad '
+                                    '\\textbf{(E)}\\ 3$ Show that it is 2.',
+                   'split': 'valid',
+                   'statement': 'theorem amc12a_2009_p9 (a b c : ℝ) (f : ℝ → '
+                                'ℝ) (h₀ : ∀ x, f (x + 3) = 3 * x ^ 2 + 7 * x + '
+                                '4)\n'
+                                '    (h₁ : ∀ x, f x = a * x ^ 2 + b * x + c) : '
+                                'a + b + c = 2',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+amc12a_2019_p9
+
+Current State:
+TacticState(pp='a : ℕ → ℚ\nh₀ : a 1 = 1\nh₁ : a 2 = 3 / 7\nh₂ : ∀ (n : ℕ), a (n + 2) = a n * a (n + 1) / (2 * a n - a (n + 1))\n⊢ ↑(a 2019).den + (a 2019).num = 8078', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+```lean
+sorry
+```
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'amc12a_2019_p9'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'amc12a_2019_p9',
+                   'informal_proof': 'Using the recursive formula, we find '
+                                     '$a_3=\\frac{3}{11}$, '
+                                     '$a_4=\\frac{3}{15}$, and so on. It '
+                                     'appears that $a_n=\\frac{3}{4n-1}$, for '
+                                     'all $n$. Setting $n=2019$, we find '
+                                     '$a_{2019}=\\frac{3}{8075}$, so the '
+                                     'answer is $\\textbf{(E) }8078$.\n'
+                                     '\n'
+                                     'To prove this formula, we use induction. '
+                                     'We are given that $a_1=1$ and '
+                                     '$a_2=\\frac{3}{7}$, which satisfy our '
+                                     'formula. Now assume the formula holds '
+                                     'true for all $n\\le m$ for some positive '
+                                     'integer $m$. By our assumption, '
+                                     '$a_{m-1}=\\frac{3}{4m-5}$ and '
+                                     '$a_m=\\frac{3}{4m-1}$. Using the '
+                                     'recursive formula, '
+                                     '$a_{m+1}=\\frac{a_{m-1}\\cdot '
+                                     'a_m}{2a_{m-1}-a_m}=\\frac{\\frac{3}{4m-5}\\cdot\\frac{3}{4m-1}}{2\\cdot\\frac{3}{4m-5}-\\frac{3}{4m-1}}=\\frac{\\left(\\frac{3}{4m-5}\\cdot\\frac{3}{4m-1}\\right)(4m-5)(4m-1)}{\\left(2\\cdot\\frac{3}{4m-5}-\\frac{3}{4m-1}\\right)(4m-5)(4m-1)}=\\frac{9}{6(4m-1)-3(4m-5)}=\\frac{3}{4(m+1)-1},$\n'
+                                     'so our induction is complete.',
+                   'informal_stmt': 'A sequence of numbers is defined '
+                                    'recursively by $a_1 = 1$, $a_2 = '
+                                    '\\frac{3}{7}$, and\n'
+                                    '$a_n=\\frac{a_{n-2} \\cdot '
+                                    'a_{n-1}}{2a_{n-2} - a_{n-1}}$for all $n '
+                                    '\\geq 3$ Then $a_{2019}$ can be written '
+                                    'as $\\frac{p}{q}$, where $p$ and $q$ are '
+                                    'relatively prime positive integers. What '
+                                    'is $p+q ?$\n'
+                                    '\n'
+                                    '$\\textbf{(A) } 2020 \\qquad\\textbf{(B) '
+                                    '} 4039 \\qquad\\textbf{(C) } 6057 '
+                                    '\\qquad\\textbf{(D) } 6061 '
+                                    '\\qquad\\textbf{(E) } 8078$ Show that it '
+                                    'is \\textbf{(E) }8078.',
+                   'split': 'valid',
+                   'statement': 'theorem amc12a_2019_p9 (a : ℕ → ℚ) (h₀ : a 1 '
+                                '= 1) (h₁ : a 2 = 3 / 7)\n'
+                                '    (h₂ : ∀ n, a (n + 2) = a n * a (n + 1) / '
+                                '(2 * a n - a (n + 1))) :\n'
+                                '    ↑(a 2019).den + (a 2019).num = 8078',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+MiniF2F/Validation.lean
+mathd_algebra_13

@@ -1,0 +1,162 @@
+logs/bfs_low/03-23-18-38.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 4096,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+Crashed.
+{   'attempt_results': [   {   'failure_reason': 'CalledProcessError',
+                               'success': False,
+                               'theorem': 'amc12a_2019_21'}],
+    'example': {   'commit': 'd322684c5bc634ec2853e51d07a2574bf7166476',
+                   'file_path': 'MiniF2F/Valid.lean',
+                   'formal_statement': 'theorem amc12a_2019_p21\n'
+                                       '  (z : ℂ)\n'
+                                       '  (h₀ : z = (1 + Complex.I) / '
+                                       'Real.sqrt 2) :\n'
+                                       '  (∑ k in Finset.Icc 1 12, (z^(k^2))) '
+                                       '* (∑ k in Finset.Icc 1 12, (1 / '
+                                       'z^(k^2))) = 36 := sorry',
+                   'header': 'import Mathlib.Algebra.BigOperators.Basic\n'
+                             'import Mathlib.Data.Real.Basic\n'
+                             'import Mathlib.Data.Complex.Basic\n'
+                             'import Mathlib.Data.Nat.Log\n'
+                             'import Mathlib.Data.Complex.Exponential\n'
+                             'import Mathlib.NumberTheory.Divisors\n'
+                             'import Mathlib.Data.ZMod.Defs\n'
+                             'import Mathlib.Data.ZMod.Basic\n'
+                             'import Mathlib.Topology.Basic\n'
+                             'import Mathlib.Data.Nat.Digits\n'
+                             '\n'
+                             'open BigOperators\n'
+                             'open Real\n'
+                             'open Nat\n'
+                             'open Topology',
+                   'id': 'amc12a_2019_21',
+                   'informal_proof': 'Note that $z = \\mathrm{cis '
+                                     '}(45^{\\circ})$.\n'
+                                     '\n'
+                                     'Also note that $z^{k} = z^{k + 8}$ for '
+                                     'all positive integers $k$ because of De '
+                                     "Moivre's Theorem. Therefore, we want to "
+                                     'look at the exponents of each term '
+                                     'modulo $8$.\n'
+                                     '\n'
+                                     '$1^2, 5^2,$ and $9^2$ are all $1 '
+                                     '\\pmod{8}$\n'
+                                     '\n'
+                                     '$2^2, 6^2,$ and $10^2$ are all $4 '
+                                     '\\pmod{8}$\n'
+                                     '\n'
+                                     '$3^2, 7^2,$ and $11^2$ are all $1 '
+                                     '\\pmod{8}$\n'
+                                     '\n'
+                                     '$4^2, 8^2,$ and $12^2$ are all $0 '
+                                     '\\pmod{8}$\n'
+                                     '\n'
+                                     'Therefore,\n'
+                                     '\n'
+                                     '$z^{1^2} = z^{5^2} = z^{9^2} = '
+                                     '\\mathrm{cis }(45^{\\circ})$\n'
+                                     '\n'
+                                     '$z^{2^2} = z^{6^2} = z^{10^2} = '
+                                     '\\mathrm{cis }(180^{\\circ}) = -1$\n'
+                                     '\n'
+                                     '$z^{3^2} = z^{7^2} = z^{11^2} = '
+                                     '\\mathrm{cis }(45^{\\circ})$\n'
+                                     '\n'
+                                     '$z^{4^2} = z^{8^2} = z^{12^2} = '
+                                     '\\mathrm{cis }(0^{\\circ}) = 1$\n'
+                                     '\n'
+                                     'The term thus '
+                                     '$\\left(z^{1^2}+z^{2^2}+z^{3^2}+\\dots+z^{{12}^2}\\right)$ '
+                                     'simplifies to $6\\mathrm{cis '
+                                     '}(45^{\\circ})$, while the term '
+                                     '$\\left(\\frac{1}{z^{1^2}}+\\frac{1}{z^{2^2}}+\\frac{1}{z^{3^2}}+\\dots+\\frac{1}{z^{{12}^2}}\\right)$ '
+                                     'simplifies to $\\frac{6}{\\mathrm{cis '
+                                     '}(45^{\\circ})}$. Upon multiplication, '
+                                     'the $\\mathrm{cis }(45^{\\circ})$ '
+                                     'cancels out and leaves us with '
+                                     '$\\textbf{(C) }36$.',
+                   'informal_stmt': 'Let $z=\\frac{1+i}{\\sqrt{2}}.$What is '
+                                    '$\\left(z^{1^2}+z^{2^2}+z^{3^2}+\\dots+z^{{12}^2}\\right) '
+                                    '\\cdot '
+                                    '\\left(\\frac{1}{z^{1^2}}+\\frac{1}{z^{2^2}}+\\frac{1}{z^{3^2}}+\\dots+\\frac{1}{z^{{12}^2}}\\right)?$\n'
+                                    '\n'
+                                    '$\\textbf{(A) } 18 \\qquad \\textbf{(B) } '
+                                    '72-36\\sqrt2 \\qquad \\textbf{(C) } 36 '
+                                    '\\qquad \\textbf{(D) } 72 \\qquad '
+                                    '\\textbf{(E) } 72+36\\sqrt2$ Show that it '
+                                    'is \\textbf{(C) }36.',
+                   'split': 'valid',
+                   'url': 'https://github.com/yangky11/miniF2F-lean4'},
+    'success': False}
+
+-----
+
+Crashed.
+{   'attempt_results': [   {   'failure_reason': 'CalledProcessError',
+                               'success': False,
+                               'theorem': 'amc12a_2015_10'}],
+    'example': {   'commit': 'd322684c5bc634ec2853e51d07a2574bf7166476',
+                   'file_path': 'MiniF2F/Valid.lean',
+                   'formal_statement': 'theorem amc12a_2015_p10\n'
+                                       '  (x y : ℤ)\n'
+                                       '  (h₀ : 0 < y)\n'
+                                       '  (h₁ : y < x)\n'
+                                       '  (h₂ : x + y + (x * y) = 80) :\n'
+                                       '  x = 26 := sorry',
+                   'header': 'import Mathlib.Algebra.BigOperators.Basic\n'
+                             'import Mathlib.Data.Real.Basic\n'
+                             'import Mathlib.Data.Complex.Basic\n'
+                             'import Mathlib.Data.Nat.Log\n'
+                             'import Mathlib.Data.Complex.Exponential\n'
+                             'import Mathlib.NumberTheory.Divisors\n'
+                             'import Mathlib.Data.ZMod.Defs\n'
+                             'import Mathlib.Data.ZMod.Basic\n'
+                             'import Mathlib.Topology.Basic\n'
+                             'import Mathlib.Data.Nat.Digits\n'
+                             '\n'
+                             'open BigOperators\n'
+                             'open Real\n'
+                             'open Nat\n'
+                             'open Topology',
+                   'id': 'amc12a_2015_10',
+                   'informal_proof': 'Use [[SFFT]] to get $(x+1)(y+1)=81$. The '
+                                     'terms $(x+1)$ and $(y+1)$ must be '
+                                     'factors of $81$, which include $1, 3, 9, '
+                                     '27, 81$. Because $x > y$, $x+1$ is equal '
+                                     'to $27$ or $81$. But if $x+1=81$, then '
+                                     '$y=0$ and so $x=\\textbf{(E)}\\ 26$.',
+                   'informal_stmt': 'Integers $x$ and $y$ with $x>y>0$ satisfy '
+                                    '$x+y+xy=80$. What is $x$?\n'
+                                    '\n'
+                                    '$ \\textbf{(A)}\\ 8 '
+                                    '\\qquad\\textbf{(B)}\\ 10 '
+                                    '\\qquad\\textbf{(C)}\\ 15 '
+                                    '\\qquad\\textbf{(D)}\\ 18 '
+                                    '\\qquad\\textbf{(E)}\\ 26$ Show that it '
+                                    'is \\textbf{(E)}\\ 26.',
+                   'split': 'valid',
+                   'url': 'https://github.com/yangky11/miniF2F-lean4'},
+    'success': False}
+
+-----
+
