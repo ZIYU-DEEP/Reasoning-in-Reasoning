@@ -7,3 +7,4 @@ lean_dojo==1.1.2
 datasets==2.16.1
 vllm==0.3.0
 openai==1.7.2
+tiktoken==0.6.0

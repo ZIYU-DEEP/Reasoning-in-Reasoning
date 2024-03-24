@@ -14,6 +14,8 @@ import time
 from datetime import datetime
 import logging
 import openai
+import tiktoken
+from openai import OpenAI
 
 from transformers import (
     Trainer,
@@ -98,8 +100,8 @@ def generate_vllm(prompt,
                   tokenizer, 
                   temperatures, 
                   num_samples, 
-                  stop, 
-                  max_tokens=256):
+                  stop: str='----', 
+                  max_tokens: int=256):
 
     # Init textx and scores
     texts, scores = [], []
@@ -133,6 +135,9 @@ def generate_vllm(prompt,
 # ===============================================
 # 3. Generation with HuggingFace
 # ===============================================
+# THIS PART IS A BIT PROBLEMATIC DUE TO SOME INCONSISTENCY OF STOP WORDS
+# TO MODIFY LATER
+
 def trim_output(output_text, 
                 stop_div='----', 
                 trim_at_last=False):
@@ -258,13 +263,16 @@ class StoppingCriteriaSub(StoppingCriteria):
             
         return False
 
+# This part is hard-coded for the stopping criteria for test purpose.
+stop_words_ids = [torch.tensor([807])]
+stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids)])
 
 def generate_hf(prompt, 
                 model, 
                 tokenizer, 
                 temperatures, 
                 num_samples, 
-                stopping_criteria,
+                stop: str='----',
                 max_tokens: int=256):
 
     # Init texts and scores
@@ -285,7 +293,7 @@ def generate_hf(prompt,
                 num_return_sequences=num_samples,
                 return_dict_in_generate=True,
                 output_scores=True,
-                stopping_criteria=stopping_criteria,
+                stopping_criteria=stopping_criteria,  # This part is to be editted
             )
             if temp == 0.0:
                 decoding_params['num_beams'] = num_samples
@@ -304,7 +312,7 @@ def generate_hf(prompt,
 
             # Remove that '----'
             decoded_seqs = [trim_output(text,
-                                 stop_div='----').strip()
+                            stop_div='----').strip()
                             for text in decoded_seqs]
 
             # Extend to the texts
@@ -352,12 +360,15 @@ def generate_openai(prompt: str='',
                       temperature=temperature,
                       stop=stop,
                       logprobs=True)
+        
+        # Set the encoding
+        encoding = tiktoken.encoding_for_model(model)
 
         # Get the completion
         client = OpenAI()
         completion = client.chat.completions.create(**params)
 
-        # # Get the texts and scores (cumulative logprobs normalized by length)
+        # Get the texts and scores (cumulative logprobs normalized by length)
         for choice in completion.choices:
             # Get the text
             text = choice.message.content

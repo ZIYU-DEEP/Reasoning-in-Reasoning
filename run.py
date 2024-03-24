@@ -34,7 +34,7 @@ from tqdm import tqdm, trange
 from pprint import pprint, pformat
 from pathlib import Path
 
-from utils.search_dojo import *  # To remove this
+# from utils.search_dojo import *  # To remove this
 from utils.search import *
 from utils import misc
 from utils import prompts
@@ -44,8 +44,11 @@ from utils import search
 
 # ------------------------------------------------
 # Some prep
-accelerator = Accelerator()
-os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+try:
+    accelerator = Accelerator()
+    os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+except Exception:
+    pass
 logger = logging.getLogger()
 # ------------------------------------------------
 
@@ -61,6 +64,8 @@ parser.add_argument('-cfg', '--config_name', type=str,
                     default='dojo_default.yaml')
 parser.add_argument('-sm', '--search_method', type=str,
                     default='', help='Rewrite the search method in config.')
+parser.add_argument('-sp', '--split', type=str,
+                    default='', help='Rewrite the split in config.')
 parser.add_argument('-re', '--resume_from', type=str, default='',
                     help='Resume from a specific problem, e.g., imo_1969_p2.')
 parser.add_argument('-ss', '--slice_size', type=int, default=None,
@@ -77,8 +82,11 @@ with open(config_path, 'r') as y_file:
 
 # Update the search method if specified
 if args.search_method:
-    # assert args.search_method in ['simple_search', 'best_first_search', 'mcts', 'rir']
     p.search_method = args.search_method
+
+# Update the split if specified
+if args.split:
+    p.split = args.split
 
 # -------------------------------------------------------------------
 # Set the logger
@@ -102,7 +110,8 @@ results_path = results_folder / f'{time_now}.json'
 # Set the dataset and the model
 # Set up the minif2f dataset
 repo, data = misc.load_data_dojo(dataset_name=p.dataset_name,
-                                 dataset_path=p.dataset_path)
+                                 dataset_path=p.dataset_path,
+                                 split=p.split)
 
 if args.resume_from:
     re_ind = [item['full_name'] for item in data].index(args.resume_from)
@@ -123,14 +132,15 @@ if p.gen_method == 'vllm':
         tp_degree=p.tp_degree,
         dtype=p.dtype,
         max_num_batched_tokens=p.max_num_batched_tokens)
-    stopping_criteria = None
+    # stopping_criteria = None
 
-elif p.gen_method == 'hf':
+if p.gen_method == 'hf':
     model, tokenizer = llms.load_model_hf(
         model_name=p.model_name,
         accelerator=accelerator)
-    stop_words_ids = [torch.tensor([807])]
-    stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids)])
+
+if p.gen_method == 'openai':
+    model, tokenizer = p.model_name, None
 # -------------------------------------------------------------------
 
 
@@ -143,13 +153,16 @@ def main():
 
         # Set up the data
         file_path = example['file_path']
-        theorem_name = example['full_name']
+        theorem_name = example.get('full_name', example.get('id'))
         theorem = Theorem(repo, file_path, theorem_name)
 
         # To load the data from the huggingface dataset
-        formal_statement = example['statement']
+        formal_statement = example.get('formal_statement', example.get('statement'))
         informal_statement = example['informal_stmt']
         informal_proof = example['informal_proof']
+        
+        logger.info(file_path)
+        logger.info(theorem_name)
 
         # Start search
 
@@ -187,7 +200,7 @@ def main():
                                                   timeout=p.timeout,
                                                   early_stop=p.early_stop,
                                                   max_tokens=p.max_tokens,  # Maybe two params for low and high
-                                                  stopping_criteria=stopping_criteria,
+                                                  stop=p.stop,
                                                   gen_method=p.gen_method,
                                                   formal_statement=formal_statement,
                                                   informal_statement=informal_statement,

@@ -36,8 +36,32 @@ def set_logger(log_path):
     return logger
 
 
-def load_data_dojo(dataset_name: str='minif2f-test',
-                   dataset_path: str='./data/minif2f.jsonl'):
+# def load_data_dojo(dataset_name: str='minif2f-test',
+#                    dataset_path: str='./data/minif2f_lean4.jsonl'):
+#     """
+#     Load the data and the repo to LeanGitRepo.
+#     """
+#     if 'minif2f' in dataset_name:
+#         data = []
+#         with open(dataset_path) as f:
+#             for line in f.readlines():
+#                 data_ = json.loads(line)
+#                 # assert data_['commit'] == 'd00c776260c77de7e70125ef0cd119de6c0ff1de'
+#                 data.append(data_)
+
+#         if 'valid' in dataset_name:
+#             data = [x for x in data if x['split'] == 'valid']
+#         else:
+#             data = [x for x in data if x['split'] == 'test']
+#         repo = LeanGitRepo(data[0]['url'], data[0]['commit'])
+#     else:
+#         raise NotImplementedError(dataset_name)
+
+#     return repo, data
+
+def load_data_dojo(dataset_name: str='minif2f',
+                   dataset_path: str='./data/minif2f_lean4.jsonl',
+                   split: str='valid'):
     """
     Load the data and the repo to LeanGitRepo.
     """
@@ -46,15 +70,14 @@ def load_data_dojo(dataset_name: str='minif2f-test',
         with open(dataset_path) as f:
             for line in f.readlines():
                 data_ = json.loads(line)
-                assert data_['commit'] == 'd00c776260c77de7e70125ef0cd119de6c0ff1de'
                 data.append(data_)
 
-        if 'valid' in dataset_name:
-            data = [x for x in data if x['split'] == 'valid']
+        if 'valid' in split.lower():
+            data = [x for x in data if x['split'] != 'test']
         else:
             data = [x for x in data if x['split'] == 'test']
         repo = LeanGitRepo(data[0]['url'], data[0]['commit'])
     else:
-        raise NotImplementedError(dataset_name)
+        raise NotImplementedError(split)
 
     return repo, data

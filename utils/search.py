@@ -80,7 +80,7 @@ def proof_search(theorem, model, tokenizer,
                  search_fn,
                  prompt_fn_low=None, prompt_fn_high=None,
                  timeout=600, early_stop=False, max_tokens=256, 
-                 stopping_criteria=None, gen_method='vllm', 
+                 stop='----', gen_method='vllm', 
                  formal_statement='', informal_statement='', plan_high=''):
     """
     Wrapper function to set up search environment and delegate to a search function.
@@ -105,7 +105,7 @@ def proof_search(theorem, model, tokenizer,
                 prompt_fn_high=prompt_fn_high,
                 early_stop=early_stop,
                 max_tokens=max_tokens,
-                stopping_criteria=stopping_criteria,
+                stop=stop,
                 gen_method=gen_method,
                 formal_statement=formal_statement,
                 informal_statement=informal_statement,
@@ -142,7 +142,7 @@ def bfs_low(dojo, init_state, theorem,
             num_samples_low=32, num_samples_high=4, 
             prompt_fn_low=None, prompt_fn_high=None,
             timeout=600, early_stop=False, max_tokens=256, 
-            stopping_criteria=None, gen_method='vllm', 
+            stop='----', gen_method='vllm', 
             formal_statement='', informal_statement='', plan_high=''):
     """
     Implements Low-Level Best First Search (BFS) algorithm for theorem proving.
@@ -176,34 +176,28 @@ def bfs_low(dojo, init_state, theorem,
 
         # ---------------------------------------------
         # Generate results
-        assert gen_method in ['vllm', 'hf']
-        if gen_method == 'vllm':
-            step_cands, step_scores = generate_vllm(
-                prompt_fn_low(tactic_state=ts,
-                              formal_statement=formal_statement,
-                              informal_statement=informal_statement,
-                              plan_high=plan_high),
-                model=model,
-                tokenizer=tokenizer,
-                temperatures=temperatures,
-                num_samples=num_samples_low,
-                stop='----',
-                max_tokens=max_tokens
-            )
+        assert gen_method in ['vllm', 'hf', 'openai']
+        if gen_method == 'vllm': generate_fn = generate_vllm
+        if gen_method == 'hf': generate_fn = generate_hf
+        if gen_method == 'openai': generate_fn = generate_openai
+        
+        step_cands, step_scores = generate_fn(
+            prompt_fn_low(tactic_state=ts,
+                          formal_statement=formal_statement,
+                          informal_statement=informal_statement,
+                          plan_high=plan_high),
+            model=model,
+            tokenizer=tokenizer,
+            temperatures=temperatures,
+            num_samples=num_samples_low,
+            stop=stop,
+            max_tokens=max_tokens
+        )
 
-        elif gen_method == 'hf':
-            step_cands, step_scores = generate_hf(
-                prompt_fn_low(tactic_state=ts,
-                              formal_statement=formal_statement,
-                              informal_statement=informal_statement,
-                              plan_high=plan_high),
-                model=model,
-                tokenizer=tokenizer,
-                temperatures=temperatures,
-                num_samples=num_samples_low,
-                stopping_criteria=stopping_criteria)
-
-        step_cands = [s.strip() for s in step_cands]  
+        step_cands = [s.strip() for s in step_cands] 
+        # DEBUG
+        for step in step_cands:
+            logger.info(step)
         # ---------------------------------------------
 
         # ---------------------------------------------
@@ -281,7 +275,7 @@ def bfs_bilevel(dojo, init_state, theorem,
                 num_samples_low=32, num_samples_high=4, 
                 prompt_fn_low=None, prompt_fn_high=None,
                 timeout=600, early_stop=False, max_tokens=256, 
-                stopping_criteria=None, gen_method='vllm', 
+                stop='----', gen_method='vllm', 
                 formal_statement='', informal_statement='', plan_high=''):
     """
     Implements Low-Level Best First Search (BFS) algorithm for theorem proving.
@@ -292,28 +286,21 @@ def bfs_bilevel(dojo, init_state, theorem,
     # ------------------------------------------------
     # High-Level Search
     total_attempts = 0
-    assert gen_method in ['vllm', 'hf']
-    if gen_method == 'vllm':
-         high_level_plans, high_level_scores = generate_vllm(
-            prompt_fn_high(formal_statement=formal_statement,
-                           informal_statement=informal_statement),
-            model=model,
-            tokenizer=tokenizer,
-            temperatures=temperatures,
-            num_samples=num_samples_high,
-            stop='----',
-            max_tokens=max_tokens
-        )
-
-    elif gen_method == 'hf':
-         high_level_plans, high_level_scores = generate_hf(
-            prompt_fn_high(formal_statement=formal_statement,
-                           informal_statement=informal_statement),
-            model=model,
-            tokenizer=tokenizer,
-            temperatures=temperatures,
-            num_samples=num_samples_high,
-            stopping_criteria=stopping_criteria)
+    assert gen_method in ['vllm', 'hf', 'openai']
+    if gen_method == 'vllm': generate_fn = generate_vllm
+    if gen_method == 'hf': generate_fn = generate_hf
+    if gen_method == 'openai': generate_fn = generate_openai
+    
+    high_level_plans, high_level_scores = generate_fn(
+        prompt_fn_high(formal_statement=formal_statement,
+                    informal_statement=informal_statement),
+        model=model,
+        tokenizer=tokenizer,
+        temperatures=temperatures,
+        num_samples=num_samples_high,
+        stop=stop,
+        max_tokens=max_tokens
+)
 
     # ------------------------------------------------
     
@@ -352,7 +339,7 @@ def bfs_bilevel(dojo, init_state, theorem,
             timeout=timeout,
             early_stop=early_stop,
             max_tokens=max_tokens,
-            stopping_criteria=stopping_criteria,
+            stop=stop,
             gen_method=gen_method,
             formal_statement=formal_statement,
             informal_statement=informal_statement,
@@ -422,7 +409,7 @@ def mct_search(theorem,
                timeout=600,
                early_stop=False,
                max_tokens=256,
-               stopping_criteria=None,
+               stop='----',
                gen_method='vllm',
                expansion_count=1) -> dict:
 
@@ -447,28 +434,22 @@ def mct_search(theorem,
         # ---------------------------------------------
         # Get the next step candidates
         prompt = prompt_fn(node.state)
+
+        assert gen_method in ['vllm', 'hf', 'openai']
+        if gen_method == 'vllm': generate_fn = generate_vllm
+        if gen_method == 'hf': generate_fn = generate_hf
+        if gen_method == 'openai': generate_fn = generate_openai
+
+        step_cands, step_scores = generate_fn(
+            prompt,
+            model=model,
+            tokenizer=tokenizer,
+            temperatures=temperatures,
+            num_samples=num_samples,
+            stop=stop,
+            max_tokens=max_tokens
+        )
         
-        assert gen_method in ['vllm', 'hf']
-        if gen_method == 'vllm':
-            step_cands, step_scores = generate_vllm(
-                prompt,
-                model=model,
-                tokenizer=tokenizer,
-                temperatures=temperatures,
-                num_samples=num_samples,
-                stop='----',
-                max_tokens=max_tokens
-            )
-
-        elif gen_method == 'hf':
-            step_cands, step_scores = generate_hf(
-                prompt,
-                model=model,
-                tokenizer=tokenizer,
-                temperatures=temperatures,
-                num_samples=num_samples,
-                stopping_criteria=stopping_criteria)
-
         step_cands = [s.strip() for s in step_cands]
         # ---------------------------------------------
 

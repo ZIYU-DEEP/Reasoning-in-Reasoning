@@ -86,7 +86,8 @@ ipython_config.py
 
 **/results
 **/scripts
-**/logs
+**/local
+**/lean-dojo-mew
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
