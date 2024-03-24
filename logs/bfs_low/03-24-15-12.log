@@ -785,3 +785,37 @@ Search ended with no success.
 0.09090909090909091
 MiniF2F/Validation.lean
 mathd_algebra_327
+
+Current State:
+TacticState(pp='a : ℝ\nh₀ : 1 / 5 * |9 + 2 * a| < 1\n⊢ -7 < a ∧ a < -2', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_327'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_327',
+                   'informal_proof': 'Multiplying by 5 gives $|9+2a|<5$, so we '
+                                     'must have  $$-5 < 9+2a < 5.$$Subtracting '
+                                     '9 from all three parts of this '
+                                     'inequality chain gives  $$-14 < 2a < '
+                                     '-4,$$and dividing by 2 gives $-7 < a < '
+                                     '-2,$ or $a \\in (-7, -2)$ in interval '
+                                     'notation.',
+                   'informal_stmt': 'Solve for $a$: $\\frac15|9+2a|<1$.  '
+                                    'Express your answer in interval notation. '
+                                    'Show that it is (-7, -2).',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_327 (a : ℝ) (h₀ : 1 / 5 '
+                                '* abs (9 + 2 * a) < 1) : -7 < a ∧ a < -2',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.08333333333333333
+MiniF2F/Validation.lean
+aime_1984_p15
