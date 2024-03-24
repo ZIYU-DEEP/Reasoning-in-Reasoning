@@ -160,3 +160,67 @@ Search ended with no success.
 0.0
 MiniF2F/Validation.lean
 mathd_algebra_126
+
+Current State:
+TacticState(pp='x y : ℝ\nh₀ : 2 * 3 = x - 9\nh₁ : 2 * -5 = y + 1\n⊢ x = 15 ∧ y = -11', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_algebra_126'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_algebra_126',
+                   'informal_proof': 'Applying the midpoint formula gives us '
+                                     '$$\\left(\\frac{-9+x}{2},\\frac{1+y}{2}\\right)=(3,-5).$$Solving '
+                                     '$\\frac{-9+x}{2} =3$ for $x$ and solving '
+                                     '$\\frac{1+y}{2}=-5$ for $y$, we find the '
+                                     'coordinates $(x,y)$ to be $(15,-11)$.',
+                   'informal_stmt': 'The midpoint of the line segment between '
+                                    '$(x,y)$ and $(-9,1)$ is $(3,-5)$. Find '
+                                    '$(x,y)$. Show that it is (15,-11).',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_algebra_126 (x y : ℝ) (h₀ : 2 * '
+                                '3 = x - 9) (h₁ : 2 * -5 = y + 1) : x = 15 ∧ y '
+                                '= -11',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.0
+MiniF2F/Validation.lean
+aimeII_2020_p6
+
+Current State:
+TacticState(pp='t : ℕ → ℚ\nh₀ : t 1 = 20\nh₁ : t 2 = 21\nh₂ : ∀ (n : ℕ), n ≥ 3 → t n = (5 * t (n - 1) + 1) / (25 * t (n - 2))\n⊢ ↑(t 2020).den + (t 2020).num = 626', id=0, message=None)
+
+HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+have h₃ : ∀ n : ℕ, n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + (25 * (t (n - 2)).den) ∧ (t n).den = 25 * (t (n - 1)).den
+have h₃ : ∀ n : ℕ, n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + (t (n - 2)).den ∧ (t n).den = 25 * (t (n - 2)).den := by
+have h₃ : ∀ n : ℕ, n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + (25 * (t (n - 2)).den) ∧ (t n).den = 25 * (t (n - 1)).den by
+have ht2020 : t 2020 = (5 * t 2019 + 1) / (25 * t 2018) := h₂ 2020 (by linarith)
+have ht2020 : t 2020 = 25 by nlinarith
+induction' 2018 with k ih
+have : ∀ n, n ≥ 1 → (t n).den = 1 := by
+induction' 2020 with n ih
+induction' 2018 with n ih
+apply norm_num
+apply Nat.recOn
+sorry
+
+step: have h₃ : ∀ n : ℕ, n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + (25 * (t (n - 2)).den) ∧ (t n).den = 25 * (t (n - 1)).den; score: -0.065
+
+step: have ht2020 : t 2020 = (5 * t 2019 + 1) / (25 * t 2018) := h₂ 2020 (by linarith); score: -0.109
+
+step: induction' 2018 with k ih; score: -0.263
+
+step: induction' 2020 with n ih; score: -0.344
+
+step: induction' 2018 with n ih; score: -0.373
+
+Current State:
+TacticState(pp='case h₃\nt : ℕ → ℚ\nh₀ : t 1 = 20\nh₁ : t 2 = 21\nh₂ : ∀ (n : ℕ), n ≥ 3 → t n = (5 * t (n - 1) + 1) / (25 * t (n - 2))\n⊢ ∀ (n : ℕ), n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + 25 * ↑(t (n - 2)).den ∧ (t n).den = 25 * (t (n - 1)).den\n\nt : ℕ → ℚ\nh₀ : t 1 = 20\nh₁ : t 2 = 21\nh₂ : ∀ (n : ℕ), n ≥ 3 → t n = (5 * t (n - 1) + 1) / (25 * t (n - 2))\nh₃ : ∀ (n : ℕ), n ≥ 3 → (t n).num = 5 * (t (n - 1)).num + 25 * ↑(t (n - 2)).den ∧ (t n).den = 25 * (t (n - 1)).den\n⊢ ↑(t 2020).den + (t 2020).num = 626', id=1, message='')
+
