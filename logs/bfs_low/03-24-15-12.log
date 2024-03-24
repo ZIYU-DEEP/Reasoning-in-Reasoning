@@ -719,3 +719,29 @@ norm_num [Nat.sqrt_eq 14]
 norm_num [Nat.sqrt_eq]
 norm_num [Nat.sqrt_eq] at h₀
 linarith
+Search ended with no success.
+{   'attempt_results': [   {   'failure_reason': 'UnknownError',
+                               'success': False,
+                               'theorem': 'mathd_numbertheory_35'}],
+    'example': {   'commit': 'd00c776260c77de7e70125ef0cd119de6c0ff1de',
+                   'file_path': 'MiniF2F/Validation.lean',
+                   'full_name': 'mathd_numbertheory_35',
+                   'informal_proof': 'Calculate '
+                                     '$\\sqrt{196}=\\sqrt{2^2\\cdot7^2}=2\\cdot7$. '
+                                     'The sum of the four positive factors is '
+                                     '$1+2+7+14=24$.',
+                   'informal_stmt': 'What is the sum of the four positive '
+                                    'factors of the positive integer value of '
+                                    '$\\sqrt{196}$? Show that it is 24.',
+                   'split': 'valid',
+                   'statement': 'theorem mathd_numbertheory_35 (S : Finset ℕ) '
+                                '(h₀ : ∀ n : ℕ, n ∣ Nat.sqrt 196) :\n'
+                                '    (∑ k in S, k) = 24',
+                   'url': 'https://github.com/rah4927/lean-dojo-mew'},
+    'success': False}
+
+-----
+
+0.1
+MiniF2F/Validation.lean
+amc12a_2021_p7
