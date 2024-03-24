@@ -253,7 +253,10 @@ class StoppingCriteriaSub(StoppingCriteria):
 
     def __init__(self, stops=[], encounters=16):
         super().__init__()
-        self.stops = [stop.to('cuda') for stop in stops]
+        try:
+            self.stops = [stop.to('cuda') for stop in stops]
+        except Exception:
+            self.stops = [stop for stop in stops]
         self.ENCOUNTERS = encounters
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
