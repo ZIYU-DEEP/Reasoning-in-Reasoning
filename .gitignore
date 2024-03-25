@@ -56,7 +56,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
+# *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -88,7 +88,7 @@ ipython_config.py
 # **/scripts
 **/local
 **/lean-dojo-mew
-**/logs
+# **/logs
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
