@@ -304,7 +304,7 @@ def bfs_bilevel(dojo, init_state, theorem,
         num_samples=num_samples_high,
         stop=stop,
         max_tokens=max_tokens
-)
+    )
 
     # ------------------------------------------------
     
