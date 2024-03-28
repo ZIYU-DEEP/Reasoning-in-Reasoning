@@ -68,6 +68,8 @@ parser.add_argument('-cfg', '--config_name', type=str,
                     default='dojo_default.yaml')
 parser.add_argument('-sm', '--search_method', type=str,
                     default='', help='Rewrite the search method in config.')
+parser.add_argument('-gm', '--gen_method', type=str,
+                    default='', help='Rewrite the llm generation method in config.')
 parser.add_argument('-sp', '--split', type=str,
                     default='', help='Rewrite the split in config.')
 parser.add_argument('-re', '--resume_from', type=str, default='',
@@ -87,6 +89,10 @@ with open(config_path, 'r') as y_file:
 # Update the search method if specified
 if args.search_method:
     p.search_method = args.search_method
+    
+# Update the generation method if specified
+if args.gen_method:
+    p.gen_method = args.gen_method
 
 # Update the split if specified
 if args.split:
