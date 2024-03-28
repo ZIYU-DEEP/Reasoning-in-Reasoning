@@ -26,11 +26,9 @@ def load_data_dojo(dataset_name: str='minif2f',
 
     return repo, data
 
-
 # Set the repo
 repo, data = load_data_dojo(dataset_path='./data/minif2f_lean4_dojo.jsonl',
                             split='valid')
-
 
 # Check the error message
 for example in data:
