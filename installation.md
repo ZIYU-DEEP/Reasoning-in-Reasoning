@@ -58,10 +58,10 @@ python scripts/mk_make.py
 cd build; make  # This can take half an hour
 make install
 
-# Update the path
-echo 'export PATH="/nethome/hsun409/anaconda3/envs/dojo/bin:$PATH"' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH="/nethome/hsun409/anaconda3/envs/dojo/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
-echo 'export PYTHONPATH="/nethome/hsun409/anaconda3/envs/dojo/lib/python3.x/site-packages:$PYTHONPATH"' >> ~/.bashrc
+# Update the path; be sure to modify it to your local path
+echo 'export PATH="'$your_conda_env_path'/bin:$PATH"' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH="'$your_conda_env_path'/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
+echo 'export PYTHONPATH="'$your_conda_env_path'/lib/python3.x/site-packages:$PYTHONPATH"' >> ~/.bashrc
 source ~/.bashrc
 # conda activate rir
 ```
@@ -75,12 +75,12 @@ tar -xvf m4-latest.tar.gz
 cd m4-1.4.19  # adjust version number as needed.
 
 # Build the binary
-./configure --prefix=/localscratch/hsun409/m4
+./configure --prefix=$WORKING_DIR/m4
 make
 make install
 
-# Update the path
-echo 'export PATH="/localscratch/hsun409/m4/bin:$PATH"' >> ~/.bashrc
+# Update the path; be sure to modify the working dir
+echo 'export PATH="'$WORKING_DIR'/m4/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 # conda activate rir
 
@@ -95,7 +95,7 @@ git clone https://github.com/cvc5/cvc5.git
 cd cvc5
 
 # Configure to the build
-./configure.sh --prefix=/localscratch/hsun409 --auto-download
+./configure.sh --prefix=$WORKING_DIR --auto-download
 
 #
 cd build
@@ -107,8 +107,8 @@ make check
 # Install
 make install
 
-# Update the path
-echo 'export PATH="/localscratch/hsun409/bin:$PATH"' >> ~/.bashrc
+# Update the path; be sure to modify the working dir
+echo 'export PATH="'$WORKING_DIR'/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
