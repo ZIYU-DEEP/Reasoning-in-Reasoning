@@ -4,7 +4,7 @@ results_root: ./results
 
 # --------- Data ---------------
 dataset_name: minif2f
-dataset_path: ./data/minif2f_lean4.jsonl
+dataset_path: ./data/minif2f_lean4_dojo.jsonl
 split: valid
 
 # ---------- Model ------------
