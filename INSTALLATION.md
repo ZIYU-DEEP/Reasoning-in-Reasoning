@@ -7,6 +7,16 @@ Notice that all the operations are taken under the project's conda environment. 
 pip install cmake==3.29.0.1
 ```
 
+## CUDNN
+```bash
+conda install -n <YOUR_CONDA_ENV_NAME> cudnn
+```
+You may need to specify the `LD_LIBRARY_PATH` for `lake exe LeanCopilot/download`. An example command is:
+```bash
+export LD_LIBRARY_PATH="~/anaconda3/envs/<YOUR_CONDA_ENV_NAME>/lib/python3.10/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH"
+```
+<!-- export LD_LIBRARY_PATH="/localscratch/cat/anaconda3/envs/dojo/lib/python3.10/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" -->
+
 ### elan
 ```bash
 # Get the bash script
