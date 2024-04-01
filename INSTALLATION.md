@@ -149,7 +149,7 @@ source ~/.bashrc
 ### Vampire
 ```bash
 # Get the repo
-cd ~/github
+cd ~/github  # Or any other directory you like
 git clone git@github.com:vprover/vampire.git
 cd vampire
 
@@ -174,8 +174,10 @@ cmake .. -DZ3_SINGLE_THREADED=1 -DCMAKE_BUILD_TYPE=Release
 # Build Z3, in this case with make(1)
 make -j$(nproc)
 
-# Since it does not have an install target, we can give an alias to it
-# The exact path may be modified
-echo "alias vampire='~/github/vampire/build/bin/vampire_rel_master_7397'" >> ~/.bashrc
+# In case the executable has additional suffix, we may rename it
+mv ~/github/vampire/build/bin/vampire_rel_master_7397 ~/github/vampire/build/bin/vampire
 ```
+<!-- # Since it does not have an install target, we can give an alias to it
+# The exact path may be modified
+echo "alias vampire='~/github/vampire/build/bin/vampire_rel_master_7397'" >> ~/.bashrc -->
 
