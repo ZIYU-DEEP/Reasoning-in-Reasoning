@@ -84,23 +84,7 @@ def _prompt_high(tactic_state='',
 Given the mathematical statements, suggest a high-level proof plan,
 which will later be used to generate formal Lean4 proof steps with tactics.
 
-Here are some examples:
-
-Formal statement:
-----
-theorem amc12_2000_p5 (x p : ℝ) (h₀ : x < 2) (h₁ : abs (x - 2) = p) : x - p = 2 - 2 * p := by
-----
-Informal statement:
-----
-If the absolute value of x minus 2 is equal to p, where x is less than 2, then what is the value of x - p? Show that it is 2-2p.
-----
-High-level proof plan:
-----
-1. Establish Sufficiency: Simplify the problem by focusing on the relationship between the absolute value and its argument. The `suffices` tactic may be used to show that proving `abs (x - 2) = -(x - 2)` is sufficient.
-2. Rewrite and Simplify: Apply the `rw` tactic to substitute the given condition `abs (x - 2) = p` into the sufficiency condition, simplifying the equation to relate directly to `p`.
-3. Linear Arithmetic: Employ the `linarith` tactic to handle the linear arithmetic implications of the simplified equation, facilitating the deduction of the relationship between `x`, `p`, and their coefficients.
-4. Apply Absolute Value Property: Utilize `apply abs_of_neg` to justify the sufficiency condition by demonstrating that `x - 2` is indeed negative (as `x < 2`), which aligns with the property of the absolute value of a negative number being its negation.
-5. Conclude with Linear Arithmetic: Re-employ `linarith` to finalize the proof, leveraging the established relationships and properties to conclude `x - p = 2 - 2 * p`.
+Here are one examples:
 
 Formal statement:
 ----

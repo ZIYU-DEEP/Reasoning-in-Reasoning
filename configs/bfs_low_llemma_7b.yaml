@@ -13,13 +13,13 @@ gen_method: vllm  # Choose from hf or vllm
 num_shards: 1  # Put data on different shard
 tp_degree: 1  # tensor parallel size
 dtype: float16
-max_tokens: 4096
+max_tokens: 256
 stop: ----
 
 # ---------- Search Method ----------
 # Choose from simple_search, best_first_search, mcts, rir
 # Can be overwrite by the command line argument
-# bfs_low, bfs_low_with_high
+# bfs_low, bfs_low_with_raw_high, bfs_bilevel
 search_method: bfs_low
 
 # ---------- Args for simple first search  ----------

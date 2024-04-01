@@ -19,7 +19,7 @@ stop: ----
 # ---------- Search Method ----------
 # Choose from simple_search, best_first_search, mcts, rir
 # Can be overwrite by the command line argument
-# bfs_low, bfs_low_with_high
+# bfs_low, bfs_low_with_raw_high, bfs_bilevel
 search_method: bfs_low
 
 # ---------- Args for simple first search  ----------
