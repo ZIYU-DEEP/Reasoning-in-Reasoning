@@ -6,9 +6,14 @@
 ## Setup
 
 ```bash
+# Setup for the environment
 conda create --name rir python=3.10
 conda activate rir
 pip install -r requirements.txt  # You may ignore the vllm installation if you do not have cuda
+
+# Setup for the paths 
+echo "export GITHUB_ACCESS_TOKEN='YOUR TOKEN HERE'" >> ~/.bashrc  # Optional - to avoid rate limit issues
+echo "export RAY_TMPDIR='YOUR TEMP DIR'" >> ~/.bashrc  # Optional - to avoid ray init issues
 ```
 
 Optional installation guide for SMT is in [`INSTALLATION.md`](https://github.com/ZIYU-DEEP/bilevel-reasoner/blob/main/INSTALLATION.md).
