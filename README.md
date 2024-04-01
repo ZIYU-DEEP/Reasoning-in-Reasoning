@@ -47,7 +47,7 @@ python run.py --config_name dojo_test.yaml --search_method bfs_bilevel
 ### Command
 
 ```bash
-python run.py --config_name dojo_test.yaml --search_method bfs_low --gen_method openai
+python run.py --config_name dojo_test.yaml --search_method bfs_low --gen_method openai --slice_size 1 -mn gpt-4-0125-preview
 ```
 
 This command will apply `dojo_test.yaml` as the configuration file, which uses `./data/minif2f_lean4_dojo.jsonl` to trace the [miniF2F-lean4 repo](https://github.com/yangky11/miniF2F-lean4/tree/d4ec261d2b9b8844f4ebfad4253cf3f42519c098).
@@ -134,8 +134,8 @@ PermissionError: [Errno 13] Permission denied: '/tmp/ray/session_2024-03-26_22-5
 ```
 
 It seems that the error messages contain two parts:
+
 1. Missing files of `.ast.json` and `.dep_paths`. (I also tried directly using `lake build` under the cloned [miniF2F-lean4 repo](https://github.com/yangky11/miniF2F-lean4/tree/d4ec261d2b9b8844f4ebfad4253cf3f42519c098), and it seems that those files are not contained in the build directory).
 2. The permission error for the `/tmp/ray/.../node_ip_address.json.lock` file.
 
 (Using `lean_dojo==1.1.2` with the [lean-dojo-mew](https://github.com/rah4927/lean-dojo-mew) repo is fine, though. The experiments can be reproduced with the command in the main branch.)
-
