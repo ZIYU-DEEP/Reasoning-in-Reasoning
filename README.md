@@ -31,20 +31,20 @@ source ~/.bashrc
 
 ```bash
 # Low-level search
-python run.py --config_name bfs_low.yaml --gen_method openai --model_name gpt-4-0125-preview
+CONTAINER=native python run.py --config_name bfs_low.yaml --gen_method openai --model_name gpt-4-0125-preview
 
 # Bi-level search
-python run.py --config_name bfs_high.yaml --gen_method openai --model_name gpt-4-0125-preview
+CONTAINER=native python run.py --config_name bfs_high.yaml --gen_method openai --model_name gpt-4-0125-preview
 ```
 
 ### Running with Open-Source Models
 
 ```bash
 # Low-level search
-python run.py --config_name bfs_low_llemma_7b.yaml --model_name open-web-math/llemma_7b
+CONTAINER=native python run.py --config_name bfs_low_llemma_7b.yaml --model_name open-web-math/llemma_7b
 
 # Bi-level search
-python run.py --config_name bfs_bilevel_llemma_7b.yaml --model_name open-web-math/llemma_7b
+CONTAINER=native python run.py --config_name bfs_bilevel_llemma_7b.yaml --model_name open-web-math/llemma_7b
 ```
 
 Notice that for test purpose, you may set `--slice_size 1` to test only on the first theorem.
@@ -57,5 +57,5 @@ CONTAINER=native python test_smt.py
 
 ## TODO
 - [ ] Fix the generation issue for bilevel search using `vllm`. The high-level proof is not extacted correctly due to the `stop` setting.
-- [ ] Add `smt-solver` as a default tactic.
+- [x] Add `smt-solver` as a default tactic.
 
