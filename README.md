@@ -49,6 +49,13 @@ python run.py --config_name bfs_bilevel_llemma_7b.yaml --model_name open-web-mat
 
 Notice that for test purpose, you may set `--slice_size 1` to test only on the first theorem.
 
+## Test for SMT
+Be sure to install everything mentioned in `./INSTALLATION.md` before running the following.
+```bash
+CONTAINER=native python test_smt.py
+```
+
 ## TODO
 - [ ] Fix the generation issue for bilevel search using `vllm`. The high-level proof is not extacted correctly due to the `stop` setting.
 - [ ] Add `smt-solver` as a default tactic.
+
