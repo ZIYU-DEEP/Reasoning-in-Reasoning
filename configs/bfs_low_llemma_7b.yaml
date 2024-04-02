@@ -13,8 +13,8 @@ commit: 728bba5be6dd67d24159025acd1a0c79485fc4e8
 model_name: open-web-math/llemma_7b
 gen_method: vllm  # Choose from hf or vllm
 num_shards: 1  # Put data on different shard
-tp_degree: 1  # tensor parallel size
-dtype: float16
+tp_degree: 2  # tensor parallel size
+dtype: bfloat16
 max_tokens: 256
 stop: ----
 
