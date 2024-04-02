@@ -61,7 +61,9 @@ def set_logger(log_path):
 
 def load_data_dojo(dataset_name: str='minif2f',
                    dataset_path: str='./data/minif2f_lean4.jsonl',
-                   split: str='valid'):
+                   split: str='valid',
+                   url: str='https://github.com/yangky11/miniF2F-lean4',
+                   commit: str='728bba5be6dd67d24159025acd1a0c79485fc4e8'):
     """
     Load the data and the repo to LeanGitRepo.
     """
@@ -76,7 +78,17 @@ def load_data_dojo(dataset_name: str='minif2f',
             data = [x for x in data if x['split'] != 'test']
         else:
             data = [x for x in data if x['split'] == 'test']
-        repo = LeanGitRepo(data[0]['url'], data[0]['commit'])
+        
+        if url:
+            print(f'URL: {url}\nCommit: {commit}')
+            # If the url is specified, using the provided url and commit
+            repo = LeanGitRepo(url, commit)
+        else:
+            # If not, using the url and commit in the jsonl file
+            try:
+                repo = LeanGitRepo(data[0]['url'], data[0]['commit'])
+            except Exception:
+                raise ValueError('URL and commit are not provided anywhere.')
     else:
         raise NotImplementedError(split)
 

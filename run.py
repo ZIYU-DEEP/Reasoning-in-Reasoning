@@ -127,7 +127,9 @@ results_path = results_folder / f'{time_now}.json'
 # Set up the minif2f dataset
 repo, data = misc.load_data_dojo(dataset_name=p.dataset_name,
                                  dataset_path=p.dataset_path,
-                                 split=p.split)
+                                 split=p.split,
+                                 url=p.url,
+                                 commit=p.commit)
 
 if args.resume_from:
     re_ind = [item['full_name'] for item in data].index(args.resume_from)

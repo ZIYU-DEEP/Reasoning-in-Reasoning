@@ -1,6 +1,6 @@
 # Some Notes on Installation
 
-Notice that all the operations are taken under the project's conda environment. Be sure to activate it in case omitted.
+Notice that all the operations are taken under the project's conda environment. Be sure to (re-)activate it in case omitted.
 
 ## SMT-Portfolio
 ### cmake

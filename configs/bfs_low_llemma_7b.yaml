@@ -6,6 +6,8 @@ results_root: ./results
 dataset_name: minif2f
 dataset_path: ./data/minif2f_lean4_dojo.jsonl
 split: valid
+url: https://github.com/yangky11/miniF2F-lean4
+commit: 728bba5be6dd67d24159025acd1a0c79485fc4e8
 
 # ---------- Model ------------
 model_name: open-web-math/llemma_7b

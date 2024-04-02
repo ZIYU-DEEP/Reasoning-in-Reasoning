@@ -1,0 +1,114 @@
+logs/bfs_low/04-02-16-11.log
+None
+{   'commit': '728bba5be6dd67d24159025acd1a0c79485fc4e8',
+    'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_dojo.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 256,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'stop': '----',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'url': 'https://github.com/yangky11/miniF2F-lean4',
+    'verbose': True}
+MiniF2F/Valid.lean
+amc12a_2015_p10
+
+Current State:
+TacticState(pp='x y : ℤ\nh₀ : 0 < y\nh₁ : y < x\nh₂ : x + y + x * y = 80\n⊢ x = 26', id=0, message=None)
+
+smt!
+refine' le_antisymm _ (le_of_not_lt h₁)
+linarith
+refine' le_antisymm _ (le_of_lt h₁)
+refine' le_antisymm ?_ ?_
+refine' le_antisymm _ _
+push_neg at h₀ h₁ ⊢
+apply Int.eq_of_sub_eq_zero
+push_neg at h₀ h₁ h₂ ⊢
+exact le_antisymm h₁ h₀
+apply Int.eq_of_mul_eq_zero
+contrapose! h₁
+norm_num at h₂ ⊢
+push_neg at h₁ h₂ ⊢
+rw [← h₂] at h₁ ⊢
+linarith [h₁]
+have := le_of_lt h₁
+apply le_antisymm
+push_neg at h₁ ⊢
+contrapose! h₂
+linarith only [h₁]
+push_neg at h₀ ⊢
+apply le_antisymm h₁
+contrapose! h₀
+by_contradiction
+by_contra h
+nlinarith
+contrapose! h₁,
+contrapose! h₂
+-
+contrapose! h₁
+-
+by_contra
+
+-
+
+step: smt!; score: 0.0
+Congrats. Proof is finished for this theorem.
+['smt!']
+{   'attempt_results': [   {   'elapsed': -3.307307481765747,
+                               'failure_reason': '',
+                               'iteration': 0,
+                               'proof': ['smt!'],
+                               'score': 0.0,
+                               'success': True,
+                               'temperature': [0.0],
+                               'theorem': 'amc12a_2015_p10',
+                               'trace': [   {   'state_before': 'x y : ℤ\n'
+                                                                'h₀ : 0 < y\n'
+                                                                'h₁ : y < x\n'
+                                                                'h₂ : x + y + '
+                                                                'x * y = 80\n'
+                                                                '⊢ x = 26',
+                                                'tactic': 'smt!'}]}],
+    'example': {   'commit': 'd4ec261d2b9b8844f4ebfad4253cf3f42519c098',
+                   'file_path': 'MiniF2F/Valid.lean',
+                   'full_name': 'amc12a_2015_p10',
+                   'informal_proof': 'Use [[SFFT]] to get $(x+1)(y+1)=81$. The '
+                                     'terms $(x+1)$ and $(y+1)$ must be '
+                                     'factors of $81$, which include $1, 3, 9, '
+                                     '27, 81$. Because $x > y$, $x+1$ is equal '
+                                     'to $27$ or $81$. But if $x+1=81$, then '
+                                     '$y=0$ and so $x=\\textbf{(E)}\\ 26$.',
+                   'informal_stmt': 'Integers $x$ and $y$ with $x>y>0$ satisfy '
+                                    '$x+y+xy=80$. What is $x$?\n'
+                                    '\n'
+                                    '$ \\textbf{(A)}\\ 8 '
+                                    '\\qquad\\textbf{(B)}\\ 10 '
+                                    '\\qquad\\textbf{(C)}\\ 15 '
+                                    '\\qquad\\textbf{(D)}\\ 18 '
+                                    '\\qquad\\textbf{(E)}\\ 26$ Show that it '
+                                    'is \\textbf{(E)}\\ 26.',
+                   'split': 'valid',
+                   'statement': 'theorem amc12a_2015_p10 (x y : ℤ) (h₀ : 0 < '
+                                'y) (h₁ : y < x) (h₂ : x + y + x * y = 80) : x '
+                                '= 26',
+                   'url': 'https://github.com/yangky11/miniF2F-lean4'},
+    'success': True}
+
+-----
+
+1.0
