@@ -17839,3 +17839,1055 @@ Congrats. Proof is finished for this theorem.
 0.5
 MiniF2F/Valid.lean
 aime_1991_p6
+
+Current State:
+TacticState(pp='r : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊100 * r⌋ = 743', id=0, message=None)
+
+smt!
+have h₁ : ∀ k ∈ Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊r⌋ + ⌊↑k / 100⌋,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊100 * r⌋ - ⌊r⌋,
+have h₁ : ∑ k in Finset.Icc 19 90, ⌊r + ↑k / 100⌋ + ⌊r + ↑91 / 100⌋ = 546,
+have : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊100 * r⌋ - ⌊r⌋,
+have h₁ : ∀ k ∈ Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊r⌋ + k,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 545,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 547,
+simp only [Finset.sum_Icc_eq_sum_range]
+refine' le_antisymm _ _
+refine' Finset.eq_of_sum_eq _ h₀
+rw [← tsub_add_cancel_of_le h₀]
+linarith
+refine' Finset.eq_of_sum_eq _
+refine' le_antisymm ?_ ?_
+linarith [h₀]
+rw [← tsub_eq_iff_eq_add]
+rw [mul_eq_mul_right_iff]
+norm_num at h₀ ⊢
+rw [mul_eq_mul_left_iff]
+push_cast at h₀ ⊢
+push_cast
+norm_num
+rw [mul_comm]
+norm_num at h₀
+ring_nf
+push_cast at h₀
+sorry
+ring
+
+-
+
+step: refine' le_antisymm _ _; score: -0.45
+
+step: refine' le_antisymm ?_ ?_; score: -0.508
+
+step: rw [mul_comm]; score: -0.753
+
+step: ring_nf; score: -0.787
+
+step: ring; score: -1.158
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊100 * r⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=1, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+case refine'_1
+linarith
+
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' ⟨by linarith, by linarith⟩
+refine' le_antisymm _ _
+apply Nat.succ_le_of_lt
+refine' ⟨_, _⟩
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+refine' ⟨743, _⟩
+push_neg at h₀ ⊢
+exact le_of_eq h₀
+apply Nat.le_of_sub_le
+case refine'_1
+linarith
+refine' ⟨_,_⟩
+case refine'_1
+rfl
+linarith
+rw [mul_comm]
+exact h₀
+next_tactic
+apply le_of_eq
+nlinarith
+norm_num
+sorry
+push_neg
+tauto
+intro hr
+intro h
+split
+
+
+step: rw [mul_comm]; score: -0.793
+
+step: apply le_of_eq; score: -0.87
+
+step: sorry; score: -0.982
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊100 * r⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=2, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+case refine'_1
+linarith
+
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' ⟨by linarith, by linarith⟩
+refine' le_antisymm _ _
+apply Nat.succ_le_of_lt
+refine' ⟨_, _⟩
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+refine' ⟨743, _⟩
+push_neg at h₀ ⊢
+exact le_of_eq h₀
+apply Nat.le_of_sub_le
+case refine'_1
+linarith
+refine' ⟨_,_⟩
+case refine'_1
+rfl
+linarith
+rw [mul_comm]
+exact h₀
+next_tactic
+apply le_of_eq
+nlinarith
+norm_num
+sorry
+push_neg
+tauto
+intro hr
+intro h
+split
+
+
+step: rw [mul_comm]; score: -0.793
+
+step: apply le_of_eq; score: -0.87
+
+step: sorry; score: -0.982
+
+Current State:
+TacticState(pp='r : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = 743', id=7, message='')
+
+smt!
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊r⌋ + ∑ k in Finset.Icc 19 91, ⌊↑k / 100⌋,
+have h₁ : ∑ k in Finset.Icc 19 90, ⌊r + ↑k / 100⌋ + ⌊r + ↑91 / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r⌋ + ∑ k in Finset.Icc 19 91, k / 100 = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 545,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 547,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546,
+have : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+simp only [Finset.sum_Icc_eq_sum_range]
+refine' le_antisymm _ _
+linarith
+linarith [h₀]
+refine' le_antisymm ?_ ?_
+refine' Finset.eq_of_sum_eq _
+norm_num at h₀ ⊢
+refine' Finset.sum_congr rfl _
+convert h₀ using 1
+rw [mul_comm]
+push_cast at h₀ ⊢
+push_cast
+norm_num
+rw [mul_sum]
+norm_num at h₀
+ring_nf
+push_cast at h₀
+rw [mul_comm],
+sorry
+ring
+
+-
+
+step: refine' le_antisymm _ _; score: -0.463
+
+step: refine' le_antisymm ?_ ?_; score: -0.528
+
+step: convert h₀ using 1; score: -0.673
+
+Current State:
+TacticState(pp='r : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = 743', id=9, message='')
+
+smt!
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊r⌋ + ∑ k in Finset.Icc 19 91, ⌊↑k / 100⌋,
+have h₁ : ∑ k in Finset.Icc 19 90, ⌊r + ↑k / 100⌋ + ⌊r + ↑91 / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r⌋ + ∑ k in Finset.Icc 19 91, k / 100 = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 545,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 547,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546,
+have : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+simp only [Finset.sum_Icc_eq_sum_range]
+refine' le_antisymm _ _
+linarith
+linarith [h₀]
+refine' le_antisymm ?_ ?_
+refine' Finset.eq_of_sum_eq _
+norm_num at h₀ ⊢
+refine' Finset.sum_congr rfl _
+convert h₀ using 1
+rw [mul_comm]
+push_cast at h₀ ⊢
+push_cast
+norm_num
+rw [mul_sum]
+norm_num at h₀
+ring_nf
+push_cast at h₀
+rw [mul_comm],
+sorry
+ring
+
+-
+
+step: refine' le_antisymm _ _; score: -0.463
+
+step: refine' le_antisymm ?_ ?_; score: -0.528
+
+step: convert h₀ using 1; score: -0.673
+
+Current State:
+TacticState(pp='r : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = 743', id=11, message='')
+
+smt!
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = ⌊r⌋ + ∑ k in Finset.Icc 19 91, ⌊↑k / 100⌋,
+have h₁ : ∑ k in Finset.Icc 19 90, ⌊r + ↑k / 100⌋ + ⌊r + ↑91 / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r⌋ + ∑ k in Finset.Icc 19 91, k / 100 = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 546,
+have h₁ : ∑ k in Finset.Icc 20 90, ⌊r + ↑k / 100⌋ = 545,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+have h₁ : ∑ k in Finset.Icc 20 91, ⌊r + ↑k / 100⌋ = 547,
+have h₁ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546,
+have : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 743,
+simp only [Finset.sum_Icc_eq_sum_range]
+refine' le_antisymm _ _
+linarith
+linarith [h₀]
+refine' le_antisymm ?_ ?_
+refine' Finset.eq_of_sum_eq _
+norm_num at h₀ ⊢
+refine' Finset.sum_congr rfl _
+convert h₀ using 1
+rw [mul_comm]
+push_cast at h₀ ⊢
+push_cast
+norm_num
+rw [mul_sum]
+norm_num at h₀
+ring_nf
+push_cast at h₀
+rw [mul_comm],
+sorry
+ring
+
+-
+
+step: refine' le_antisymm _ _; score: -0.463
+
+step: refine' le_antisymm ?_ ?_; score: -0.528
+
+step: convert h₀ using 1; score: -0.673
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=24, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=13, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+norm_num
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+refine' le_antisymm ?_ ?_
+refine' ⟨_, _⟩; linarith
+refine' ⟨by norm_num, _⟩
+refine' ⟨743, _⟩
+apply Nat.le_of_sub_nonneg
+refine' le_antisymm _ _,
+exact le_of_eq h₀
+push_neg at h₀ ⊢
+apply Nat.mul_le_mul_left
+apply Nat.le_of_floor_le
+rw [mul_comm]
+case refine'_1
+rfl
+case refine'_1
+linarith
+refine' ⟨_,_⟩
+next_tactic
+exact h₀
+linarith
+apply le_of_eq
+sorry
+push_cast
+norm_num
+tauto
+intro hr
+intro h
+split
+
+
+step: apply le_of_eq; score: -0.911
+
+step: sorry; score: -0.995
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=36, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=25, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=19, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+linarith
+case refine'_1
+rfl
+case refine'_2
+norm_num
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+refine' le_antisymm ?_ ?_
+refine' ⟨_, _⟩; linarith
+refine' ⟨by norm_num, _⟩
+refine' ⟨743, _⟩
+apply Nat.le_of_sub_nonneg
+refine' le_antisymm _ _,
+exact le_of_eq h₀
+push_neg at h₀ ⊢
+apply Nat.mul_le_mul_left
+apply Nat.le_of_floor_le
+rw [mul_comm]
+case refine'_1
+rfl
+case refine'_1
+linarith
+refine' ⟨_,_⟩
+next_tactic
+exact h₀
+linarith
+apply le_of_eq
+sorry
+push_cast
+norm_num
+tauto
+intro hr
+intro h
+split
+
+
+step: apply le_of_eq; score: -0.911
+
+step: sorry; score: -0.995
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=37, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1.a\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊100 * r⌋ = 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=14, message='')
+
+smt!
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+
+case refine'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 ≤ ⌊100 * r⌋
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+case refine'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 ≤ ⌊100 * r⌋
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+case refine'_1.a
+linarith
+case refine'_2
+linarith
+case refine'_1.a
+rfl
+case refine'_2
+linarith
+case refine'_1.a
+rfl
+case refine'_2
+norm_num
+refine' ⟨743, _⟩
+refine' ⟨743, ?_⟩
+case refine'_1.a
+rw [mul_comm]
+case refine'_1.a
+rfl
+refine' ⟨by norm_num, _⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+refine' ⟨743, _, _⟩
+case refine'_1.a
+linarith
+case refine'_1.a
+norm_num
+rintro (rfl | rfl)
+case refine'_1.a
+ring
+exact h₀.symm
+exact h₀
+rw [mul_comm]
+apply le_antisymm
+case refine'_1.a
+next_tactic
+apply Nat.le_floor
+linarith
+sorry
+norm_num
+push_cast
+rfl
+intro h
+
+
+step: refine' le_antisymm _ _; score: -0.562
+
+step: rw [mul_comm]; score: -0.77
+
+step: apply le_antisymm; score: -0.784
+
+step: sorry; score: -1.005
+
+Current State:
+TacticState(pp="case refine'_1.a\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊100 * r⌋ = 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=20, message='')
+
+smt!
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+
+case refine'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 ≤ ⌊100 * r⌋
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+case refine'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 ≤ ⌊100 * r⌋
+case refine'_1.a
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊100 * r⌋ = 743
+case refine'_1.a
+linarith
+case refine'_2
+linarith
+case refine'_1.a
+rfl
+case refine'_2
+linarith
+case refine'_1.a
+rfl
+case refine'_2
+norm_num
+refine' ⟨743, _⟩
+refine' ⟨743, ?_⟩
+case refine'_1.a
+rw [mul_comm]
+case refine'_1.a
+rfl
+refine' ⟨by norm_num, _⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+refine' ⟨743, _, _⟩
+case refine'_1.a
+linarith
+case refine'_1.a
+norm_num
+rintro (rfl | rfl)
+case refine'_1.a
+ring
+exact h₀.symm
+exact h₀
+rw [mul_comm]
+apply le_antisymm
+case refine'_1.a
+next_tactic
+apply Nat.le_floor
+linarith
+sorry
+norm_num
+push_cast
+rfl
+intro h
+
+
+step: refine' le_antisymm _ _; score: -0.562
+
+step: rw [mul_comm]; score: -0.77
+
+step: apply le_antisymm; score: -0.784
+
+step: sorry; score: -1.005
+
+Current State:
+TacticState(pp="case h.e'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋\n\ncase h.e'_3\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 = 546", id=27, message='')
+
+smt!
+case h.e'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋
+
+case h.e'_3
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 = 546
+case h.e'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋
+case h.e'_3
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 = 546
+rw [h.e'_2, h.e'_3]
+rw [h.e'_2]
+rw [h.e'_3]
+rw [h.e'_3, h.e'_2]
+rw [h.e'_2]
+exact h₀.symm
+rw [← h.e'_2]
+rw [h.e'_3]
+norm_num at h₀ ⊢
+rw [mul_comm]
+exact h₀
+simp at h₀ ⊢
+ring_nf
+convert h₀ using 1
+simp [h₀]
+rw [← h₀]
+rw [h₀]
+norm_num at h₀
+norm_num
+simp only at h₀
+linarith
+rfl
+ring
+push_cast
+congr 1
+refl
+sorry
+simp only
+convert h₀
+congr
+
+
+step: rw [mul_comm]; score: -0.608
+
+step: ring_nf; score: -0.679
+
+step: simp [h₀]; score: -0.725
+
+step: rw [h₀]; score: -0.757
+
+step: ring; score: -0.905
+
+step: sorry; score: -0.988
+
+Current State:
+TacticState(pp="case refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=16, message='')
+
+smt!
+linarith
+linarith [h₀]
+refine' le_trans (by norm_num) _
+linarith only [h₀]
+refine' le_trans _ (le_of_eq _)
+apply Nat.le_of_mul_le_mul_left
+refine' le_trans ?_ le_rfl
+apply Nat.le_of_add_le_add_left
+apply Nat.le_of_add_le_add_right
+exact le_trans (by norm_num) h₀
+exact_mod_cast h₀
+apply Nat.lt_succ_of_le
+refine' le_trans _ h₀
+refine' le_trans ?_ ?_
+push_neg at h₀ ⊢
+norm_num at h₀ ⊢
+apply Nat.le_of_floor_le
+norm_num
+refine' le_trans _ _
+sorry
+norm_num at h₀
+nlinarith
+push_neg at h₀ ⊢
+-
+rw [mul_comm]
+push_cast
+push_neg
+exact h₀
+intro h
+right
+left
+
+-
+
+step: refine' le_trans _ (le_of_eq _); score: -0.521
+
+step: refine' le_trans ?_ ?_; score: -0.596
+
+step: refine' le_trans _ _; score: -0.726
+
+step: rw [mul_comm]; score: -0.876
+
+Current State:
+TacticState(pp="case h.e'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋\n\ncase h.e'_3\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 = 546", id=39, message='')
+
+smt!
+case h.e'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋
+
+case h.e'_3
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 = 546
+case h.e'_2
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋
+case h.e'_3
+r : ℝ
+h₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546
+⊢ 743 = 546
+rw [h.e'_2, h.e'_3]
+rw [h.e'_2]
+rw [h.e'_3]
+rw [h.e'_3, h.e'_2]
+rw [h.e'_2]
+exact h₀.symm
+rw [← h.e'_2]
+rw [h.e'_3]
+norm_num at h₀ ⊢
+rw [mul_comm]
+exact h₀
+simp at h₀ ⊢
+ring_nf
+convert h₀ using 1
+simp [h₀]
+rw [← h₀]
+rw [h₀]
+norm_num at h₀
+norm_num
+simp only at h₀
+linarith
+rfl
+ring
+push_cast
+congr 1
+refl
+sorry
+simp only
+convert h₀
+congr
+
+
+step: rw [mul_comm]; score: -0.608
+
+step: ring_nf; score: -0.679
+
+step: simp [h₀]; score: -0.725
+
+step: rw [h₀]; score: -0.757
+
+step: ring; score: -0.905
+
+step: sorry; score: -0.988
+
+Current State:
+TacticState(pp="case refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊100 * r⌋", id=22, message='')
+
+smt!
+linarith
+linarith [h₀]
+refine' le_trans (by norm_num) _
+linarith only [h₀]
+refine' le_trans _ (le_of_eq _)
+apply Nat.le_of_mul_le_mul_left
+refine' le_trans ?_ le_rfl
+apply Nat.le_of_add_le_add_left
+apply Nat.le_of_add_le_add_right
+exact le_trans (by norm_num) h₀
+exact_mod_cast h₀
+apply Nat.lt_succ_of_le
+refine' le_trans _ h₀
+refine' le_trans ?_ ?_
+push_neg at h₀ ⊢
+norm_num at h₀ ⊢
+apply Nat.le_of_floor_le
+norm_num
+refine' le_trans _ _
+sorry
+norm_num at h₀
+nlinarith
+push_neg at h₀ ⊢
+-
+rw [mul_comm]
+push_cast
+push_neg
+exact h₀
+intro h
+right
+left
+
+-
+
+step: refine' le_trans _ (le_of_eq _); score: -0.521
+
+step: refine' le_trans ?_ ?_; score: -0.596
+
+step: refine' le_trans _ _; score: -0.726
+
+step: rw [mul_comm]; score: -0.876
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=48, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case refine'_1\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ ≤ 743\n\ncase refine'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 ≤ ⌊r * 100⌋", id=49, message='')
+
+smt!
+case refine'_1
+linarith
+case refine'_2
+linarith
+refine' le_antisymm ?refine'_1 ?refine'_2
+case refine'_1
+rfl
+case refine'_2
+linarith
+refine' ⟨by norm_num, by norm_num⟩
+refine' le_antisymm _ _
+refine' ⟨_, _⟩
+apply Nat.le_of_succ_le_succ
+refine' le_antisymm ?_ ?_
+refine' ⟨by norm_num, _⟩
+refine' ⟨_, _⟩; linarith
+apply Nat.eq_zero_of_le_zero
+push_neg at h₀ ⊢
+refine' ⟨743, _⟩
+exact le_of_eq h₀
+refine' le_antisymm _ _,
+apply Nat.le_of_sub_le
+case refine'_1
+rfl
+refine' ⟨_,_⟩
+case refine'_1
+linarith
+exact h₀
+next_tactic
+push_neg at h₀
+linarith
+tauto!
+sorry
+tauto
+apply h₀
+push_neg
+intro hr
+intro h
+split
+
+
+step: sorry; score: -0.976
+
+Current State:
+TacticState(pp="case h.e'_2\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ ⌊r * 100⌋ = ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋\n\ncase h.e'_3\nr : ℝ\nh₀ : ∑ k in Finset.Icc 19 91, ⌊r + ↑k / 100⌋ = 546\n⊢ 743 = 546", id=51, message='')
+
