@@ -26,63 +26,6 @@ class LeanDojoState(State):
     
     def get_tactic_state(self) -> TacticState:
         return self.tactic_state
-
-# class LeanDojoForwardTransitor(ForwardTransitor2):
-#     '''
-#     Wraps around the lean_dojo ForwardTransitor class
-#     '''
-    
-#     def _transition(self, state: State, action: dict) -> Tuple[State, dict[Any, float], dict]:
-#         next_state = self.dojo.run_tac(state, action[0])
-
-
-# class LeanDojoActionHeuristicEnumerator:
-#     '''
-#     Wraps around the lean_dojo ActionScoreEnumerator class
-#     '''
-#     def __init__(self, gen_method, prompt_fn_low, model, 
-#                  tokenizer, temperatures, 
-#                  num_samples_low, stop, max_tokens,
-#                  formal_statement, informal_statement, plan_high):
-#         self.gen_method = gen_method
-#         self.model = model
-#         self.tokenizer = tokenizer
-#         self.temperatures = temperatures
-#         self.num_samples_low = num_samples_low
-#         self.stop = stop
-#         self.max_tokens = max_tokens
-#         self.prompt_fn_low = prompt_fn_low
-#         self.formal_statement = formal_statement
-#         self.informal_statement = informal_statement
-#         self.plan_high = plan_high
-
-#     def _predict(self, state: LeanDojoState) -> dict:
-#         '''
-#         Takes in a state and predicts the possible actions and their heuristic scores
-        
-#         Args:
-#             state (State): The current state
-
-#         Returns:
-#             action_to_score (dict): A dictionary mapping actions to their heuristic scores
-#         '''
-#         processed_state = state
-#         # generate actions and scores using gen_method
-#         step_cands, step_scores = self.gen_method(
-#             self.prompt_fn_low(tactic_state=processed_state,
-#                           formal_statement=self.formal_statement,
-#                           informal_statement=self.informal_statement,
-#                           plan_high=self.plan_high),
-#             model=self.model,
-#             tokenizer=self.tokenizer,
-#             temperatures=self.temperatures,
-#             num_samples=self.num_samples_low,
-#             stop=self.stop,
-#             max_tokens=self.max_tokens
-#         )
-#         step_cands = [s.strip() for s in step_cands] 
-#         action_to_score = {step_cands[i]: step_scores[i] for i in range(len(step_cands))}
-#         return action_to_score
     
 class LowLevelInferencer(InitialInferencer2):
     '''
@@ -157,6 +100,10 @@ class LowLevelInferencer(InitialInferencer2):
                 action_to_next_state.pop(action)
                 # log the invalid action
                 self.logger.info(f"Invalid Action: {action}")
+
+        # if action to reward is empty, return empty dicts (no valid actions left)
+        if not action_to_reward:
+            return dict(), dict(), dict(), dict(), dict()
 
         # set next_state_values to 0.0 for now
         next_state_values = {next_state: 0.0 for next_state in action_to_next_state.values()}

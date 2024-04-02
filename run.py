@@ -174,13 +174,13 @@ def main():
 
             # Low-level Search
             if p.search_method == 'bfs_low':
-                search_fn = search.bfs_low
+                search_fn = search.search_low
                 prompt_fn_low = prompts._prompt_low
                 prompt_fn_high = None
 
             # Low-level Search with Raw High-Level Proof Plan in Context
             if p.search_method == 'bfs_low_with_raw_high':
-                search_fn = search.bfs_low
+                search_fn = search.search_low
                 prompt_fn_low = prompts._prompt_low_with_high
                 prompt_fn_high = None
 

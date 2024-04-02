@@ -18,6 +18,7 @@ import numpy as np
 from .searchlight_models import *
 from searchlight.datastructures.graphs import ValueGraph2
 from searchlight.algorithms.best_first_search import BestFirstSearch
+from searchlight.algorithms.mcts_search import SMMonteCarlo
 
 from transformers import (
     Trainer,
@@ -141,7 +142,7 @@ def proof_search(theorem, model, tokenizer,
 # ===============================================
 # SEARCH FUNCTION 1: bfs_low
 # ===============================================
-def bfs_low(dojo, init_state, theorem, 
+def search_low(dojo, init_state, theorem, 
             model, tokenizer, 
             max_iters_low, max_iters_high, 
             temperatures, 
@@ -149,7 +150,8 @@ def bfs_low(dojo, init_state, theorem,
             prompt_fn_low=None, prompt_fn_high=None,
             timeout=600, early_stop=False, max_tokens=256, 
             stop='----', gen_method='vllm', 
-            formal_statement='', informal_statement='', plan_high=''):
+            formal_statement='', informal_statement='', 
+            plan_high='', search_method='mcts',):
     """
     Implements Low-Level Best First Search (BFS) algorithm for theorem proving using the searchlight framework
     """
@@ -178,22 +180,47 @@ def bfs_low(dojo, init_state, theorem,
     # create the ValueGraph
     value_graph = ValueGraph2()
 
-    # create BFS search algorithm
-    bfs_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,)
+    # create search algorithm
+    assert search_method in ['bfs', 'mcts']
+    if search_method == 'bfs':
+        search_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,)
+    elif search_method == 'mcts':
+        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low,)
 
     # run the search
-    bfs_algorithm.expand(datastructure=value_graph, state=init_state)
+    search_algorithm.expand(datastructure=value_graph, state=init_state)
+
+    # get the optimal trajectory
+    optimal_trajectory = value_graph.simulate_trajectory(init_state)
+
+    # get action sequence
+    action_sequence = [dict(action)[0] for state, action in optimal_trajectory[:-1]]
+
+    last_state = optimal_trajectory[-1][0]
+
+    # see if the last state in optimal trajectory is a ProofFinished state
+    proof_finished = isinstance(last_state, ProofFinished)
+
+    # get the value estimate of the first state
+    start_node = value_graph.get_node(init_state)
+    value_estimate = value_graph.get_estimated_value(start_node, 0)
+
+    # convert the states in optimal trajectory to strings
+    optimal_trajectory = [(state.get_string(), dict(action)[0]) for state, action in optimal_trajectory[:-1]]
+
+    # append (last_state, None) to the optimal trajectory
+    optimal_trajectory.append((last_state.get_string(), None))
 
     attempt_results.append({
                     'theorem': theorem.full_name,
-                    'proof': [],
-                    'score': 0.0,
-                    'success': True,
+                    'proof': action_sequence,
+                    'score': value_estimate,
+                    'success': proof_finished,
                     'failure_reason': '',
-                    'trace': [],
+                    'trace': optimal_trajectory,
                     'temperature': temperatures,
                     'elapsed': start - time.time(),
-                    'iteration': 0,})
+                    'iteration': search_algorithm.get_nodes_expanded(),})
 
     # ------------------------------------------------
     
