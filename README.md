@@ -56,6 +56,8 @@ CONTAINER=native python test_smt.py
 ```
 
 ## TODO
-- [ ] Fix the generation issue for bilevel search using `vllm`. The high-level proof is not extacted correctly due to the `stop` setting.
+<!-- - [x] Fix the generation issue for bilevel search using `vllm`. The high-level proof is not extacted correctly due to the `stop` setting (). -->
 - [x] Add `smt-solver` as a default tactic.
+- [ ] Add step by step plan generation.
+- [ ] Update MCTS.
 

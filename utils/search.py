@@ -374,6 +374,98 @@ def bfs_bilevel(dojo, init_state, theorem,
     return attempt_results
 
 
+def iterative_bfs_bilevel(dojo, init_state, theorem, 
+                          model, tokenizer, 
+                          max_iters, 
+                          temperatures, 
+                          num_samples_low, 
+                          prompt_fn_low, prompt_fn_high_next_step,
+                          timeout=600, early_stop=False, max_tokens=256, 
+                          stop='----', gen_method='vllm', 
+                          formal_statement='', informal_statement=''):
+    """
+    Implements an iterative, step-wise bi-level search algorithm for theorem proving.
+    """
+
+    attempt_results = []
+    history = []  # To keep track of high-level strategies and low-level tactics
+    start = time.time()
+    state = init_state
+    total_attempts = 0
+    
+    assert gen_method in ['vllm', 'hf', 'openai']
+    if gen_method == 'vllm': generate_fn = generate_vllm
+    if gen_method == 'hf': generate_fn = generate_hf
+    if gen_method == 'openai': generate_fn = generate_openai
+    
+    # ------------------------------------------------
+    # ITERATIVE HIGH-LEVEL AND LOW-LEVEL SEARCH
+    for iteration in trange(max_iters):
+
+        # High-level strategy generation for the next step
+        high_level_strategy = prompt_fn_high_next_step(
+            tactic_state=_tactic_state(state),
+            formal_statement=formal_statement,
+            informal_statement=informal_statement,
+            history=history
+        )
+
+        high_level_plan, high_level_scores = generate_fn(
+            high_level_strategy,
+            model=model,
+            tokenizer=tokenizer,
+            temperatures=temperatures,
+            num_samples=1,  # One high-level strategy at a time
+            stop=stop,
+            max_tokens=max_tokens
+        )
+
+        if high_level_plan:
+            history.append(high_level_plan[0])  # Update history with the high-level strategy
+
+        # Low-level tactic generation based on the current state and the latest high-level strategy
+        low_level_tactic = prompt_fn_low(
+            tactic_state=_tactic_state(state),
+            formal_statement=formal_statement,
+            informal_statement=informal_statement,
+            plan_high=high_level_plan[0] if high_level_plan else ""
+        )
+
+        low_level_cands, low_level_scores = generate_fn(
+            low_level_tactic,
+            model=model,
+            tokenizer=tokenizer,
+            temperatures=temperatures,
+            num_samples=num_samples_low,
+            stop=stop,
+            max_tokens=max_tokens
+        )
+
+        # Apply the best low-level tactic from the candidates
+        if low_level_cands:
+            result = dojo.run_tac(state, low_level_cands[0])  # Apply the first candidate
+            history.append(low_level_cands[0])  # Update history with the applied tactic
+
+            # Check if the proof is completed
+            if isinstance(result, ProofFinished):
+                attempt_results.append({
+                    'theorem': theorem.full_name,
+                    'proof': history,
+                    'success': True,
+                    'iteration': iteration,
+                    'elapsed': time.time() - start
+                })
+                if early_stop:
+                    break  # Early stop if proof is completed
+
+            elif isinstance(result, TacticState):
+                state = result  # Update state for the next iteration
+
+        total_attempts += 1
+
+    return attempt_results
+
+
 # ===============================================
 # SEARCH FUNCTION 3: mcts_low (to edit)
 # ===============================================

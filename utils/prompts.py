@@ -179,11 +179,90 @@ rw [← h.gcd_eq_one]
 In your response, include only the lean code for only the next tactic and nothing else.
 Tactic state:
 ----
-%s
+{tactic_state}
 ----
 Next tactic:
 ----"""
     return prompt
+
+
+def _prompt_low_with_high_stepwise(tactic_state, 
+                                   formal_statement='', 
+                                   informal_statement='', 
+                                   plan_high=''):
+    """
+    Given the current tactic state and a single-step high-level strategy,
+    suggest a next tactic to help solve the goal.
+    """
+    
+    prompt = f"""Given the Lean 4 tactic state and a high-level strategy, suggest a next tactic to help solve the goal. Try to use the high-level strategy as a guide, but there is no need to follow it exactly. Do you best to suggest the best next tactic to help solve the problem.
+    
+Here are some examples:
+
+Tactic state:
+----
+α : Type u_1
+r : α → α → Prop
+inst✝¹ : DecidableEq α
+inst✝ : IsIrrefl α r
+⊢ CutExpand r ≤ InvImage (Finsupp.Lex (rᶜ ⊓ fun x x_1 => x ≠ x_1) fun x x_1 => x < x_1) ↑toFinsupp
+----
+High-level strategy: 
+----
+Simplify expressions involving relations.
+----
+Next tactic:
+----
+rintro s t ⟨u, a, hr, he⟩
+----
+
+Tactic state:
+----
+ι : Type u_1
+I✝ J✝ : Box ι
+x y : ι → ℝ
+I J : WithBot (Box ι)
+⊢ ↑I = ↑J ↔ I = J
+----
+High-level strategy: 
+----
+Leverage symmetry properties to simplify equations.
+----
+Next tactic:
+----
+simp only [Subset.antisymm_iff, ← le_antisymm_iff, withBotCoe_subset_iff]
+----
+
+Tactic state:
+----
+m n : ℕ
+h : Nat.coprime m n
+⊢ Nat.gcd m n = 1
+----
+High-level strategy:
+----
+Use properties of coprime numbers to simplify numeric expressions.
+----
+Next tactic:
+----
+rw [← h.gcd_eq_one]
+----
+
+Now, given the information, suggest the next tactic in formal Lean4 code to help solve the theorem. In your response, include only the lean code for only the next tactic and nothing else.
+
+Tactic state:
+----
+{tactic_state}
+----
+High-level strategy:
+----
+{plan_high}
+----
+Next tactic
+----
+"""
+    return prompt
+
 
 # def _prompt_low_with_high(tactic_state, 
 #                           formal_statement, 
