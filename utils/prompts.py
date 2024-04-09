@@ -186,6 +186,69 @@ Next tactic:
     return prompt
 
 
+def _prompt_high_stepwise(tactic_state, 
+                          formal_statement='', 
+                          informal_statement='', 
+                          plan_high=''):
+    """
+    Given the current tactic state,
+    suggest a high-level strategy that will later be translated
+    to formal Lean4 proof steps with tactics to help solve the goal.
+    """
+    
+    prompt = f"""Given the current Lean 4 tactic state and a high-level strategy, do you best to suggest the best next high-level strategy to help solve the problem. The strategy should not only guide the proof towards resolution but also be practical enough to be translated into a specific next-step Lean4 tactic. This next-step high-level strategy aims to narrow the action space, making the search for the next tactical step more efficient.
+    
+Here are some examples:
+
+Tactic state:
+----
+α : Type u_1
+r : α → α → Prop
+inst✝¹ : DecidableEq α
+inst✝ : IsIrrefl α r
+⊢ CutExpand r ≤ InvImage (Finsupp.Lex (rᶜ ⊓ fun x x_1 => x ≠ x_1) fun x x_1 => x < x_1) ↑toFinsupp
+----
+Next-step high-level strategy: 
+----
+Simplify expressions involving relations.
+----
+
+Tactic state:
+----
+ι : Type u_1
+I✝ J✝ : Box ι
+x y : ι → ℝ
+I J : WithBot (Box ι)
+⊢ ↑I = ↑J ↔ I = J
+----
+Next-step high-level strategy: 
+----
+Leverage symmetry properties to simplify equations.
+----
+
+Tactic state:
+----
+m n : ℕ
+h : Nat.coprime m n
+⊢ Nat.gcd m n = 1
+----
+Next-step high-level strategy:
+----
+Use properties of coprime numbers to simplify numeric expressions with rewrite.
+----
+
+Now, given the information, suggest the next high-level strategy to guide the proof towards resolution. In your response, include only the next-step high-level strategy and nothing else.
+
+Tactic state:
+----
+{tactic_state}
+----
+Next-step high-level strategy:
+----
+"""
+    return prompt
+
+
 def _prompt_low_with_high_stepwise(tactic_state, 
                                    formal_statement='', 
                                    informal_statement='', 
