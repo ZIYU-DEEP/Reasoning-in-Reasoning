@@ -287,7 +287,7 @@ def bfs_bilevel(dojo, init_state, theorem,
                 stop='----', gen_method='vllm', 
                 formal_statement='', informal_statement='', plan_high=''):
     """
-    Implements Low-Level Best First Search (BFS) algorithm for theorem proving.
+    Implements Bi-Level Best First Search (BFS) algorithm for theorem proving.
     """
     
     attempt_results = []
@@ -374,65 +374,69 @@ def bfs_bilevel(dojo, init_state, theorem,
     return attempt_results
 
 
-def iterative_bfs_bilevel(dojo, init_state, theorem, 
-                          model, tokenizer, 
-                          max_iters, 
-                          temperatures, 
-                          num_samples_low, 
-                          prompt_fn_low, prompt_fn_high_next_step,
-                          timeout=600, early_stop=False, max_tokens=256, 
-                          stop='----', gen_method='vllm', 
-                          formal_statement='', informal_statement=''):
+def bfs_bilevel_stepwise(dojo, init_state, theorem, 
+                         model, tokenizer, 
+                         max_iters_low, max_iters_high, 
+                         temperatures, 
+                         num_samples_low=32, num_samples_high=4, 
+                         prompt_fn_low=None, prompt_fn_high=None,
+                         timeout=600, early_stop=False, max_tokens=256, 
+                         stop='----', gen_method='vllm', 
+                         formal_statement='', informal_statement='', plan_high=''):
     """
-    Implements an iterative, step-wise bi-level search algorithm for theorem proving.
+    Implements Stepwise Bi-Level Best First Search (BFS) algorithm for theorem proving.
     """
-
+    
     attempt_results = []
-    history = []  # To keep track of high-level strategies and low-level tactics
-    start = time.time()
-    state = init_state
-    total_attempts = 0
-    
-    assert gen_method in ['vllm', 'hf', 'openai']
-    if gen_method == 'vllm': generate_fn = generate_vllm
-    if gen_method == 'hf': generate_fn = generate_hf
-    if gen_method == 'openai': generate_fn = generate_openai
-    
+
     # ------------------------------------------------
-    # ITERATIVE HIGH-LEVEL AND LOW-LEVEL SEARCH
-    for iteration in trange(max_iters):
+    # PREPARATION
+    start = time.time()
+    proof_finished = False
+    queue = [(0.0, [], init_state, [])]
+    visited = set()
+    # ------------------------------------------------
+    
 
-        # High-level strategy generation for the next step
-        high_level_strategy = prompt_fn_high_next_step(
-            tactic_state=_tactic_state(state),
-            formal_statement=formal_statement,
-            informal_statement=informal_statement,
-            history=history
-        )
+    # ------------------------------------------------
+    # STEP BY STEP INFERENCE
+    for iteration in trange(max_iters_low):
+        
+        # ---------------------------------------------
+        # Preparation
+        # Termination criteria
+        if len(queue) == 0 or proof_finished: break
 
-        high_level_plan, high_level_scores = generate_fn(
-            high_level_strategy,
+        # Get the information from the heapq
+        total_score, steps, state, trace = heapq.heappop(queue)
+        ts = _tactic_state(state)
+        logger.info(f'\nCurrent State:\n{state}\n')
+        visited.add(ts)
+
+        # ---------------------------------------------
+        # Generate results
+        assert gen_method in ['vllm', 'hf', 'openai']
+        if gen_method == 'vllm': generate_fn = generate_vllm
+        if gen_method == 'hf': generate_fn = generate_hf
+        if gen_method == 'openai': generate_fn = generate_openai
+
+        step_cands_high, step_scores_high = generate_fn(
+            prompt_fn_high(tactic_state=ts),
             model=model,
             tokenizer=tokenizer,
             temperatures=temperatures,
-            num_samples=1,  # One high-level strategy at a time
+            num_samples=num_samples_high,
             stop=stop,
             max_tokens=max_tokens
         )
-
-        if high_level_plan:
-            history.append(high_level_plan[0])  # Update history with the high-level strategy
-
-        # Low-level tactic generation based on the current state and the latest high-level strategy
-        low_level_tactic = prompt_fn_low(
-            tactic_state=_tactic_state(state),
-            formal_statement=formal_statement,
-            informal_statement=informal_statement,
-            plan_high=high_level_plan[0] if high_level_plan else ""
-        )
-
-        low_level_cands, low_level_scores = generate_fn(
-            low_level_tactic,
+        
+        # Naively select only the best high-level strategy
+        plan_high = step_cands_high[0]
+        
+        # Conditioning on that strategy, generate the low-level tactics
+        step_cands, step_scores = generate_fn(
+            prompt_fn_low(tactic_state=ts,
+                          plan_high=plan_high),
             model=model,
             tokenizer=tokenizer,
             temperatures=temperatures,
@@ -441,28 +445,62 @@ def iterative_bfs_bilevel(dojo, init_state, theorem,
             max_tokens=max_tokens
         )
 
-        # Apply the best low-level tactic from the candidates
-        if low_level_cands:
-            result = dojo.run_tac(state, low_level_cands[0])  # Apply the first candidate
-            history.append(low_level_cands[0])  # Update history with the applied tactic
+        step_cands = [s.strip() for s in step_cands] 
+        
+        # DEBUG: Test smt
+        step_cands = ['smt!'] + step_cands
+        step_scores = [0.0] + step_scores  
+        # This shouldn't cause change as smt gives either correct or error
+        
+        for step in step_cands:
+            logger.info(step)
+        # ---------------------------------------------
 
-            # Check if the proof is completed
+        # ---------------------------------------------
+        # Update the queue
+        for step, score in zip(step_cands, step_scores):
+            result = dojo.run_tac(state, step)
+            step_trace = {
+                'tactic': step,
+                'state_before': _tactic_state(state)
+            }
+
+            # When the proof is finished
             if isinstance(result, ProofFinished):
                 attempt_results.append({
                     'theorem': theorem.full_name,
-                    'proof': history,
+                    'proof': steps + [step],
+                    'score': total_score - score,
                     'success': True,
-                    'iteration': iteration,
-                    'elapsed': time.time() - start
+                    'failure_reason': '',
+                    'trace': trace + [step_trace],
+                    'temperature': temperatures,
+                    'elapsed': start - time.time(),
+                    'iteration': iteration
                 })
                 if early_stop:
-                    break  # Early stop if proof is completed
+                    return attempt_results
+                proof_finished = True
 
+                logger.info(f'\nstep: {step}; score: {round(score, 3)}')
+                logger.info('Congrats. Proof is finished for this theorem.')
+                logger.info(attempt_results[-1]['proof'])
+
+                break
+
+            # When there is still unsolved goals
             elif isinstance(result, TacticState):
-                state = result  # Update state for the next iteration
+                if _tactic_state(result) not in visited:
+                    # Score is negative log probability summed across steps
+                    new_score = (total_score - score)
+                    heapq.heappush(
+                        queue,
+                        (new_score, steps + [step], result, trace + [step_trace])
+                    )
+                    logger.info(f'\nstep: {step}; score: {round(score, 3)}')
+        # ---------------------------------------------
 
-        total_attempts += 1
-
+    # The exception handling and attempt result management will be in `proof_search`
     return attempt_results
 
 

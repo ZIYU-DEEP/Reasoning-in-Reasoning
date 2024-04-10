@@ -203,6 +203,12 @@ def main():
                 search_fn = search.bfs_bilevel
                 prompt_fn_low = prompts._prompt_low_with_high
                 prompt_fn_high = prompts._prompt_high
+            
+            # Bi-level Search Stepwise 
+            if p.search_method == 'bfs_bilevel_stepwise':
+                search_fn = search.bfs_bilevel_stepwise
+                prompt_fn_low = prompts._prompt_low_with_high_stepwise
+                prompt_fn_high = prompts._prompt_high_stepwise
 
             attempt_results = search.proof_search(theorem=theorem,
                                                   model=model,
