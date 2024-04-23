@@ -183,9 +183,9 @@ def search_low(dojo, init_state, theorem,
     # create search algorithm
     assert search_method in ['bfs', 'mcts']
     if search_method == 'bfs':
-        search_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,)
+        search_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,cut_cycles=True)
     elif search_method == 'mcts':
-        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low,)
+        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low, cut_cycles=True, early_stopping_threshold = {0:float('inf')})
 
     # run the search
     search_algorithm.expand(datastructure=value_graph, state=init_state)
@@ -193,13 +193,19 @@ def search_low(dojo, init_state, theorem,
     # get the optimal trajectory
     optimal_trajectory = value_graph.simulate_trajectory(init_state)
 
+    # log the trajectory
+    logger.info(f"Optimal Trajectory: {optimal_trajectory}")
+
     # get action sequence
     action_sequence = [dict(action)[0] for state, action in optimal_trajectory[:-1]]
+
+    # log the action sequence
+    logger.info(f"Action Sequence: {action_sequence}")
 
     last_state = optimal_trajectory[-1][0]
 
     # see if the last state in optimal trajectory is a ProofFinished state
-    proof_finished = isinstance(last_state, ProofFinished)
+    proof_finished = isinstance(last_state.get_tactic_state(), ProofFinished)
 
     # get the value estimate of the first state
     start_node = value_graph.get_node(init_state)

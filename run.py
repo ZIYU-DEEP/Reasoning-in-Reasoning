@@ -93,13 +93,13 @@ if args.split:
     p.split = args.split
 
 # -------------------------------------------------------------------
-# Set the logger
+# Set the loggers
 # Record the time
 time_now = datetime.now().strftime('%m-%d-%H-%M')
 log_folder = Path(p.log_root) / p.search_method
 os.makedirs(log_folder, exist_ok=True)
 
-logger = misc.set_logger(log_folder / f'{time_now}.log')
+logger = misc.set_logger(log_folder / f'{time_now}.log', level=logging.DEBUG)
 logger.info(f'{p.log_path}')
 logger.info(pformat(p, indent=4))
 
@@ -175,6 +175,12 @@ def main():
             # Low-level Search
             if p.search_method == 'bfs_low':
                 search_fn = search.search_low
+                prompt_fn_low = prompts._prompt_low
+                prompt_fn_high = None
+
+            # Low-level Search with old code
+            if p.search_method == 'bfs_low_old':
+                search_fn = search.bfs_low_old
                 prompt_fn_low = prompts._prompt_low
                 prompt_fn_high = None
 

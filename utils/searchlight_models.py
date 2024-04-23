@@ -84,6 +84,9 @@ class LowLevelInferencer(InitialInferencer2):
         step_cands = [s.strip() for s in step_cands] 
 
         actions = step_cands
+
+        # make sure actions are unique
+        actions = list(set(actions))
         
         action_to_next_state = {action: LeanDojoState(self.dojo.run_tac(state.get_tactic_state(), action)) for action in actions}
         
