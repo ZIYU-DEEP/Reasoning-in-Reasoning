@@ -151,7 +151,7 @@ def search_low(dojo, init_state, theorem,
             timeout=600, early_stop=False, max_tokens=256, 
             stop='----', gen_method='vllm', 
             formal_statement='', informal_statement='', 
-            plan_high='', search_method='mcts',):
+            plan_high='', search_method='bfs',):
     """
     Implements Low-Level Best First Search (BFS) algorithm for theorem proving using the searchlight framework
     """
@@ -178,17 +178,32 @@ def search_low(dojo, init_state, theorem,
                                              informal_statement=informal_statement, plan_high=plan_high)
     
     # create the ValueGraph
-    value_graph = ValueGraph2()
+    value_graph = ValueGraph2(players={0})
+
+    if early_stop:
+        early_stopping_threshold = {0:float('inf')}
+    else:
+        early_stopping_threshold = None
 
     # create search algorithm
     assert search_method in ['bfs', 'mcts']
     if search_method == 'bfs':
         search_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,cut_cycles=True)
     elif search_method == 'mcts':
-        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low, cut_cycles=True, early_stopping_threshold = {0:float('inf')})
+        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low, cut_cycles=True, early_stopping_threshold = early_stopping_threshold)
 
     # run the search
     search_algorithm.expand(datastructure=value_graph, state=init_state)
+
+    # find the state in the graph that is ProofFinished, if any
+    proof_finished_state = None
+    for state in value_graph.id_to_node.keys():
+        if isinstance(state.get_tactic_state(), ProofFinished):
+            proof_finished_state = state
+            break
+
+    # see if any states in the graph are ProofFinished
+    is_proof_finished = any([isinstance(state.get_tactic_state(), ProofFinished) for state in value_graph.id_to_node.keys()])
 
     # get the optimal trajectory
     optimal_trajectory = value_graph.simulate_trajectory(init_state)
