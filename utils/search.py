@@ -201,41 +201,30 @@ def search_low(dojo, init_state, theorem,
         if isinstance(state.get_tactic_state(), ProofFinished):
             proof_finished_state = state
             break
+    
+    if proof_finished_state is not None:
+        # get the optimal trajectory by backtracking from the ProofFinished state
+        optimal_trajectory = value_graph.get_backtrack_path(proof_finished_state)
 
-    # see if any states in the graph are ProofFinished
-    is_proof_finished = any([isinstance(state.get_tactic_state(), ProofFinished) for state in value_graph.id_to_node.keys()])
+        # log the trajectory
+        logger.info(f"Optimal Trajectory: {optimal_trajectory}")
 
-    # get the optimal trajectory
-    optimal_trajectory = value_graph.simulate_trajectory(init_state)
+        # get action sequence
+        action_sequence = [dict(action)[0] for state, action in optimal_trajectory[:-1]]
 
-    # log the trajectory
-    logger.info(f"Optimal Trajectory: {optimal_trajectory}")
+        # log the action sequence
+        logger.info(f"Action Sequence: {action_sequence}")
 
-    # get action sequence
-    action_sequence = [dict(action)[0] for state, action in optimal_trajectory[:-1]]
+        proof_finished = True
 
-    # log the action sequence
-    logger.info(f"Action Sequence: {action_sequence}")
-
-    last_state = optimal_trajectory[-1][0]
-
-    # see if the last state in optimal trajectory is a ProofFinished state
-    proof_finished = isinstance(last_state.get_tactic_state(), ProofFinished)
-
-    # get the value estimate of the first state
-    start_node = value_graph.get_node(init_state)
-    value_estimate = value_graph.get_estimated_value(start_node, 0)
 
     # convert the states in optimal trajectory to strings
-    optimal_trajectory = [(state.get_string(), dict(action)[0]) for state, action in optimal_trajectory[:-1]]
-
-    # append (last_state, None) to the optimal trajectory
-    optimal_trajectory.append((last_state.get_string(), None))
+    optimal_trajectory = [(str(state.get_string()), str(action)) for state, action in optimal_trajectory]
 
     attempt_results.append({
                     'theorem': theorem.full_name,
                     'proof': action_sequence,
-                    'score': value_estimate,
+                    'score': proof_finished,
                     'success': proof_finished,
                     'failure_reason': '',
                     'trace': optimal_trajectory,
