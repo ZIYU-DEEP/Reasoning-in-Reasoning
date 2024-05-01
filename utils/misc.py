@@ -12,12 +12,12 @@ class DotDict(dict):
     __delattr__ = dict.__delitem__
 
 
-def set_logger(log_path):
+def set_logger(log_path, level=logging.INFO):
     """
     Set up a logger for use.
     """
     # Config the logging
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=level)
     logger = logging.getLogger()
 
     # Set level and formats

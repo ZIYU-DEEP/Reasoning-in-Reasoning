@@ -16,6 +16,10 @@ import time
 from datetime import datetime
 import logging
 import numpy as np
+from .searchlight_models import *
+from searchlight.datastructures.graphs import ValueGraph2
+from searchlight.algorithms.best_first_search import BestFirstSearch
+from searchlight.algorithms.mcts_search import SMMonteCarlo
 
 from transformers import (
     Trainer,
@@ -136,11 +140,111 @@ def proof_search(theorem, model, tokenizer,
 
     return attempt_results
 
+# ===============================================
+# SEARCH FUNCTION 1: bfs_low
+# ===============================================
+def search_low(dojo, init_state, theorem, 
+            model, tokenizer, 
+            max_iters_low, max_iters_high, 
+            temperatures, 
+            num_samples_low=32, num_samples_high=4, 
+            prompt_fn_low=None, prompt_fn_high=None,
+            timeout=600, early_stop=False, max_tokens=256, 
+            stop='----', gen_method='vllm', 
+            formal_statement='', informal_statement='', 
+            plan_high='', search_method='bfs',):
+    """
+    Implements Low-Level Best First Search (BFS) algorithm for theorem proving using the searchlight framework
+    """
+
+    # ------------------------------------------------
+    # PREPARATION
+    start = time.time()
+    proof_finished = False
+    attempt_results = []
+    # Generate results
+    assert gen_method in ['vllm', 'hf', 'openai']
+    if gen_method == 'vllm': generate_fn = generate_vllm
+    if gen_method == 'hf': generate_fn = generate_hf
+    if gen_method == 'openai': generate_fn = generate_openai
+    init_state = LeanDojoState(init_state)
+    # ------------------------------------------------
+    
+    # create the inferencer
+    initial_inferencer = LowLevelInferencer(dojo=dojo, gen_method=generate_fn, 
+                                             prompt_fn_low=prompt_fn_low, model=model, 
+                                             tokenizer=tokenizer, temperatures=temperatures, 
+                                             num_samples_low=num_samples_low, stop=stop, 
+                                             max_tokens=max_tokens, formal_statement=formal_statement, 
+                                             informal_statement=informal_statement, plan_high=plan_high)
+    
+    # create the ValueGraph
+    value_graph = ValueGraph2(players={0})
+
+    if early_stop:
+        early_stopping_threshold = {0:float('inf')}
+    else:
+        early_stopping_threshold = None
+
+    # create search algorithm
+    assert search_method in ['bfs', 'mcts']
+    if search_method == 'bfs':
+        search_algorithm = BestFirstSearch(initial_inferencer, node_budget=max_iters_low,cut_cycles=True)
+    elif search_method == 'mcts':
+        search_algorithm = SMMonteCarlo(initial_inferencer, num_rollout=max_iters_low, node_budget=max_iters_low, cut_cycles=True, early_stopping_threshold = early_stopping_threshold)
+
+    # run the search
+    search_algorithm.expand(datastructure=value_graph, state=init_state)
+
+    # find the state in the graph that is ProofFinished, if any
+    proof_finished_state = None
+    for state in value_graph.id_to_node.keys():
+        if isinstance(state.get_tactic_state(), ProofFinished):
+            proof_finished_state = state
+            break
+    
+    if proof_finished_state is not None:
+        # get the optimal trajectory by backtracking from the ProofFinished state
+        optimal_trajectory = value_graph.get_backtrack_path(proof_finished_state)
+
+        # log the trajectory
+        logger.info(f"Optimal Trajectory: {optimal_trajectory}")
+
+        # get action sequence
+        action_sequence = [dict(action)[0] for state, action in optimal_trajectory[:-1]]
+
+        # log the action sequence
+        logger.info(f"Action Sequence: {action_sequence}")
+
+        proof_finished = True
+
+
+    # convert the states in optimal trajectory to strings
+    optimal_trajectory = [(str(state.get_string()), str(action)) for state, action in optimal_trajectory]
+
+    attempt_results.append({
+                    'theorem': theorem.full_name,
+                    'proof': action_sequence,
+                    'score': proof_finished,
+                    'success': proof_finished,
+                    'failure_reason': '',
+                    'trace': optimal_trajectory,
+                    'temperature': temperatures,
+                    'elapsed': start - time.time(),
+                    'iteration': search_algorithm.get_nodes_expanded(),})
+
+    # ------------------------------------------------
+    
+
+    # The exception handling and attempt result management will be in `proof_search`
+    return attempt_results
+
+
 
 # ===============================================
 # SEARCH FUNCTION 1: bfs_low
 # ===============================================
-def bfs_low(dojo, init_state, theorem, 
+def bfs_low_old(dojo, init_state, theorem, 
             model, tokenizer, 
             max_iters_low, max_iters_high, 
             temperatures, 
@@ -186,6 +290,7 @@ def bfs_low(dojo, init_state, theorem,
         if gen_method == 'hf': generate_fn = generate_hf
         if gen_method == 'openai': generate_fn = generate_openai
         
+        # NOTE: this is the action and heuristics generator
         step_cands, step_scores = generate_fn(
             prompt_fn_low(tactic_state=ts,
                           formal_statement=formal_statement,
@@ -213,6 +318,7 @@ def bfs_low(dojo, init_state, theorem,
         # ---------------------------------------------
         # Update the queue
         for step, score in zip(step_cands, step_scores):
+            # NOTE: this is the forward transitor
             result = dojo.run_tac(state, step)
             step_trace = {
                 'tactic': step,
@@ -249,7 +355,7 @@ def bfs_low(dojo, init_state, theorem,
                     new_score = (total_score - score)
                     heapq.heappush(
                         queue,
-                        (new_score, steps + [step], result, trace + [step_trace])
+                        (new_score, steps + [step], result, trace + [step_trace]) # 
                     )
                     logger.info(f'\nstep: {step}; score: {round(score, 3)}')
         # ---------------------------------------------
