@@ -2,6 +2,8 @@
 Using Lean-Dojo as the environment.
 Currently support VLLM and Accelerate.
 Tested on Llemma.
+
+Test
 """
 
 from .llms import *
@@ -307,7 +309,12 @@ def bfs_low_old(dojo, init_state, theorem,
         )
 
         step_cands = [s.strip() for s in step_cands] 
-        # DEBUG
+        
+        # DEBUG: Test smt
+        step_cands = ['smt!'] + step_cands
+        step_scores = [0.0] + step_scores  
+        # This shouldn't cause change as smt gives either correct or error
+        
         for step in step_cands:
             logger.info(step)
         # ---------------------------------------------

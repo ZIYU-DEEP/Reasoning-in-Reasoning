@@ -4,8 +4,10 @@ results_root: ./results
 
 # --------- Data ---------------
 dataset_name: minif2f
-dataset_path: ./data/minif2f_lean4_mew.jsonl
-split: test
+dataset_path: ./data/minif2f_lean4_dojo.jsonl
+split: valid
+url: https://github.com/yangky11/miniF2F-lean4
+commit: 728bba5be6dd67d24159025acd1a0c79485fc4e8
 
 # ---------- Model ------------
 model_name: open-web-math/llemma_7b
@@ -13,14 +15,14 @@ gen_method: vllm  # Choose from hf or vllm
 num_shards: 1  # Put data on different shard
 tp_degree: 1  # tensor parallel size
 dtype: float16
-max_tokens: 4096
+max_tokens: 1024
 stop: ----
 
 # ---------- Search Method ----------
 # Choose from simple_search, best_first_search, mcts, rir
 # Can be overwrite by the command line argument
-# bfs_low, bfs_low_with_high
-search_method: bfs_low
+# bfs_low, bfs_low_with_raw_high, bfs_bilevel
+search_method: bfs_bilevel
 
 # ---------- Args for simple first search  ----------
 search_budget: 32

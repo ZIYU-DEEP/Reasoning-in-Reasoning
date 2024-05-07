@@ -68,6 +68,10 @@ parser.add_argument('-cfg', '--config_name', type=str,
                     default='dojo_default.yaml')
 parser.add_argument('-sm', '--search_method', type=str,
                     default='', help='Rewrite the search method in config.')
+parser.add_argument('-gm', '--gen_method', type=str,
+                    default='', help='Rewrite the llm generation method in config.')
+parser.add_argument('-mn', '--model_name', type=str,
+                    default='', help='Rewrite the model name in config.')
 parser.add_argument('-sp', '--split', type=str,
                     default='', help='Rewrite the split in config.')
 parser.add_argument('-re', '--resume_from', type=str, default='',
@@ -87,6 +91,14 @@ with open(config_path, 'r') as y_file:
 # Update the search method if specified
 if args.search_method:
     p.search_method = args.search_method
+    
+# Update the generation method if specified
+if args.gen_method:
+    p.gen_method = args.gen_method
+
+# Update the model name if specified
+if args.model_name:
+    p.model_name = args.model_name
 
 # Update the split if specified
 if args.split:
@@ -115,7 +127,9 @@ results_path = results_folder / f'{time_now}.json'
 # Set up the minif2f dataset
 repo, data = misc.load_data_dojo(dataset_name=p.dataset_name,
                                  dataset_path=p.dataset_path,
-                                 split=p.split)
+                                 split=p.split,
+                                 url=p.url,
+                                 commit=p.commit)
 
 if args.resume_from:
     re_ind = [item['full_name'] for item in data].index(args.resume_from)

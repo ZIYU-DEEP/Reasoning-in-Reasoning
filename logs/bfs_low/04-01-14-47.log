@@ -1,0 +1,2934 @@
+logs/bfs_low/04-01-14-47.log
+None
+{   'dataset_name': 'minif2f',
+    'dataset_path': './data/minif2f_lean4_dojo.jsonl',
+    'dtype': 'float16',
+    'early_stop': False,
+    'gen_method': 'vllm',
+    'log_root': './logs',
+    'max_iters_high': 10,
+    'max_iters_low': 100,
+    'max_tokens': 256,
+    'model_name': 'open-web-math/llemma_7b',
+    'num_samples_high': 4,
+    'num_samples_low': 32,
+    'num_shards': 1,
+    'results_root': './results',
+    'search_budget': 32,
+    'search_method': 'bfs_low',
+    'split': 'valid',
+    'stop': '----',
+    'temperatures': [0.0],
+    'timeout': 1200,
+    'tp_degree': 1,
+    'verbose': True}
+MiniF2F/Valid.lean
+amc12a_2019_p21
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = 36', id=0, message=None)
+
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_
+have h₁ : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, z ^ k ^ 2 * (1 / z ^ k ^ 2),
+have h₁ : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, (z ^ k ^ 2) * (1 / z ^ k ^ 2),
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2,
+have h₁ : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2
+have h₁ : ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, z ^ k ^ 2,
+have : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2,
+have : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = ∑ k in Finset.Icc 1 12, z ^ (2 * k),
+rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 12,
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 6,
+rw [sum_Icc_eq_multiset_sum, sum_Icc_eq_multiset_sum],
+refine' Finset.sum_congr rfl fun k hk => _
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [h₀, div_eq_mul_inv]
+rw [Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+ring_nf
+push_cast
+norm_num
+rw [h₀],
+sorry
+linarith
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]; score: -0.299
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.407
+
+step: rw [h₀, div_eq_mul_inv]; score: -0.529
+
+step: rw [Finset.mul_sum]; score: -0.537
+
+step: rw [Finset.sum_congr rfl]; score: -0.554
+
+step: rw [h₀]; score: -0.663
+
+step: ring_nf; score: -0.792
+
+step: norm_num; score: -0.925
+
+step: ring; score: -1.209
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Multiset.sum\n      (Multiset.map (fun i => Multiset.sum (Multiset.map (fun k => z ^ k ^ 2) (Finset.Icc 1 12).val) * (1 / z ^ i ^ 2))\n        (Finset.Icc 1 12).val) =\n    36', id=1, message='')
+
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multis
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+have h₁ : Multiset.sum (Multiset.map (fun k => z ^ k ^ 2) (Finset.Icc 1 12).val) = 12,
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Multiset.map_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Finset.sum_Icc_eq_multiset_sum, Finset.sum_Icc_eq_multiset_sum]
+rw [Finset.sum_Icc_eq_sum_range, Finset.sum_Icc_eq_sum_range]
+rw [Finset.sum_eq_multiset_sum, Finset.map_val, Finset.val_Icc]
+rw [Finset.sum_Icc_eq_sum_range, Finset.sum_Icc_eq_sum_range],
+rw [Multiset.map_sum, Multiset.sum_map, Multiset.sum_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.val_Icc]
+rw [Multiset.map_sum, Multiset.sum_map, Multiset.map_map]
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Finset.sum_Icc_eq_sum_range]
+rw [Multiset.map_map, Multiset.sum_map_mul]
+rw [Multiset.sum_map_mul, Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Multiset.map_map, Multiset.sum_map_mul],
+rw [h₀]
+rw [Finset.sum_congr rfl]
+rw [← h₀]
+rcases h₀ with rfl
+simp [h₀]
+rw [h₀],
+push_cast
+simp only
+congr
+
+
+step: rw [h₀]; score: -0.574
+
+step: rcases h₀ with rfl; score: -0.684
+
+step: simp [h₀]; score: -0.703
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.5218 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=2, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ)
+refine' Finset.sum_congr rfl (fun x hx => _)
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun k hk => _
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl ?_
+rw [Finset.sum_congr rfl h₂]
+rintro x ⟨h₁, h₂⟩
+rw [Finset.mul_sum]
+rw [h₀]
+apply Finset.sum_congr
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+simp only [h₀]
+simp [h₀]
+intros x hx
+intros n hn
+rw [h₀],
+sorry
+rintro x hx
+intro x hx
+intros
+intro n
+intro y
+intro k
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.41
+
+step: let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ); score: -0.414
+
+step: rw [Finset.sum_congr rfl]; score: -0.515
+
+step: sorry; score: -0.974
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *\n      ∑ k in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 =\n    36', id=3, message='')
+
+have h₁ : ∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 = 12,
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 2 = 2,
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+rw [← h₀, Finset.mul_sum, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+rw [← h₀, Finset.sum_congr rfl]
+rw [h₀, Finset.sum_congr rfl]
+rw [h₀, Finset.mul_sum]
+rw [← h₀, Finset.mul_sum]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [h₀, ← Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [← h₀, ← Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [h₀]
+rw [Finset.sum_congr rfl]
+rw [Finset.mul_sum]
+rw [← h₀]
+have h₁ : z ^ 12 = 1,
+simp [h₀]
+rw [← h₀],
+ring_nf
+rw [h₀],
+norm_num
+push_cast
+sorry
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.397
+
+step: simp only [Finset.mul_sum, Finset.sum_mul]; score: -0.456
+
+step: rw [Finset.sum_congr rfl]; score: -0.534
+
+step: rw [Finset.mul_sum]; score: -0.567
+
+step: simp [h₀]; score: -0.745
+
+step: ring_nf; score: -0.797
+
+step: norm_num; score: -0.954
+
+step: ring; score: -1.194
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ i ^ 2) = 36', id=4, message='')
+
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul
+have h₁ : z ^ 2 = (1 + Complex.I) ^ 2 / ↑(Real.sqrt 2) ^ 2,
+refine' Finset.sum_congr rfl fun i hi => _
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 12,
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv]
+have h₁ : ∑ i in Finset.Icc 1 12, z ^ i ^ 2 = 12,
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 6,
+have h₁ : z ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2),
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+refine' Finset.sum_congr rfl fun x hx => _
+have h₁ : (1 + Complex.I) / ↑(Real.sqrt 2) ≠ 0,
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+apply Finset.sum_congr rfl fun i hi => _
+rw [Finset.mul_sum, Finset.sum_mul]
+refine' Finset.sum_congr rfl _
+rw [h₀, div_eq_mul_inv]
+rw [h₀, Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum]
+rw [← h₀]
+rw [h₀],
+push_cast
+norm_num
+sorry
+simp only
+ring
+congr
+
+
+step: rw [h₀, div_eq_mul_inv]; score: -0.526
+
+step: rw [h₀, Finset.sum_congr rfl]; score: -0.544
+
+step: rw [Finset.sum_congr rfl]; score: -0.564
+
+step: rw [h₀]; score: -0.615
+
+step: norm_num; score: -0.979
+
+step: ring; score: -1.341
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.6677 * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=5, message='')
+
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.sum_mul, Finset.mul_sum]
+refine' Finset.sum_congr rfl fun k hk => _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl,
+rw [h₀]
+apply Finset.sum_congr
+apply sum_mul_distrib
+rw [sum_mul_distrib]
+apply Finset.sum_congr rfl
+-
+rw [Finset.sum_mul]
+rw [← h₀]
+apply Finset.mul_sum
+simp only [h₀]
+rw [Finset.mul_sum]
+-
+simp_rw [h₀]
+intros x hx
+rw [h₀],
+push_cast
+intro x hx
+sorry
+simp only
+intros
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.367
+
+step: rw [Finset.sum_congr rfl]; score: -0.49
+
+step: rw [Finset.mul_sum]; score: -0.54
+
+step: rw [h₀]; score: -0.651
+
+step: rw [Finset.sum_mul]; score: -0.69
+
+step: simp only [h₀]; score: -0.719
+
+step: simp_rw [h₀]; score: -0.753
+
+step: sorry; score: -1.032
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *\n      ∑ k in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 =\n    36', id=6, message='')
+
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+  div_eq_mul_inv, div_eq_mul_inv, div_
+have h₁ : ∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 = 12,
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ 1 ^ 2 = 1,
+rw [← h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ 2 = 1,
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+have h₁ : ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ 2 = -1,
+have h₁ : (1 + Complex.I) / ↑(Real.sqrt 2) ≠ 0,
+rw [h₀, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+rw [h₀, Finset.mul_sum]
+rw [← h₀, Finset.sum_congr rfl]
+rw [h₀]
+rw [h₀, ← Finset.mul_sum]
+rw [← h₀, Finset.mul_sum]
+rw [h₀, div_eq_mul_inv]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum]
+rw [← h₀]
+rw [h₀],
+simp [h₀]
+ring_nf
+rw [← h₀],
+norm_num
+push_cast
+rw h₀
+ring
+
+
+step: rw [← h₀, Finset.mul_sum, Finset.sum_congr rfl]; score: -0.348
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.397
+
+step: rw [← h₀, Finset.sum_congr rfl]; score: -0.426
+
+step: rw [Finset.mul_sum]; score: -0.587
+
+step: simp [h₀]; score: -0.735
+
+step: ring_nf; score: -0.8
+
+step: norm_num; score: -0.94
+
+step: ring; score: -1.228
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = 36', id=7, message='')
+
+have h₁ : z ^ 1 ^ 2 + z ^ 2 ^ 2 + z ^ 3 ^ 2 + z ^ 4 ^ 2 + z ^ 5 ^ 2 + z ^ 6 ^ 2 + z ^ 7 ^ 2 + z ^ 8 ^ 2 + z ^ 9 ^ 2 + z ^ 10 ^ 2 + z ^ 11 ^ 2 + z ^ 12 ^ 2 = 12,
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, (z ^ x ^ 2) * (1 / z ^ x ^ 2),
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2 * (1 / z ^ x ^ 2),
+have h₁ : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2,
+have h₁ : ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2,
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2
+have : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2,
+have : ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2,
+have : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2
+rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+have h₁ : z ^ 1 ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2),
+have h₁ : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = 12,
+rw [Finset.mul_sum, Finset.sum_div, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum]
+rw [h₀, div_eq_mul_inv]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [Finset.mul_sum]
+-
+rw [← h₀]
+ring_nf
+push_cast
+norm_num
+sorry
+linarith
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]; score: -0.29
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.402
+
+step: rw [Finset.mul_sum]; score: -0.527
+
+step: rw [h₀, div_eq_mul_inv]; score: -0.537
+
+step: rw [Finset.sum_congr rfl]; score: -0.545
+
+step: rw [h₀]; score: -0.675
+
+step: norm_num; score: -0.922
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.5218 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=17, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun n hn => _
+apply Finset.sum_congr rfl
+intro n
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl h₀]
+intro n
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+intro k
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr
+intro z
+rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+intro x
+rw [h₀]
+intros x hx
+rw [h₀],
+intros n hn
+sorry
+rintro x hx
+intros
+intro n
+intro k
+intros n
+intro z
+intro y
+intro x
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.386
+
+step: rw [Finset.sum_congr rfl]; score: -0.552
+
+step: sorry; score: -1.009
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.5218 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=18, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun n hn => _
+apply Finset.sum_congr rfl
+intro n
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl h₀]
+intro n
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+intro k
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr
+intro z
+rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+intro x
+rw [h₀]
+intros x hx
+rw [h₀],
+intros n hn
+sorry
+rintro x hx
+intros
+intro n
+intro k
+intros n
+intro z
+intro y
+intro x
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.386
+
+step: rw [Finset.sum_congr rfl]; score: -0.552
+
+step: sorry; score: -1.009
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Multiset.sum\n      (Multiset.map\n        (fun i =>\n          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *\n            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))\n        (Finset.Icc 1 12).val) =\n    36', id=12, message='')
+
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map (fun i => 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) (Finset.Icc 1 12).val) *
+    Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    _
+  _ =
+    Multiset
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val ∧
+    Multiset.map
+        (fun i =>
+          Multiset.sum
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    by rw [Multiset.sum_
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    _
+  _ =
+      Multiset
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    _
+  _ = Multiset.sum
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val ∧
+    Multiset.sum
+        (Multiset.map
+          (fun i
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val *
+    Multiset.card (Finset.Icc 1 12).val :
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val ∧
+    Multiset.sum
+      (Multiset.map
+        (fun i
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+    Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) *
+      ((1 + Complex.I) / ↑
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    _
+  _ = _ :
+    _
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) *
+      ((1 + Complex.I) / ↑
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+              (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    by rw [Multiset.map_
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum
+              (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+                (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    _
+  _ = Multiset
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      Multiset.sum
+        (Multiset.map
+          (fun i =>
+            Multiset.sum
+              (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+                (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+          (Finset.Icc 1 12).val) :
+    by rw [Multiset.
+calc
+  Multiset.sum
+      (Multiset.map
+        (fun i =>
+          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *
+            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))
+        (Finset.Icc 1 12).val) =
+      _ :
+    _
+  _ = 36 :
+    _
+rw [Multiset.map_map, Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [h₀]
+conv =>
+  lhs
+  rw [h₀]
+rw [h₀],
+rw [← h₀]
+simp [h₀]
+rw [h₀] at *
+simp only [h₀]
+rw [← h₀],
+push_cast
+sorry
+simp only
+congr
+simp
+
+
+step: simp [h₀]; score: -0.633
+
+step: rw [h₀] at *; score: -0.641
+
+step: simp; score: -1.291
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.63698 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, Finset.sum (Finset.Icc 1 12) ?m.6677 * (1 / z ^ x ^ 2) = ?m.63698 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=40, message='')
+
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl fun x hx => _
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+simp only [Finset.Icc_self, Finset.sum_singleton]
+refine' Finset.sum_congr rfl (fun x hx => _)
+simp only [Finset.sum_Icc_eq_sum_range]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun n hn => _
+simp only [Finset.sum_Icc_eq_div]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_Icc_eq_sum_range]
+rw [Finset.sum_congr rfl]
+rintro x ⟨h₁, h₂⟩
+simp only [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr rfl,
+apply Finset.sum_congr
+simp only [h₀]
+simp [h₀]
+intros x hx
+sorry
+rw [h₀],
+rintro x hx
+norm_num
+intro x hx
+intro n hn
+linarith
+simp only
+intros
+simp
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.507
+
+step: sorry; score: -0.877
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.27214 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, ?m.27213 x = ?m.27214 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.27213 x', id=19, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl _
+refine' Finset.sum_congr rfl (by simp)
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl h₂]
+refine' Finset.sum_congr rfl ?_
+rw [Finset.sum_congr rfl]
+apply Finset.eq_of_sum_eq_sum
+apply Finset.sum_congr rfl,
+rw [Finset.mul_sum]
+apply Finset.sum_congr
+apply sum_congr rfl
+rw [h₀]
+rw [← h₀]
+simp only [h₀]
+simp [h₀]
+intros x hx
+ring_nf
+sorry
+rw [h₀],
+norm_num
+linarith
+push_cast
+intro x hx
+simp only
+intros
+ring
+
+-
+
+step: rw [Finset.sum_congr rfl]; score: -0.52
+
+step: sorry; score: -0.893
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ x in Finset.Icc 1 12, (z ^ x ^ 2)⁻¹ = 36', id=9, message='')
+
+have h₁ : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ x in Finset.Icc 1 12, (z ^ x ^ 2)⁻¹
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = ∑ x in Finset.Icc 1 12, (z ^ x ^ 2)⁻¹,
+have : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * ∑ x in Finset.Icc 1 12, (z ^ x ^ 2)⁻¹
+rw [h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀]
+rw [h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀]
+rw [h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀, h₀]
+rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 12,
+have h₁ : z ^ 1 ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2),
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 36,
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 = 6,
+have h₁ : (∑ k in Finset.Icc 1 12, z ^ k ^ 2) = 12,
+have h₁ : ∑ k in Finset.Icc 1 12, z ^ k ^ 2 ≠ 0,
+rw [sum_Icc_eq_multiset_sum, sum_Icc_eq_multiset_sum],
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl fun k hk => _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [← h₀, Finset.sum_congr rfl]
+rw [Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+ring_nf
+push_cast
+norm_num
+sorry
+linarith
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]; score: -0.293
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.4
+
+step: rw [Finset.mul_sum]; score: -0.516
+
+step: rw [Finset.sum_congr rfl]; score: -0.568
+
+step: rw [h₀]; score: -0.679
+
+step: ring_nf; score: -0.803
+
+step: ring; score: -1.222
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.29410 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12,\n    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2) =\n      ?m.29410 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=22, message='')
+
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun x hx => ?_
+refine' Finset.sum_congr rfl fun n hn => _
+rw [Finset.sum_congr rfl h₀]
+refine' Finset.sum_congr rfl _
+intro n
+rw [Finset.sum_congr rfl h₀]
+refine' Finset.sum_congr rfl (by simp)
+intro n
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_eq_single 1
+rw [sum_congr rfl h₀]
+rw [h₀]
+apply Finset.sum_congr
+apply Finset.sum_congr rfl,
+rw [← h₀]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl
+-
+simp [h₀]
+intros x hx
+rw [h₀],
+intros n hn
+rw [← h₀],
+norm_num
+intros
+intro n
+intro k
+intros n
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.516
+
+Current State:
+TacticState(pp='⊢ Multiset.sum\n      (Multiset.map\n        (fun i =>\n          Multiset.sum (Multiset.map (fun k => ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) (Finset.Icc 1 12).val) *\n            (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2))\n        (Finset.Icc 1 12).val) =\n    36', id=13, message='')
+
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+simp only [Multiset.map_map, Multiset.sum_map_mul]
+simp only [Multiset.sum_map_mul, Multiset.sum_map_mul]
+rw [Multiset.sum_map_mul, Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Multiset.map_sum, Multiset.sum_map_of_nonneg]
+rw [Multiset.map_map, Multiset.sum_map_mul]
+refine' Finset.sum_congr rfl fun i hi => _
+rw [Multiset.sum_map_mul, Multiset.sum_map_mul],
+simp only [Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map],
+refine' Multiset.sum_congr rfl _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_Icc_eq_multiset_sum],
+rw [Multiset.sum_map_mul]
+simp only [Multiset.map_map]
+rw [Finset.sum_congr rfl]
+rw [Multiset.map_sum]
+apply congr_arg Multiset.sum
+apply Finset.sum_congr rfl
+rw [Multiset.sum_map_mul],
+sorry
+norm_num
+apply congr_arg
+push_cast
+refl
+simp only
+congr 1
+simp
+congr
+ring
+
+
+step: norm_num; score: -0.87
+
+step: simp; score: -1.051
+
+step: ring; score: -1.23
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ x in Finset.Icc 1 12,\n      ∑ i in Finset.Icc 1 12,\n        ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 * (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2) =\n    36', id=23, message='')
+
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 2 = 1,
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 2 = 2,
+have h₁ : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+refine' Finset.sum_congr rfl (fun x hx => _)
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl fun x hx => ?_
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun m hm => _
+refine' Finset.sum_congr rfl fun k hk => _
+have : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun y hy => _
+refine' Finset.sum_congr rfl _
+refine' Finset.sum_congr rfl fun x _ => _
+apply Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun n _ => _
+refine' Finset.sum_congr rfl (by simp)
+rw [Finset.sum_congr rfl]
+rw [h₀]
+apply sum_congr rfl
+apply sum_congr rfl
+apply Finset.sum_congr rfl
+rw [← h₀]
+simp [h₀]
+apply sum_congr rfl
+rw [← h₀],
+rw [h₀],
+push_cast
+ring
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.544
+
+step: simp [h₀]; score: -0.739
+
+step: ring; score: -1.328
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ x in Finset.Icc 1 12,\n      (∑ x in Finset.Icc 1 12, (1 + Complex.I) ^ x ^ 2 / ↑(Real.sqrt 2) ^ x ^ 2) *\n        (↑(Real.sqrt 2) ^ x ^ 2 / (1 + Complex.I) ^ x ^ 2) =\n    36', id=14, message='')
+
+have h₁ : (1 + Complex.I) ^ 1 ^ 2 / ↑(Real.sqrt 2) ^ 1 ^ 2 = 1,
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun n hn => _
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+exact h₀
+simp only [Finset.mul_sum.symm, Finset.sum_mul.symm]
+refine' Finset.sum_congr rfl fun m hm => _
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun x hx => ?_
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.sum_congr rfl]
+rw [h₀, Finset.mul_sum]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl
+rw [← h₀]
+rw [h₀]
+apply sum_congr rfl
+rw [← h₀],
+rw [h₀],
+norm_num
+push_cast
+sorry
+simp only
+
+
+step: simp only [Finset.mul_sum, Finset.sum_mul]; score: -0.406
+
+step: rw [Finset.sum_congr rfl]; score: -0.486
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.69160 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.69160 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=51, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+simp only [Finset.sum_const, Finset.card_Icc]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl ?_
+rintro x ⟨h₁, h₂⟩
+rw [h₀]
+apply Finset.sum_congr
+rw [Finset.mul_sum]
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+simp only [h₀]
+simp [h₀]
+intros x hx
+intros n hn
+rw [h₀],
+rw [← h₀],
+sorry
+rintro x hx
+intro x hx
+intros
+intro n
+intro y
+intro k
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.408
+
+step: let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ); score: -0.416
+
+step: rw [Finset.sum_congr rfl]; score: -0.524
+
+step: sorry; score: -0.979
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.66205 * Finset.sum (Finset.Icc 1 12) ?m.66205 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, 1 / z ^ x ^ 2 = ?m.66205 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = 1 / z ^ x ^ 2', id=41, message='')
+
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum, Finset.mul_sum],
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl h₁]
+rintro x ⟨h₁, h₂⟩
+rw [Finset.mul_sum]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+apply sum_mul_sum
+apply Finset.sum_congr
+apply Finset.mul_sum
+simp [h₀]
+ring_nf
+rw [h₀],
+rw [← h₀],
+sorry
+norm_num
+push_cast
+linarith
+intros x hx
+simp only
+intros
+congr
+ring
+simp
+
+-
+
+step: rw [Finset.sum_congr rfl]; score: -0.51
+
+step: rw [Finset.mul_sum]; score: -0.581
+
+step: ring_nf; score: -0.86
+
+step: sorry; score: -0.966
+
+step: ring; score: -1.283
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.69515 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12,\n    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ x ^ 2) =\n      ?m.69515 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=52, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl (fun x hx => _)
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun k hk => _
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+refine' Finset.sum_congr rfl (by simp)
+intro n
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+apply Finset.sum_eq_single_of_mem
+induction x using Finset.strongInductionOn
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_eq_single 1
+apply Finset.sum_congr
+rw [← h₀]
+simp only [h₀]
+simp [h₀]
+simp_rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+rw [h₀],
+intros x hx
+rw [← h₀],
+norm_num
+intros
+intro n
+intro k
+intros n
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.413
+
+step: rw [Finset.sum_congr rfl]; score: -0.533
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12,\n      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =\n    36', id=32, message='')
+
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      ∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+        (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+          (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+       (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+have h₁ : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun m hm => _
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl (fun i hi => _)
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [h₀, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+rw [h₀]
+rw [← h₀]
+apply sum_congr rfl
+simp [h₀]
+rw [← h₀],
+norm_num
+rw [h₀],
+push_cast
+simp only
+ring
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.505
+
+step: simp [h₀]; score: -0.755
+
+step: norm_num; score: -0.908
+
+step: ring; score: -1.249
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.30315 * ∑ k in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 =\n    36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 = ?m.30315 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=24, message='')
+
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rintro x (hx : x ∈ Finset.Icc 1 12)
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum]
+rw [h₀]
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_congr rfl,
+apply Finset.sum_congr rfl
+-
+apply Finset.sum_congr
+rw [← h₀]
+rw [Finset.mul_sum]
+-
+simp [h₀]
+rw [← h₀],
+rw [h₀],
+intros x hx
+norm_num
+sorry
+push_cast
+simp only
+intros
+congr
+ring
+
+-
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.375
+
+step: rw [Finset.sum_congr rfl]; score: -0.499
+
+step: rw [Finset.mul_sum]; score: -0.543
+
+step: simp [h₀]; score: -0.788
+
+step: norm_num; score: -0.95
+
+step: sorry; score: -1.008
+
+step: ring; score: -1.36
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.53884 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12,\n    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ x ^ 2) =\n      ?m.53884 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=33, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl (fun x hx => _)
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun k hk => _
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+refine' Finset.sum_congr rfl (by simp)
+rw [Finset.sum_congr rfl]
+rw [h₀]
+induction x using Finset.strongInductionOn
+apply Finset.sum_eq_single_of_mem
+apply Finset.sum_eq_single 1
+rw [← h₀]
+apply Finset.sum_congr
+apply Finset.sum_congr rfl
+-
+simp only [h₀]
+simp [h₀]
+simp_rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+rw [h₀],
+intros x hx
+rw [← h₀],
+norm_num
+sorry
+intros
+intro n
+intro k
+intros n
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.414
+
+step: rw [Finset.sum_congr rfl]; score: -0.544
+
+step: sorry; score: -1.072
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Multiset.sum\n      (Multiset.map (fun i => Multiset.sum (Multiset.map (fun x => z ^ x ^ 2) (Finset.Icc 1 12).val) * (1 / z ^ i ^ 2))\n        (Finset.Icc 1 12).val) =\n    36', id=62, message='')
+
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multis
+rw [Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val, Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val,
+  Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val, Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val,
+  Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val, Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val,
+  Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val, Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val,
+  Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val, Finset.sum_eq_multiset_
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Multiset.map_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Finset.sum_Icc_eq_multiset_sum, Finset.sum_Icc_eq_multiset_sum]
+rw [Finset.sum_Icc_eq_sum_range, Finset.sum_Icc_eq_sum_range]
+rw [Finset.sum_Icc_eq_sum_range, Finset.sum_Icc_eq_sum_range],
+rw [Finset.sum_eq_multiset_sum, Finset.map_val, Finset.val_Icc]
+rw [Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.val_Icc]
+rw [Multiset.map_sum, Multiset.sum_map, Multiset.map_map]
+rw [Finset.sum_Icc_eq_sum_range]
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Multiset.map_map, Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Finset.sum_Icc_eq_sum_range],
+rw [h₀]
+rw [Finset.sum_congr rfl]
+rw [← h₀]
+rcases h₀ with rfl
+simp [h₀]
+rw [h₀],
+rw [← h₀],
+push_cast
+simp only
+congr
+
+
+step: rw [h₀]; score: -0.56
+
+step: rcases h₀ with rfl; score: -0.676
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.69743 * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.69743 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=53, message='')
+
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun k hk => _
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl,
+apply Finset.sum_congr
+rw [h₀]
+apply sum_mul_distrib
+rw [sum_mul_distrib]
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+apply Finset.mul_sum
+simp only [h₀]
+rw [Finset.mul_sum]
+-
+intros x hx
+rw [h₀],
+push_cast
+sorry
+intro x hx
+simp only
+norm_num
+intros
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.363
+
+step: rw [Finset.sum_congr rfl]; score: -0.495
+
+step: rw [Finset.mul_sum]; score: -0.523
+
+step: rw [h₀]; score: -0.649
+
+step: simp only [h₀]; score: -0.726
+
+step: sorry; score: -1.037
+
+step: norm_num; score: -1.063
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12, Finset.sum (Finset.Icc 1 12) ?m.6677 * (1 / z ^ i ^ 2) = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=42, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ)
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+apply Finset.sum_congr rfl
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+intro n
+rw [Finset.sum_congr rfl]
+rw [sum_Icc_eq_sum_range]
+rw [h₀]
+rw [Finset.mul_sum]
+rw [← h₀]
+apply Finset.sum_congr rfl,
+apply Finset.sum_congr
+apply Finset.sum_eq_zero
+intro n
+rw [h₀]
+intro x
+rw [← h₀]
+intro x
+rw [h₀]
+intros n hn
+intros x hx
+rw [h₀],
+intro k
+rw [h₀]
+rw [← h₀],
+intros
+intro x hx
+sorry
+intro n
+intro k
+
+-
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.382
+
+step: let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ); score: -0.403
+
+step: rw [Finset.sum_congr rfl]; score: -0.501
+
+step: rw [h₀]; score: -0.621
+
+step: sorry; score: -1.098
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12,\n      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =\n    36', id=25, message='')
+
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      ∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+        (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+          (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+       (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ i ^ 2 :=
+  mul_sum.symm
+have h₁ : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun m hm => _
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl (fun i hi => _)
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [h₀, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+rw [h₀]
+rw [← h₀]
+apply sum_congr rfl
+simp [h₀]
+rw [← h₀],
+norm_num
+rw [h₀],
+push_cast
+simp only
+ring
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.505
+
+step: simp [h₀]; score: -0.755
+
+step: norm_num; score: -0.908
+
+step: ring; score: -1.249
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.54164 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.54164 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=34, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+simp only [Finset.sum_const, Finset.card_Icc]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl ?_
+apply Finset.sum_eq_single_of_mem
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_eq_single 1
+rw [h₀]
+apply Finset.sum_congr
+rw [Finset.mul_sum]
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+simp only [h₀]
+simp [h₀]
+intros x hx
+intros n hn
+rw [h₀],
+rw [← h₀],
+sorry
+rintro x hx
+intro x hx
+intros
+intro n
+intro y
+intro k
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.413
+
+step: rw [Finset.sum_congr rfl]; score: -0.521
+
+step: sorry; score: -0.975
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12,\n      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =\n    36', id=35, message='')
+
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum
+calc
+  ∑ i in Finset.Icc 1 12,
+       (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      ∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+have h₁ : ∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 = 6,
+refine' Finset.sum_congr rfl fun i hi => _
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : (1 + Complex.I) / ↑(Real.sqrt 2) ≠ 0,
+refine' Finset.sum_congr rfl fun x hx => _
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+rw [h₀, Finset.mul_sum, Finset.sum_mul]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+refine' Finset.sum_congr rfl fun k hk => _
+rw [h₀, Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [h₀, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [h₀]
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+rw [← h₀]
+simp [h₀]
+apply sum_congr rfl
+rw [h₀],
+norm_num
+push_cast
+ring
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.523
+
+step: ring; score: -1.295
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.92158 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * (1 / z ^ x ^ 2) = ?m.92158 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=63, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl (fun x hx => _)
+apply Finset.sum_congr rfl
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl h₀.symm]
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl ?_
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_congr
+rw [h₀]
+rw [Finset.mul_sum]
+induction z using Complex.induction_on
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+simp [h₀]
+simp only [h₀]
+intros x hx
+intros n hn
+rw [← h₀],
+rw [h₀],
+sorry
+rintro x hx
+intro x hx
+intros
+intro n
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.425
+
+step: rw [Finset.sum_congr rfl]; score: -0.508
+
+step: sorry; score: -0.938
+
+Current State:
+TacticState(pp='z✝¹ : ℂ\nh₀ : z✝¹ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz✝ : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.5218 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=73, message='')
+
+rintro x (hx : x ∈ Finset.Icc 1 12)
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+intro n
+rw [Finset.sum_congr rfl h₀]
+apply Finset.sum_congr rfl
+intro n
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl h₀]
+intro x
+rw [Finset.sum_congr rfl]
+intro k
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [h₀]
+intro z
+rw [h₀]
+rw [← h₀]
+intro n
+rw [← h₀]
+apply Finset.sum_congr
+simp [h₀]
+intro n
+rw [h₀]
+intro x
+rw [h₀]
+rw [h₀],
+intros x hx
+rintro x hx
+sorry
+intros
+intro n
+intro z
+intro h
+intro x
+intro y
+intro k
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.366
+
+step: rw [Finset.sum_congr rfl]; score: -0.554
+
+step: sorry; score: -1.066
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.6677 * ∑ k in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=43, message='')
+
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun k hk => _
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl (fun k hk => _)
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.sum_mul, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rintro x ⟨h₁, h₂⟩
+rw [h₀]
+rw [h₀, Complex.cpow_def]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl,
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+apply Finset.sum_congr
+intro k
+rw [h₀]
+intro x
+rw [h₀]
+intro n
+rw [h₀]
+rw [h₀],
+intros x hx
+intro x hx
+intros
+rintro x hx
+rw [h₀]
+-
+intro n hn
+intro n
+intro k
+
+-
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.395
+
+step: rw [Finset.sum_congr rfl]; score: -0.491
+
+step: rw [Finset.mul_sum]; score: -0.572
+
+step: rw [← h₀]; score: -0.635
+
+Current State:
+TacticState(pp='z✝¹ : ℂ\nh₀ : z✝¹ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz✝ : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.5218 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=77, message='')
+
+rintro x (hx : x ∈ Finset.Icc 1 12)
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+intro n
+rw [Finset.sum_congr rfl h₀]
+apply Finset.sum_congr rfl
+intro n
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl h₀]
+intro x
+rw [Finset.sum_congr rfl]
+intro k
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [h₀]
+intro z
+rw [h₀]
+rw [← h₀]
+intro n
+rw [← h₀]
+apply Finset.sum_congr
+simp [h₀]
+intro n
+rw [h₀]
+intro x
+rw [h₀]
+rw [h₀],
+intros x hx
+rintro x hx
+sorry
+intros
+intro n
+intro z
+intro h
+intro x
+intro y
+intro k
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.366
+
+step: rw [Finset.sum_congr rfl]; score: -0.554
+
+step: sorry; score: -1.066
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = 36', id=10, message='')
+
+have h₁ : z ^ 1 ^ 2 + z ^ 2 ^ 2 + z ^ 3 ^ 2 + z ^ 4 ^ 2 + z ^ 5 ^ 2 + z ^ 6 ^ 2 + z ^ 7 ^ 2 + z ^ 8 ^ 2 + z ^ 9 ^ 2 + z ^ 10 ^ 2 + z ^ 11 ^ 2 + z ^ 12 ^ 2 = 12,
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, (z ^ x ^ 2) * (1 / z ^ x ^ 2),
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2 * (1 / z ^ x ^ 2),
+have h₁ : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2,
+have h₁ : ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2,
+have h₁ : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2
+have : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2,
+have : ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = ∑ x in Finset.Icc 1 12, z ^ x ^ 2,
+have : (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2
+rw [Finset.mul_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+have h₁ : z ^ 1 ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2),
+have h₁ : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = 12,
+rw [Finset.mul_sum, Finset.sum_div, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum]
+rw [h₀, div_eq_mul_inv]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [Finset.mul_sum]
+-
+rw [← h₀]
+ring_nf
+push_cast
+norm_num
+sorry
+linarith
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.402
+
+step: rw [Finset.mul_sum]; score: -0.527
+
+step: rw [h₀, div_eq_mul_inv]; score: -0.537
+
+step: rw [Finset.sum_congr rfl]; score: -0.545
+
+step: rw [h₀]; score: -0.675
+
+step: norm_num; score: -0.922
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Multiset.sum\n      (Multiset.map (fun i => Multiset.sum (Multiset.map (fun k => z ^ k ^ 2) (Finset.Icc 1 12).val) * (z ^ i ^ 2)⁻¹)\n        (Finset.Icc 1 12).val) =\n    36', id=98, message='')
+
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum],
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_mult
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum,
+  Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multis
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum, Multiset.map_map]
+rw [Finset.sum_eq_multiset_sum, Finset.sum_eq_multiset_sum]
+rw [Finset.sum_Icc_eq_sum_range, Finset.sum_Icc_eq_sum_range]
+rw [Finset.sum_eq_multiset_sum (Finset.Icc 1 12).val]
+rw [Finset.sum_eq_multiset_sum, Finset.val_Icc]
+rw [Multiset.map_sum, Multiset.sum_map, Multiset.sum_map]
+rw [Multiset.map_sum, Multiset.sum_map, Multiset.map_map]
+rw [Multiset.map_sum, Multiset.sum_map]
+rw [Multiset.map_map, Multiset.sum_map_mul]
+rw [Finset.sum_Icc_eq_sum_range]
+rw [Multiset.sum_map_mul, Multiset.sum_map_mul]
+rw [Multiset.map_sum, Multiset.sum_map],
+rw [Finset.sum_eq_multiset_sum]
+rw [Finset.sum_congr rfl]
+rw [Multiset.map_sum]
+rw [Finset.val_Icc]
+rw [h₀]
+rw [← h₀]
+rcases h₀ with rfl
+simp [h₀]
+rw [← h₀],
+rw [h₀],
+push_cast
+simp only
+congr
+
+
+step: rw [h₀]; score: -0.632
+
+step: rcases h₀ with rfl; score: -0.681
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12, ?f i * ∑ k in Finset.Icc 1 12, 1 / z ^ k ^ 2 = 36\n\ncase f\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?f x', id=44, message='')
+
+refine' Finset.sum_congr rfl fun i hi => Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun i hi => _
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun k hk => _
+apply Finset.sum_congr rfl fun x hx => _
+apply Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun x hx => ?_
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl _
+intro x hx
+rw [h₀] at hx
+intro n hn
+rw [h₀] at hn
+rw [Finset.mul_sum]
+rw [h₀]
+rw [← h₀]
+apply sum_congr rfl
+apply Finset.sum_congr
+sorry
+intros n hn
+unfold f
+intro n hn
+simp only
+intros
+
+-
+
+step: rw [Finset.sum_congr rfl]; score: -0.526
+
+step: rw [h₀]; score: -0.756
+
+step: sorry; score: -0.966
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12,\n      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *\n        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =\n    36', id=55, message='')
+
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum
+calc
+  ∑ i in Finset.Icc 1 12,
+       (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+calc
+  ∑ i in Finset.Icc 1 12,
+      ∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 *
+        (1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2) =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2) *
+      ∑ i in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ i ^ 2 :=
+  mul_sum.symm
+have h₁ : ∑ k in Finset.Icc 1 12, ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ k ^ 2 = 6,
+refine' Finset.sum_congr rfl fun i hi => _
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : (1 + Complex.I) / ↑(Real.sqrt 2) ≠ 0,
+refine' Finset.sum_congr rfl fun x hx => _
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+rw [h₀, Finset.mul_sum, Finset.sum_mul]
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+refine' Finset.sum_congr rfl fun k hk => _
+rw [h₀, Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [h₀, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [h₀]
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+rw [← h₀]
+simp [h₀]
+apply sum_congr rfl
+rw [h₀],
+norm_num
+push_cast
+ring
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.523
+
+step: ring; score: -1.295
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.6677 * ∑ x in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ x ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=45, message='')
+
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [h₀, Complex.cpow_def]
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_congr
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl,
+apply Finset.induction_on
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+apply Finset.mul_sum
+simp only [h₀]
+apply sum_mul_distrib
+rw [h₀] at *
+apply Finset.sum_mul
+simp [h₀]
+rw [h₀],
+intros x hx
+intro x hx
+rw [h₀]
+-
+push_cast
+norm_num
+intro n hn
+simp only
+intros
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.373
+
+step: rw [Finset.sum_congr rfl]; score: -0.512
+
+step: rw [Finset.mul_sum]; score: -0.6
+
+step: rw [← h₀]; score: -0.648
+
+step: rw [h₀] at *; score: -0.708
+
+step: simp [h₀]; score: -0.743
+
+step: norm_num; score: -1.017
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *\n      ∑ x in Finset.Icc 1 12, (((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2)⁻¹ =\n    36', id=26, message='')
+
+calc
+  ∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 *
+          (((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2)⁻¹ =
+    (∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2) *
+        ∑ x in Finset.Icc 1 12, (((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2)⁻¹ :=
+  mul_sum.symm
+have h₁ : ∑ k in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ k ^ 2 = 12,
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 12 = 1,
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [h₀, ← Finset.mul_sum, ← Finset.mul_sum]
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+rw [← h₀, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [h₀, Finset.mul_sum]
+rw [h₀, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+-
+rw [h₀, ← Finset.mul_sum]
+rw [Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr rfl
+rw [← h₀],
+ring_nf
+rw [Finset.mul_sum]
+-
+rw [h₀],
+push_cast
+norm_num
+sorry
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.337
+
+step: simp only [Finset.mul_sum, Finset.sum_mul]; score: -0.431
+
+step: rw [Finset.mul_sum]; score: -0.485
+
+step: rw [Finset.sum_congr rfl]; score: -0.494
+
+step: ring_nf; score: -0.783
+
+step: ring; score: -1.185
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.6677 * ∑ x in Finset.Icc 1 12, 1 / ((1 + Complex.I) / ↑(Real.sqrt 2)) ^ x ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=46, message='')
+
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [h₀, Complex.cpow_def]
+rintro x ⟨h₁, h₂⟩
+apply Finset.sum_congr
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl,
+apply Finset.induction_on
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+apply Finset.mul_sum
+simp only [h₀]
+apply sum_mul_distrib
+rw [h₀] at *
+apply Finset.sum_mul
+simp [h₀]
+rw [h₀],
+intros x hx
+intro x hx
+rw [h₀]
+-
+push_cast
+norm_num
+intro n hn
+simp only
+intros
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.373
+
+step: rw [Finset.sum_congr rfl]; score: -0.512
+
+step: rw [Finset.mul_sum]; score: -0.6
+
+step: rw [← h₀]; score: -0.648
+
+step: rw [h₀] at *; score: -0.708
+
+step: simp [h₀]; score: -0.743
+
+step: norm_num; score: -1.017
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ i in Finset.Icc 1 12, (∑ x in Finset.Icc 1 12, z ^ x ^ 2) * (1 / z ^ i ^ 2) = 36', id=64, message='')
+
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv,
+div_eq_mul
+have h₁ : z ^ 2 = (1 + Complex.I) ^ 2 / ↑(Real.sqrt 2) ^ 2,
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv, div_eq_mul_inv]
+refine' Finset.sum_congr rfl fun i hi => _
+have h₁ : ∑ i in Finset.Icc 1 12, z ^ i ^ 2 = 12,
+have h₁ : z ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2) ^ 2,
+have h₁ : ∑ x in Finset.Icc 1 12, z ^ x ^ 2 = 12,
+have h₁ : z ^ 2 = (1 + Complex.I) / ↑(Real.sqrt 2),
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun i hi => _)
+refine' Finset.sum_congr rfl fun n hn => _
+rw [Finset.mul_sum, Finset.sum_mul, Finset.mul_sum]
+apply Finset.sum_congr rfl fun i hi => _
+rw [Finset.mul_sum, Finset.sum_mul]
+refine' Finset.sum_congr rfl _
+rw [h₀, div_eq_mul_inv]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [Finset.mul_sum]
+apply Finset.sum_congr rfl
+rw [← h₀]
+simp [h₀]
+rw [h₀],
+push_cast
+norm_num
+sorry
+simp only
+ring
+congr
+
+
+step: rw [h₀, div_eq_mul_inv]; score: -0.516
+
+step: rw [Finset.sum_congr rfl]; score: -0.556
+
+step: rw [h₀]; score: -0.595
+
+step: norm_num; score: -0.974
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.138153 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (z ^ x ^ 2)⁻¹ = ?m.138153 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=99, message='')
+
+rintro x (hx : x ∈ Finset.Icc 1 12)
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ)
+simp only [Finset.sum_const, Finset.card_Icc]
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+rw [Finset.sum_eq_sum_Icc_succ_bot]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun n hn => _
+intro x hx
+rw [Finset.mem_Icc] at hx
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+intro n
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_eq_multiset_sum]
+refine' Finset.sum_congr rfl ?_
+rintro x ⟨h₁, h₂⟩
+rw [h₀]
+apply Finset.sum_congr
+rw [Finset.mul_sum]
+rw [← h₀]
+apply Finset.sum_congr rfl
+-
+intros x hx
+intros n hn
+rw [h₀],
+sorry
+rintro x hx
+intro x hx
+intros
+intro n
+intro k
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.409
+
+step: let z := (1 + Complex.I) / (Real.sqrt 2 : ℂ); score: -0.424
+
+step: rw [Finset.sum_congr rfl]; score: -0.514
+
+step: rw [Finset.sum_eq_multiset_sum]; score: -0.547
+
+step: sorry; score: -0.96
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ x in Finset.Icc 1 12, (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ x ^ 2) *\n      ∑ x in Finset.Icc 1 12, 1 / (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 =\n    36', id=27, message='')
+
+have h₁ : ∑ x in Finset.Icc 1 12, (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 = 12,
+have h₁ : (∑ x in Finset.Icc 1 12, (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ x ^ 2) ≠ 0,
+have h₁ : ∑ x in Finset.Icc 1 12, (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 ≠ 0,
+have h₁ : (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ 1 ^ 2 = 2,
+have h₁ : (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ 2 = 2,
+have h₁ : (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ 2 = 1,
+have h₁ : (Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹) ^ 2 = 3,
+have h₁ : Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹ ≠ 0,
+have h₁ : Complex.I * (↑(Real.sqrt 2))⁻¹ + (↑(Real.sqrt 2))⁻¹ ≠ 0
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_const, Finset.card_Icc]
+rw [Finset.sum_congr rfl, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.mul_sum, Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.mul_sum, Finset.mul_sum]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.sum_congr rfl, Finset.sum_congr rfl],
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.sum_congr rfl]
+rw [Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr rfl
+rw [← h₀],
+norm_num
+push_cast
+congr 1
+sorry
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.374
+
+step: rw [Finset.sum_congr rfl, Finset.sum_congr rfl]; score: -0.382
+
+step: simp only [Finset.mul_sum, Finset.sum_mul]; score: -0.442
+
+step: rw [Finset.sum_congr rfl]; score: -0.469
+
+step: rw [Finset.mul_sum]; score: -0.514
+
+step: norm_num; score: -0.898
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ x in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2) *\n      ∑ x in Finset.Icc 1 12, 1 / ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 =\n    36', id=65, message='')
+
+have h₁ : ∑ x in Finset.Icc 1 12, ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ x ^ 2 = 12,
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 1 ^ 2 = 1,
+have h₁ : ((1 + Complex.I) * (↑(Real.sqrt 2))⁻¹) ^ 12 = 1,
+rw [← h₀, Finset.mul_sum, Finset.sum_congr rfl]
+have h₁ : (1 + Complex.I) * (↑(Real.sqrt 2))⁻¹ ≠ 0,
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [← h₀, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum]
+rw [h₀, Finset.sum_congr rfl]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [h₀, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [h₀, ← Finset.mul_sum]
+rw [← h₀, ← Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_mul]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [Finset.mul_sum]
+rw [← h₀]
+apply Finset.sum_congr rfl
+simp [h₀]
+rw [← h₀],
+ring_nf
+rw [h₀],
+norm_num
+push_cast
+sorry
+ring
+congr
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.389
+
+step: rw [Finset.sum_congr rfl]; score: -0.511
+
+step: rw [Finset.mul_sum]; score: -0.541
+
+step: simp [h₀]; score: -0.757
+
+step: norm_num; score: -0.958
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.94378 * ∑ x in Finset.Icc 1 12, 1 / z ^ x ^ 2 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.94378 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=66, message='')
+
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl ?_
+rw [Finset.mul_sum]
+apply Finset.sum_congr
+rw [← h₀]
+rw [h₀]
+rw [sum_mul_distrib]
+apply sum_mul_distrib
+apply Finset.mul_sum
+apply sum_congr rfl
+simp only [h₀]
+simp_rw [h₀]
+intros x hx
+rw [← h₀],
+rw [h₀],
+push_cast
+intro x hx
+norm_num
+sorry
+simp only
+linarith
+intro n hn
+congr
+intros
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.355
+
+step: rw [Finset.sum_congr rfl]; score: -0.482
+
+step: rw [Finset.mul_sum]; score: -0.508
+
+step: rw [h₀]; score: -0.646
+
+step: simp only [h₀]; score: -0.712
+
+step: simp_rw [h₀]; score: -0.721
+
+step: norm_num; score: -1.028
+
+step: sorry; score: -1.031
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.107294 = 36\n\nz✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, ?m.107485 x = ?m.107294 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.107485 x', id=74, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl _
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl fun y hy => _
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+apply finset.sum_congr rfl
+rw [Finset.mul_sum]
+apply Finset.sum_congr
+rw [← h₀]
+rw [h₀]
+apply Finset.sum_congr rfl,
+apply sum_congr rfl
+apply finset.sum_congr
+simp [h₀]
+intros x hx
+rw [← h₀],
+intro x hx
+rw [h₀],
+norm_num
+sorry
+intro n hn
+push_cast
+simp only
+intro k hk
+intros
+simp
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.507
+
+step: sorry; score: -0.92
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.111329 = 36\n\nz✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, ?m.111520 x = ?m.111329 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.111520 x', id=78, message='')
+
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun n hn => _
+refine' Finset.sum_congr rfl _
+refine' Finset.sum_congr rfl fun y hy => _
+rw [Finset.sum_mul, Finset.mul_sum]
+rw [Finset.sum_congr rfl h₀]
+rw [Finset.sum_congr rfl]
+apply finset.sum_congr rfl
+rw [Finset.mul_sum]
+apply Finset.sum_congr
+rw [← h₀]
+rw [h₀]
+apply Finset.sum_congr rfl,
+apply sum_congr rfl
+apply finset.sum_congr
+simp [h₀]
+intros x hx
+rw [← h₀],
+intro x hx
+rw [h₀],
+sorry
+norm_num
+intro n hn
+push_cast
+simp only
+intro k hk
+intros
+simp
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.508
+
+step: sorry; score: -0.925
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.5218 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=20, message='')
+
+intro n
+rw [Finset.sum_Icc_eq_div]
+intro n
+rw [Finset.sum_congr rfl]
+apply Finset.sum_congr rfl
+intro n
+rw [Finset.mul_sum]
+intro x
+rw [← h₀]
+intro n
+rw [← h₀]
+intro x
+rw [h₀]
+rintro x hx
+rw [h₀]
+intro y
+rw [← h₀]
+intros x hx
+rw [← h₀]
+intro n
+rw [h₀]
+intro n
+intro k
+intro x
+intro x
+cases x
+intro n
+cases n
+intro x hx
+intro z
+intro y
+intro h
+intro w
+intros n
+intro m
+intro n
+-
+intros
+intros y
+intro
+intro f
+intro k
+-
+
+
+step: rintro x hx; score: -0.687
+
+step: rw [h₀]; score: -0.687
+
+step: intros x hx; score: -0.716
+
+step: intro n; score: -0.812
+
+step: intro k; score: -0.836
+
+step: intro x; score: -0.838
+
+step: intro x hx; score: -0.878
+
+step: intro z; score: -0.939
+
+step: intro y; score: -0.955
+
+step: intro h; score: -0.988
+
+step: intro w; score: -1.042
+
+step: intros n; score: -1.117
+
+step: intro m; score: -1.14
+
+step: intros; score: -1.189
+
+step: intros y; score: -1.193
+
+step: intro; score: -1.225
+
+step: intro f; score: -1.259
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ (∑ x in Finset.Icc 1 12, (1 + Complex.I) ^ x ^ 2 / ↑(Real.sqrt 2) ^ x ^ 2) *\n      ∑ x in Finset.Icc 1 12, ↑(Real.sqrt 2) ^ x ^ 2 / (1 + Complex.I) ^ x ^ 2 =\n    36', id=57, message='')
+
+have h₁ : ∑ x in Finset.Icc 1 12, (1 + Complex.I) ^ x ^ 2 / ↑(Real.sqrt 2) ^ x ^ 2 = ∑ x in Finset.Icc 1 12, 1,
+have h₁ : ∀ x ∈ Finset.Icc 1 12, (1 + Complex.I) ^ x ^ 2 / ↑(Real.sqrt 2) ^ x ^ 2 = 1,
+have h₁ : ∑ x in Finset.Icc 1 12, (1 + Complex.I) ^ x ^ 2 / ↑(Real.sqrt 2) ^ x ^ 2 = 12,
+have h₁ : (1 + Complex.I) ^ 1 ^ 2 / ↑(Real.sqrt 2) ^ 1 ^ 2 = 1,
+rw [Finset.mul_sum, Finset.sum_mul, Finset.mul_sum, Finset.sum_mul]
+rw [h₀, Finset.mul_sum, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum, Finset.mul_sum]
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_congr rfl]
+rw [Finset.mul_sum, Finset.sum_mul, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.mul_sum]
+rw [Finset.mul_sum, Finset.sum_mul]
+simp only [Finset.mul_sum, Finset.sum_mul]
+rw [h₀, Finset.mul_sum]
+rw [h₀, Finset.sum_congr rfl]
+rw [← h₀, Finset.mul_sum]
+rw [← h₀, Finset.sum_congr rfl]
+rw [h₀, ← Finset.mul_sum]
+refine' Finset.sum_congr rfl _
+rw [Finset.mul_sum]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr rfl
+rw [Finset.mul_sum]
+-
+rw [← h₀],
+rw [h₀],
+push_cast
+sorry
+ring
+
+
+step: rw [Finset.mul_sum, Finset.sum_congr rfl]; score: -0.389
+
+step: simp only [Finset.mul_sum, Finset.sum_mul]; score: -0.433
+
+step: rw [Finset.mul_sum]; score: -0.509
+
+step: rw [Finset.sum_congr rfl]; score: -0.516
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∑ x in Finset.Icc 1 12,\n      ∑ i in Finset.Icc 1 12,\n        (1 + Complex.I) ^ i ^ 2 / ↑(Real.sqrt 2) ^ i ^ 2 * (↑(Real.sqrt 2) ^ x ^ 2 / (1 + Complex.I) ^ x ^ 2) =\n    36', id=121, message='')
+
+have h₁ : (1 + Complex.I) ^ 1 ^ 2 / ↑(Real.sqrt 2) ^ 1 ^ 2 = 1,
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+refine' Finset.sum_congr rfl fun x hx => _
+have h₁ : (1 + Complex.I) ^ 2 / ↑(Real.sqrt 2) ^ 2 = 1,
+have : (1 + Complex.I) ^ 2 / ↑(Real.sqrt 2) ^ 2 = 1,
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+exact h₀
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [h₀]
+refine' Finset.sum_congr rfl fun n hn => _
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv]
+refine' Finset.sum_congr rfl (fun x hx => _)
+refine' Finset.sum_congr rfl fun i hi => _
+refine' Finset.sum_congr rfl fun k hk => _
+refine' Finset.sum_congr rfl fun m hm => _
+apply Finset.sum_congr rfl
+apply Finset.sum_congr rfl
+rw [h₀, Finset.mul_sum, Finset.mul_sum]
+refine' Finset.sum_congr rfl fun n _ => _
+refine' Finset.sum_congr rfl _
+apply Finset.sum_congr rfl fun x hx => _
+rw [h₀, Finset.sum_congr rfl]
+rw [h₀, div_eq_mul_inv, div_eq_mul_inv],
+rw [Finset.sum_congr rfl]
+apply sum_congr rfl
+apply sum_congr rfl
+rw [h₀]
+apply Finset.sum_congr rfl
+rw [← h₀]
+apply sum_congr rfl
+rw [← h₀],
+rw [h₀],
+push_cast
+sorry
+simp only
+
+
+step: rw [Finset.sum_congr rfl]; score: -0.508
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.69160 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.69160 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=125, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+simp only [Finset.sum_const, Finset.card_Icc]
+apply Finset.sum_congr rfl
+rw [Finset.sum_congr rfl h₀]
+intro n
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+intro k
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr
+intro z
+rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+rw [h₀],
+intros x hx
+intro n
+cases n
+intros n hn
+sorry
+rintro x hx
+intros
+intro n
+intro k
+intro z
+intros n
+intro h
+intro y
+intro x
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.386
+
+step: rw [Finset.sum_congr rfl]; score: -0.569
+
+step: sorry; score: -1.011
+
+Current State:
+TacticState(pp='z✝ : ℂ\nh₀ : z✝ = (1 + Complex.I) / ↑(Real.sqrt 2)\nz : ℂ := (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.69160 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, (∑ k in Finset.Icc 1 12, z ^ k ^ 2) * (1 / z ^ x ^ 2) = ?m.69160 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=126, message='')
+
+let z := (1 + Complex.I) / ↑(Real.sqrt 2)
+refine' Finset.sum_congr rfl fun x hx => _
+refine' Finset.sum_congr rfl (fun x hx => _)
+simp only [Finset.sum_const, Finset.card_Icc]
+apply Finset.sum_congr rfl
+rw [Finset.sum_congr rfl h₀]
+intro n
+rw [Finset.sum_congr rfl]
+refine' Finset.sum_congr rfl _
+intro k
+rw [Finset.sum_congr rfl]
+rw [Finset.sum_congr rfl]
+rw [h₀]
+rw [← h₀]
+apply Finset.sum_congr
+intro z
+rw [h₀]
+intro n
+rw [← h₀]
+intro n
+rw [h₀]
+rw [h₀],
+intros x hx
+intro n
+cases n
+intros n hn
+sorry
+rintro x hx
+intros
+intro n
+intro k
+intro z
+intros n
+intro h
+intro y
+intro x
+intro
+
+
+step: let z := (1 + Complex.I) / ↑(Real.sqrt 2); score: -0.386
+
+step: rw [Finset.sum_congr rfl]; score: -0.569
+
+step: sorry; score: -1.011
+
+Current State:
+TacticState(pp='z : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ Finset.sum (Finset.Icc 1 12) ?m.121569 = 36\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, ?m.121568 x = ?m.121569 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, Finset.sum (Finset.Icc 1 12) ?m.6677 * (1 / z ^ x ^ 2) = ?m.121568 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ∀ x ∈ Finset.Icc 1 12, z ^ x ^ 2 = ?m.6677 x\n\nz : ℂ\nh₀ : z = (1 + Complex.I) / ↑(Real.sqrt 2)\n⊢ ℤ → ℂ', id=87, message='')
+
