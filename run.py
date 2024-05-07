@@ -153,6 +153,39 @@ if p.gen_method == 'openai':
 def main():
     results = []
 
+    # Low-level Search
+    if p.search_method == 'bfs_low':
+        search_fn = search.search_low
+        prompt_fn_low = prompts._prompt_low
+        prompt_fn_high = None
+        search_algorithm = 'bfs'
+
+    if p.search_method == 'mcts_low':
+        search_fn = search.search_low
+        prompt_fn_low = prompts._prompt_low
+        prompt_fn_high = None
+        search_algorithm = 'mcts'
+
+    # Low-level Search with old code
+    # if p.search_method == 'bfs_low_old':
+    #     search_fn = search.bfs_low_old
+    #     prompt_fn_low = prompts._prompt_low
+    #     prompt_fn_high = None
+
+    # Low-level Search with Raw High-Level Proof Plan in Context
+    if p.search_method == 'bfs_low_with_raw_high':
+        search_fn = search.search_low
+        prompt_fn_low = prompts._prompt_low_with_high
+        prompt_fn_high = None
+        search_algorithm = 'bfs'
+
+    # Bi-level Search
+    if p.search_method == 'bfs_bilevel':
+        search_fn = search.bfs_bilevel
+        prompt_fn_low = prompts._prompt_low_with_high
+        prompt_fn_high = prompts._prompt_high
+        search_algorithm = 'bfs'
+
     for example in tqdm(data, total=len(data)):
 
         # Set up the data
@@ -169,67 +202,28 @@ def main():
         logger.info(theorem_name)
 
         # Start search
-
-        if 'bfs' in p.search_method:
-
-            # Low-level Search
-            if p.search_method == 'bfs_low':
-                search_fn = search.search_low
-                prompt_fn_low = prompts._prompt_low
-                prompt_fn_high = None
-
-            # Low-level Search with old code
-            if p.search_method == 'bfs_low_old':
-                search_fn = search.bfs_low_old
-                prompt_fn_low = prompts._prompt_low
-                prompt_fn_high = None
-
-            # Low-level Search with Raw High-Level Proof Plan in Context
-            if p.search_method == 'bfs_low_with_raw_high':
-                search_fn = search.search_low
-                prompt_fn_low = prompts._prompt_low_with_high
-                prompt_fn_high = None
-
-            # Bi-level Search
-            if p.search_method == 'bfs_bilevel':
-                search_fn = search.bfs_bilevel
-                prompt_fn_low = prompts._prompt_low_with_high
-                prompt_fn_high = prompts._prompt_high
-
-            attempt_results = search.proof_search(theorem=theorem,
-                                                  model=model,
-                                                  tokenizer=tokenizer,
-                                                  max_iters_low=p.max_iters_low,
-                                                  max_iters_high=p.max_iters_high,
-                                                  temperatures=p.temperatures,
-                                                  num_samples_low=p.num_samples_low, 
-                                                  num_samples_high=p.num_samples_high,
-                                                  search_fn=search_fn,
-                                                  prompt_fn_low=prompt_fn_low,
-                                                  prompt_fn_high=prompt_fn_high,
-                                                  timeout=p.timeout,
-                                                  early_stop=p.early_stop,
-                                                  max_tokens=p.max_tokens,  # Maybe two params for low and high
-                                                  stop=p.stop,
-                                                  gen_method=p.gen_method,
-                                                  formal_statement=formal_statement,
-                                                  informal_statement=informal_statement,
-                                                  plan_high=informal_proof,  # This will be overwritten by machine generated plan in bfs_bilevel
-                                                    )
-
-        if p.search_method == 'mcts':
-            attempt_results = search.mct_search(theorem=theorem,
+        attempt_results = search.proof_search(theorem=theorem,
                                                 model=model,
                                                 tokenizer=tokenizer,
-                                                max_iters=p.max_iters_low,
+                                                max_iters_low=p.max_iters_low,
+                                                max_iters_high=p.max_iters_high,
                                                 temperatures=p.temperatures,
-                                                num_samples=p.num_samples,
-                                                prompt_fn=prompts._prompt_low,
+                                                num_samples_low=p.num_samples_low, 
+                                                num_samples_high=p.num_samples_high,
+                                                search_fn=search_fn,
+                                                prompt_fn_low=prompt_fn_low,
+                                                prompt_fn_high=prompt_fn_high,
                                                 timeout=p.timeout,
                                                 early_stop=p.early_stop,
-                                                max_tokens=p.max_tokens,
-                                                stopping_criteria=stopping_criteria,
-                                                gen_method=p.gen_method)
+                                                max_tokens=p.max_tokens,  # Maybe two params for low and high
+                                                stop=p.stop,
+                                                gen_method=p.gen_method,
+                                                formal_statement=formal_statement,
+                                                informal_statement=informal_statement,
+                                                plan_high=informal_proof,  # This will be overwritten by machine generated plan in bfs_bilevel
+                                                search_algorithm=search_algorithm,
+                                                )
+
 
         result = {
             'attempt_results': attempt_results,

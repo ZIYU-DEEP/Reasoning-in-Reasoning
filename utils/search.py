@@ -89,7 +89,7 @@ def proof_search(theorem, model, tokenizer,
                  prompt_fn_low=None, prompt_fn_high=None,
                  timeout=600, early_stop=False, max_tokens=256, 
                  stop='----', gen_method='vllm', 
-                 formal_statement='', informal_statement='', plan_high=''):
+                 formal_statement='', informal_statement='', plan_high='', search_algorithm='bfs'):
     """
     Wrapper function to set up search environment and delegate to a search function.
     """
@@ -118,6 +118,7 @@ def proof_search(theorem, model, tokenizer,
                 formal_statement=formal_statement,
                 informal_statement=informal_statement,
                 plan_high=plan_high,
+                search_method=search_algorithm
             )
             
     except DOJO_ERROR as e:
@@ -195,6 +196,9 @@ def search_low(dojo, init_state, theorem,
     # run the search
     search_algorithm.expand(datastructure=value_graph, state=init_state)
 
+    optimal_trajectory = []
+    action_sequence = []
+
     # find the state in the graph that is ProofFinished, if any
     proof_finished_state = None
     for state in value_graph.id_to_node.keys():
@@ -217,9 +221,8 @@ def search_low(dojo, init_state, theorem,
 
         proof_finished = True
 
-
-    # convert the states in optimal trajectory to strings
-    optimal_trajectory = [(str(state.get_string()), str(action)) for state, action in optimal_trajectory]
+        # convert the states in optimal trajectory to strings
+        optimal_trajectory = [(str(state.get_string()), str(action)) for state, action in optimal_trajectory]
 
     attempt_results.append({
                     'theorem': theorem.full_name,
