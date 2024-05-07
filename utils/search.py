@@ -256,7 +256,8 @@ def bfs_low_old(dojo, init_state, theorem,
             prompt_fn_low=None, prompt_fn_high=None,
             timeout=600, early_stop=False, max_tokens=256, 
             stop='----', gen_method='vllm', 
-            formal_statement='', informal_statement='', plan_high=''):
+            formal_statement='', informal_statement='', plan_high='', 
+            search_method='bfs',):
     """
     Implements Low-Level Best First Search (BFS) algorithm for theorem proving.
     """

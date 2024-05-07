@@ -181,10 +181,11 @@ def main():
         search_algorithm = 'mcts'
 
     # Low-level Search with old code
-    # if p.search_method == 'bfs_low_old':
-    #     search_fn = search.bfs_low_old
-    #     prompt_fn_low = prompts._prompt_low
-    #     prompt_fn_high = None
+    if p.search_method == 'bfs_low_old':
+        search_fn = search.bfs_low_old
+        prompt_fn_low = prompts._prompt_low
+        prompt_fn_high = None
+        search_algorithm = 'bfs'
 
     # Low-level Search with Raw High-Level Proof Plan in Context
     if p.search_method == 'bfs_low_with_raw_high':
