@@ -1,0 +1,75 @@
+# Add the checkpoint path
+init_ckpt_path: null  # This should only load the weight
+init_ckpt_filename: null 
+# init_ckpt_path: null
+ckpt_path: null # Setting a path will restore the training process  # https://github.com/Lightning-AI/pytorch-lightning/discussions/16845#discussioncomment-5092950
+seed_everything: 3407  # https://arxiv.org/abs/2109.08203
+
+trainer:
+  default_root_dir: './lightning_logs/joint'
+  accelerator: gpu
+  devices: 8  # CHANGE
+  precision: bf16-mixed
+  strategy:
+    class_path: pytorch_lightning.strategies.DeepSpeedStrategy
+    init_args:
+      stage: 2
+      offload_optimizer: false
+      cpu_checkpointing: false
+  gradient_clip_val: 1.0
+  max_steps: 100000  # num_epoch is (max_steps * num_batches) / batch_size 
+  check_val_every_n_epoch: 1
+  num_sanity_val_steps: -1
+
+  callbacks:
+
+    - class_path: pytorch_lightning.callbacks.LearningRateMonitor
+      init_args: 
+        logging_interval: step
+
+    - class_path: pytorch_lightning.callbacks.ModelCheckpoint
+      init_args:
+        verbose: true
+        verbose: true
+        save_top_k: 50
+        monitor: loss_val
+        mode: min
+        every_n_train_steps: 10000  # the saving frequency for the model
+        save_on_train_epoch_end: true
+        filename: 'checkpoint-{epoch:02d}-{step}-{loss_val:.4f}-{loss_train:.4f}'
+        enable_version_counter: true
+
+    - class_path: pytorch_lightning.callbacks.EarlyStopping
+      init_args:
+        monitor: loss_val  # we cannot evaluate the original Pass
+        patience: 3
+        mode: min  # for loss that will be min
+        verbose: true
+
+# By default, the model will be saved at `./lightning_logs/`
+model:
+  model_name: google/byt5-small
+  lr: 1.4e-3  # CHANGE - the default scratch 1 gpu use 5e-4; in 8 gpu, we use the square root scaling law, that gives us 5e-4 * sqrt(8) = 1.4e-3
+  warmup_steps: 4000  # CHANGE; we use new_warmup_steps = original_warmup_steps * (new_effective_batch_size / original_effective_batch_size), in the 8 gpu setting, that gives 2000 * 8 = 16,000. however, we can just moderately have it as 4000.
+  num_beams: 1
+  length_penalty: 0.0
+  ret_ckpt_path: null
+  eval_num_retrieved: 100
+  eval_num_workers: 16  # CHANGE
+  eval_num_gpus: 8
+  eval_num_theorems: 0  # Lower this number will make validation faster (but noiser).
+  gen_type: joint
+
+data:
+  data_path: data/leandojo_benchmark_4/random/
+  corpus_path: data/leandojo_benchmark_4/corpus.jsonl
+  keep_marks: true
+  preds_path: null
+  batch_size: 8  # effective_batch_size == batch_size * accumulate_grad_batches * devices
+  eval_batch_size: 64
+  max_inp_seq_len: 2300
+  max_oup_seq_len: 2900  # increased with tactic
+  p_drop: 0.5
+  normalize_tactics: true
+  num_workers: 16  # CHANGE
+  gen_type: joint

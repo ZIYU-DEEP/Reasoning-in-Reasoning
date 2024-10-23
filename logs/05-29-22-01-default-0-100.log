@@ -1,0 +1,8 @@
+2024-05-29 22:01:33.915 | INFO     | __main__:main:291 - PID: 2612977
+2024-05-29 22:01:33.916 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/localscratch/hsun409/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=4, num_gpus=4, verbose=False, start_ind=0, gen_type='default')
+2024-05-29 22:01:42.657 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 0th theorem named not_bddBelow_iff!
+2024-05-29 22:01:42.657 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-29 22:01:42.663 | INFO     | prover.proof_search:__init__:515 - Launching 4 workers with 4 GPUs.
+2024-05-30 01:03:27.684 | INFO     | __main__:evaluate:199 - Evaluation done! 40 theorems proved, 56 theorems failed, 4 non-theorems discarded
+2024-05-30 01:03:27.706 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/0216b8d2-7f12-45a1-8652-2996d3388406_results.pickle
+2024-05-30 01:03:27.708 | INFO     | __main__:main:315 - Pass@1: 0.4166666666666667

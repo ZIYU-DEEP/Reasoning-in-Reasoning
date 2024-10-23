@@ -1,0 +1,8 @@
+2024-05-27 03:32:47.467 | INFO     | __main__:main:291 - PID: 4164205
+2024-05-27 03:32:47.467 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=8, num_gpus=1, verbose=False, start_ind=200, gen_type='default')
+2024-05-27 03:32:58.036 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 200th theorem named MonoidAlgebra.equivariantOfLinearOfComm_apply!
+2024-05-27 03:32:58.037 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-27 03:32:58.043 | INFO     | prover.proof_search:__init__:515 - Launching 8 workers with 1 GPUs.
+2024-05-27 05:16:27.107 | INFO     | __main__:evaluate:199 - Evaluation done! 49 theorems proved, 49 theorems failed, 2 non-theorems discarded
+2024-05-27 05:16:27.134 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/4e72aa80-7829-48cb-8161-f82e9b4255ec_results.pickle
+2024-05-27 05:16:27.139 | INFO     | __main__:main:315 - Pass@1: 0.5

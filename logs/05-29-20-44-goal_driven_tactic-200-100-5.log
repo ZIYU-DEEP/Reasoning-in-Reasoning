@@ -1,0 +1,8 @@
+2024-05-29 20:44:07.461 | INFO     | __main__:main:309 - PID: 2246340
+2024-05-29 20:44:07.461 | INFO     | __main__:main:310 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/localscratch/hsun409/github/RiR/ckpts/rir-pl-ckpts/goal_driven_tactic/checkpoint-epoch=05-step=40000-loss_val=1000.0000-loss_train=0.1496.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=1800, num_workers=4, num_gpus=4, verbose=False, start_ind=200, gen_type='goal_driven_tactic', goal_ckpt_path='/localscratch/hsun409/github/RiR/ckpts/rir-pl-ckpts/goal_ckpt/checkpoint-epoch=05-step=41993-loss_val=0.0538-loss_train=0.0217.ckpt', num_sampled_goals=5)
+2024-05-29 20:44:16.891 | INFO     | __main__:_get_theorems_from_files:122 - Starting from 200th theorem named MonoidAlgebra.equivariantOfLinearOfComm_apply!
+2024-05-29 20:44:16.892 | INFO     | __main__:_get_theorems_from_files:128 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-29 20:44:16.900 | INFO     | prover_rir.proof_search:__init__:671 - Launching 4 workers with 4 GPUs.
+2024-05-30 03:08:16.942 | INFO     | __main__:evaluate:204 - Evaluation done! 55 theorems proved, 43 theorems failed, 2 non-theorems discarded
+2024-05-30 03:08:16.990 | INFO     | __main__:evaluate:219 - Results saved to ./results/goal_driven_tactic/1af90549-6483-49aa-8aca-5be0fec22bb3_results.pickle
+2024-05-30 03:08:16.999 | INFO     | __main__:main:335 - Pass@1: 0.5612244897959183

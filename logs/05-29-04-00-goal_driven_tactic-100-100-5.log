@@ -1,0 +1,8 @@
+2024-05-29 04:00:50.240 | INFO     | __main__:main:309 - PID: 57811
+2024-05-29 04:00:50.240 | INFO     | __main__:main:310 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/rir-pl-ckpts/goal_driven_tactic/checkpoint-epoch=05-step=40000-loss_val=1000.0000-loss_train=0.1496.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=1800, num_workers=3, num_gpus=1, verbose=False, start_ind=100, gen_type='goal_driven_tactic', goal_ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/rir-pl-ckpts/goal_ckpt/checkpoint-epoch=05-step=41993-loss_val=0.0538-loss_train=0.0217.ckpt', num_sampled_goals=5)
+2024-05-29 04:01:01.229 | INFO     | __main__:_get_theorems_from_files:122 - Starting from 100th theorem named RingHom.RespectsIso.cancel_right_isIso!
+2024-05-29 04:01:01.231 | INFO     | __main__:_get_theorems_from_files:128 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-29 04:01:01.243 | INFO     | prover_rir.proof_search:__init__:687 - Launching 3 workers with 1 GPUs.
+2024-05-29 11:47:56.910 | INFO     | __main__:evaluate:204 - Evaluation done! 50 theorems proved, 48 theorems failed, 2 non-theorems discarded
+2024-05-29 11:47:56.939 | INFO     | __main__:evaluate:219 - Results saved to ./results/goal_driven_tactic/4e453884-eb01-46dd-81b6-f636a301c09c_results.pickle
+2024-05-29 11:47:56.941 | INFO     | __main__:main:335 - Pass@1: 0.5102040816326531

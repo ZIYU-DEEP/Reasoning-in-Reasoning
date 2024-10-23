@@ -1,0 +1,8 @@
+2024-05-23 06:18:38.909 | INFO     | __main__:main:307 - PID: 3887974
+2024-05-23 06:18:38.910 | INFO     | __main__:main:308 - Namespace(data_path='data/minif2f/neurips/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=None, ckpt_path='/home/ubuntu/dojo/github/reprover-test/lightning_logs/goal_driven_tactic_ckpt/reprover-goal_driven_tactic/zjnvjqda/checkpoints/checkpoint-epoch=05-step=40000-loss_val=1000.0000-loss_train=0.1496.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=3200, num_workers=4, num_gpus=1, verbose=False, start_ind=1, gen_type='goal_driven_tactic', goal_ckpt_path='/home/ubuntu/dojo/github/reprover-test/lightning_logs/goal_ckpt/reprover-goal/migvv75v/checkpoints/checkpoint-epoch=05-step=41993-loss_val=0.0538-loss_train=0.0217.ckpt', num_sampled_goals=5)
+2024-05-23 06:18:48.931 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 1th theorem named imo_1977_p6!
+2024-05-23 06:18:48.933 | INFO     | __main__:_get_theorems_from_files:127 - 243 theorems loaded from data/minif2f/neurips/
+2024-05-23 06:18:48.941 | INFO     | prover_rir.proof_search:__init__:687 - Launching 4 workers with 1 GPUs.
+2024-05-24 06:47:05.269 | INFO     | __main__:evaluate:203 - Evaluation done! 90 theorems proved, 153 theorems failed, 0 non-theorems discarded
+2024-05-24 06:47:05.327 | INFO     | __main__:evaluate:218 - Results saved to ./results/goal_driven_tactic/42153a3b-7ff7-4a1c-99db-3a8639ae1c87_results.pickle
+2024-05-24 06:47:05.330 | INFO     | __main__:main:333 - Pass@1: 0.37037037037037035

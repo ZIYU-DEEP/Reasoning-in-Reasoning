@@ -1,0 +1,8 @@
+2024-05-27 01:30:55.264 | INFO     | __main__:main:291 - PID: 4131900
+2024-05-27 01:30:55.264 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=8, num_gpus=1, verbose=False, start_ind=100, gen_type='default')
+2024-05-27 01:31:05.753 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 100th theorem named RingHom.RespectsIso.cancel_right_isIso!
+2024-05-27 01:31:05.754 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-27 01:31:05.760 | INFO     | prover.proof_search:__init__:515 - Launching 8 workers with 1 GPUs.
+2024-05-27 03:32:33.753 | INFO     | __main__:evaluate:199 - Evaluation done! 45 theorems proved, 53 theorems failed, 2 non-theorems discarded
+2024-05-27 03:32:33.779 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/4b777915-62ef-44d6-9365-15022ef27cf5_results.pickle
+2024-05-27 03:32:33.785 | INFO     | __main__:main:315 - Pass@1: 0.45918367346938777

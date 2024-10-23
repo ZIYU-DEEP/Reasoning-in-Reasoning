@@ -1,0 +1,8 @@
+2024-05-29 21:55:49.577 | INFO     | __main__:main:309 - PID: 82453
+2024-05-29 21:55:49.577 | INFO     | __main__:main:310 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/rir-pl-ckpts/goal_driven_tactic/checkpoint-epoch=05-step=40000-loss_val=1000.0000-loss_train=0.1496.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=1800, num_workers=3, num_gpus=1, verbose=False, start_ind=600, gen_type='goal_driven_tactic', goal_ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/rir-pl-ckpts/goal_ckpt/checkpoint-epoch=05-step=41993-loss_val=0.0538-loss_train=0.0217.ckpt', num_sampled_goals=5)
+2024-05-29 21:56:00.413 | INFO     | __main__:_get_theorems_from_files:122 - Starting from 600th theorem named Group.fg_iff!
+2024-05-29 21:56:00.415 | INFO     | __main__:_get_theorems_from_files:128 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-29 21:56:00.428 | INFO     | prover_rir.proof_search:__init__:687 - Launching 3 workers with 1 GPUs.
+2024-05-30 04:44:27.228 | INFO     | __main__:evaluate:204 - Evaluation done! 61 theorems proved, 39 theorems failed, 0 non-theorems discarded
+2024-05-30 04:44:27.291 | INFO     | __main__:evaluate:219 - Results saved to ./results/goal_driven_tactic/221ce882-a4f9-489b-923a-749b27f70090_results.pickle
+2024-05-30 04:44:27.294 | INFO     | __main__:main:335 - Pass@1: 0.61

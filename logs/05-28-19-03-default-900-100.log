@@ -1,0 +1,8 @@
+2024-05-28 19:03:40.187 | INFO     | __main__:main:291 - PID: 10243
+2024-05-28 19:03:40.188 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=3, num_gpus=1, verbose=False, start_ind=900, gen_type='default')
+2024-05-28 19:03:51.267 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 900th theorem named StrictAntiOn.mapsTo_Ico!
+2024-05-28 19:03:51.269 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-28 19:03:51.301 | INFO     | prover.proof_search:__init__:515 - Launching 3 workers with 1 GPUs.
+2024-05-28 22:44:42.941 | INFO     | __main__:evaluate:199 - Evaluation done! 43 theorems proved, 56 theorems failed, 1 non-theorems discarded
+2024-05-28 22:44:43.008 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/ba6d0ba8-c5d6-4141-97f8-0fdd4b1fe7be_results.pickle
+2024-05-28 22:44:43.014 | INFO     | __main__:main:315 - Pass@1: 0.43434343434343436

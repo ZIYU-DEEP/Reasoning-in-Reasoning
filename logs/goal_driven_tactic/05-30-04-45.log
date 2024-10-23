@@ -1,0 +1,81 @@
+2024-05-30 04:45:22.828 | INFO     | prover_rir.proof_search:__init__:97 - Using gen_type: goal_driven_tactic.
+2024-05-30 04:45:22.834 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Combinatorics/SimpleGraph/Coloring.lean'), full_name='SimpleGraph.colorable_set_nonempty_of_colorable')
+2024-05-30 04:45:23.526 | INFO     | prover_rir.proof_search:__init__:97 - Using gen_type: goal_driven_tactic.
+2024-05-30 04:45:23.532 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Data/Finset/Pointwise.lean'), full_name='Finset.Nonempty.of_div_right')
+2024-05-30 04:45:27.056 | INFO     | prover_rir.proof_search:__init__:97 - Using gen_type: goal_driven_tactic.
+2024-05-30 04:45:27.062 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/MeasureTheory/Integral/IntegrableOn.lean'), full_name='ContinuousOn.aemeasurable')
+2024-05-30 04:46:02.360 | INFO     | prover_rir.proof_search:_best_first_search:197 - Found a proof!
+2024-05-30 04:46:13.272 | INFO     | prover_rir.proof_search:search:163 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Combinatorics/SimpleGraph/Coloring.lean
+  Full Name: SimpleGraph.colorable_set_nonempty_of_colorable
+
+Status: Status.PROVED
+
+Proof:
+  exact ⟨n, hc⟩
+
+Search Statistics:
+  Planner Time: 2.0151495010068174
+  Actor Time: 1.4165638079866767
+  Environment Time: 0.011677011993015185
+  Total Time: 3.4437530849827453
+  Total Nodes: 2
+  Searched Nodes: 1
+2024-05-30 04:46:13.273 | INFO     | prover_rir.proof_search:search:164 - 
+---------------------------------
+
+2024-05-30 04:46:13.280 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Analysis/Calculus/LHopital.lean'), full_name='deriv.lhopital_zero_atBot_on_Iio')
+2024-05-30 04:46:14.757 | INFO     | prover_rir.proof_search:_best_first_search:197 - Found a proof!
+2024-05-30 04:46:24.254 | INFO     | prover_rir.proof_search:search:163 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Data/Finset/Pointwise.lean
+  Full Name: Finset.Nonempty.of_div_right
+
+Status: Status.PROVED
+
+Proof:
+  simp
+
+Search Statistics:
+  Planner Time: 2.735123085003579
+  Actor Time: 2.897062250005547
+  Environment Time: 0.06159668299369514
+  Total Time: 5.694142533000559
+  Total Nodes: 3
+  Searched Nodes: 1
+2024-05-30 04:46:24.256 | INFO     | prover_rir.proof_search:search:164 - 
+---------------------------------
+
+2024-05-30 04:46:24.265 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/GroupTheory/Submonoid/Center.lean'), full_name='Submonoid.center_eq_top')
+2024-05-30 04:49:44.256 | INFO     | prover_rir.proof_search:_best_first_search:197 - Found a proof!
+2024-05-30 04:49:55.117 | INFO     | prover_rir.proof_search:search:163 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/GroupTheory/Submonoid/Center.lean
+  Full Name: Submonoid.center_eq_top
+
+Status: Status.PROVED
+
+Proof:
+  rw [eq_top_iff]
+  intro x _
+  constructor
+  all_goals simp [mul_assoc, mul_comm x]
+
+Search Statistics:
+  Planner Time: 12.419909024989465
+  Actor Time: 138.15698676303145
+  Environment Time: 15.147308362618787
+  Total Time: 165.78226012500818
+  Total Nodes: 1507
+  Searched Nodes: 8
+2024-05-30 04:49:55.119 | INFO     | prover_rir.proof_search:search:164 - 
+---------------------------------
+
+2024-05-30 04:49:55.132 | INFO     | prover_rir.proof_search:search:103 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/CategoryTheory/Limits/Shapes/Images.lean'), full_name='CategoryTheory.Limits.image.map_ι')

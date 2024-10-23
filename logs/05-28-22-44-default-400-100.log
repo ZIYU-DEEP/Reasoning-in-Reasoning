@@ -1,0 +1,8 @@
+2024-05-28 22:44:54.185 | INFO     | __main__:main:291 - PID: 24590
+2024-05-28 22:44:54.186 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/home/ubuntu/dojo/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=3, num_gpus=1, verbose=False, start_ind=400, gen_type='default')
+2024-05-28 22:45:05.663 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 400th theorem named Polynomial.natDegree_add_le_of_le!
+2024-05-28 22:45:05.665 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-28 22:45:05.676 | INFO     | prover.proof_search:__init__:515 - Launching 3 workers with 1 GPUs.
+2024-05-29 01:46:51.533 | INFO     | __main__:evaluate:199 - Evaluation done! 56 theorems proved, 43 theorems failed, 1 non-theorems discarded
+2024-05-29 01:46:51.598 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/d9555206-3c2a-4ebd-8bd8-2779907616e9_results.pickle
+2024-05-29 01:46:51.604 | INFO     | __main__:main:315 - Pass@1: 0.5656565656565656

@@ -1,0 +1,76 @@
+# Add the checkpoint path
+init_ckpt_path: null  # This should only load the weight
+init_ckpt_filename: null
+# init_ckpt_path: null
+ckpt_path: null # Setting a path will restore the training process  # https://github.com/Lightning-AI/pytorch-lightning/discussions/16845#discussioncomment-5092950
+seed_everything: 3407  # https://arxiv.org/abs/2109.08203
+
+trainer:
+  default_root_dir: './lightning_logs/goal_driven_tactic'
+  accelerator: gpu
+  devices: 8
+  precision: bf16-mixed
+  strategy:
+    class_path: pytorch_lightning.strategies.DeepSpeedStrategy
+    init_args:
+      stage: 2
+      offload_optimizer: false
+      cpu_checkpointing: false
+  gradient_clip_val: 1.0
+  max_steps: 500000  # num_epoch is (max_steps * num_batches) / batch_size 
+  # val_check_interval: 10000  # Perform validation every 200 training steps
+  check_val_every_n_epoch: 6
+  num_sanity_val_steps: -1
+
+  callbacks:
+    - class_path: pytorch_lightning.callbacks.LearningRateMonitor
+      init_args: 
+        logging_interval: step
+ 
+    - class_path: pytorch_lightning.callbacks.ModelCheckpoint
+      init_args:
+        verbose: true
+        save_top_k: 50
+        monitor: loss_val
+        mode: min
+        every_n_train_steps: 5000  # the saving frequency for the model
+        save_on_train_epoch_end: true
+        filename: 'checkpoint-{epoch:02d}-{step}-{loss_val:.4f}-{loss_train:.4f}'
+        enable_version_counter: true
+
+    - class_path: pytorch_lightning.callbacks.EarlyStopping
+      init_args:
+        monitor: loss_val  # we cannot evaluate the original Pass
+        patience: 50
+        mode: min  # for loss that will be min
+        verbose: true
+
+# By default, the model will be saved at `./lightning_logs/`
+model:
+  model_name: google/byt5-small
+  lr: 7e-4
+  warmup_steps: 4000
+  num_beams: 1
+  length_penalty: 0.0
+  ret_ckpt_path: null
+  eval_num_retrieved: 100
+  eval_num_workers: 8  # Lower this number if you don't have 80GB GPU memory.
+  eval_num_gpus: 1
+  eval_num_theorems: 0  # Lower this number will make validation faster (but noiser).
+  gen_type: goal_driven_tactic
+
+data:
+  data_path: data/leandojo_benchmark_4/random/
+  corpus_path: data/leandojo_benchmark_4/corpus.jsonl
+  keep_marks: true
+  preds_path: null
+  batch_size: 4  # FILE-SPECIFIC - DECREASED BY HALF (was 8) effective_batch_size == batch_size * accumulate_grad_batches * devices  # decreased batch size
+  eval_batch_size: 32  # FILE-SPECIFIC - DECREASED BY HALF  (was 64)
+  max_inp_seq_len: 4600
+  max_oup_seq_len: 512
+  p_drop: 0.5
+  normalize_tactics: true
+  num_workers: 8
+  gen_type: goal_driven_tactic
+
+

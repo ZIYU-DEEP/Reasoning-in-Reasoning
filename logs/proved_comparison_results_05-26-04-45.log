@@ -1,0 +1,19 @@
+Proved in 05-26-04-45_proved_names.log but not in 05-26-03-04_proved_names.log:
+Array.data_swap
+ContinuousMap.toLp_inj
+Embedding.map_nhds_eq
+Filter.map_const
+MvPolynomial.vanishingIdeal_pointToPoint
+Set.mulIndicator_apply_le_one
+exists_Ico_subset_of_mem_nhds
+iInf₂_le_of_le
+interior_iInter₂_subset
+uniformity_le_symm
+
+Proved in 05-26-03-04_proved_names.log but not in 05-26-04-45_proved_names.log:
+CPolynomialAt_const
+DihedralGroup.r_one_pow
+Filter.pi_mem_pi
+SzemerediRegularity.one_le_m_coe
+UniformSpace.to_nhds_mono
+Valuation.IsEquiv.trans

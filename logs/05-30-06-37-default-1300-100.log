@@ -1,0 +1,8 @@
+2024-05-30 06:37:30.181 | INFO     | __main__:main:291 - PID: 2968053
+2024-05-30 06:37:30.181 | INFO     | __main__:main:292 - Namespace(data_path='data/leandojo_benchmark_4/random/', exp_id=None, split='test', file_path=None, full_name=None, name_filter=None, num_theorems=100, ckpt_path='/localscratch/hsun409/github/RiR/ckpts/leandojo-pl-ckpts/generator_random.ckpt', indexed_corpus_path=None, tactic=None, module=None, num_sampled_tactics=64, timeout=600, num_workers=4, num_gpus=4, verbose=False, start_ind=1300, gen_type='default')
+2024-05-30 06:37:39.165 | INFO     | __main__:_get_theorems_from_files:121 - Starting from 1300th theorem named MeasureTheory.Integrable.toL1_add!
+2024-05-30 06:37:39.166 | INFO     | __main__:_get_theorems_from_files:127 - 100 theorems loaded from data/leandojo_benchmark_4/random/
+2024-05-30 06:37:39.174 | INFO     | prover.proof_search:__init__:515 - Launching 4 workers with 4 GPUs.
+2024-05-30 09:20:37.161 | INFO     | __main__:evaluate:199 - Evaluation done! 49 theorems proved, 51 theorems failed, 0 non-theorems discarded
+2024-05-30 09:20:37.187 | INFO     | __main__:evaluate:214 - Results saved to ./results/default/5e331364-ccc3-449a-b77e-a0f2ea31f938_results.pickle
+2024-05-30 09:20:37.189 | INFO     | __main__:main:315 - Pass@1: 0.49

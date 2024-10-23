@@ -1,0 +1,149 @@
+2024-05-30 09:21:37.492 | INFO     | prover.proof_search:__init__:107 - Using gen_type: default.
+2024-05-30 09:21:37.501 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Data/Finmap.lean'), full_name='Finmap.keys_union')
+2024-05-30 09:21:37.565 | INFO     | prover.proof_search:__init__:107 - Using gen_type: default.
+2024-05-30 09:21:37.570 | INFO     | prover.proof_search:__init__:107 - Using gen_type: default.
+2024-05-30 09:21:37.572 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Analysis/InnerProductSpace/Calculus.lean'), full_name='HasStrictFDerivAt.inner')
+2024-05-30 09:21:37.575 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Data/Vector.lean'), full_name='Vector.toList_drop')
+2024-05-30 09:21:37.582 | INFO     | prover.proof_search:__init__:107 - Using gen_type: default.
+2024-05-30 09:21:37.587 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Combinatorics/Quiver/SingleObj.lean'), full_name='Quiver.SingleObj.pathEquivList_symm_cons')
+2024-05-30 09:22:30.305 | INFO     | prover.proof_search:_best_first_search:204 - Found a proof!
+2024-05-30 09:22:32.266 | INFO     | prover.proof_search:_best_first_search:204 - Found a proof!
+2024-05-30 09:22:41.562 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Data/Vector.lean
+  Full Name: Vector.toList_drop
+
+Status: Status.PROVED
+
+Proof:
+  cases' v <;> rfl
+
+Search Statistics:
+  Actor Time: 10.859013170003891
+  Environment Time: 0.03927477006800473
+  Total Time: 10.89887412590906
+  Total Nodes: 13
+  Searched Nodes: 1
+2024-05-30 09:22:41.563 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:22:41.570 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Order/Lattice.lean'), full_name='Antitone.map_sup_le')
+2024-05-30 09:22:44.775 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Combinatorics/Quiver/SingleObj.lean
+  Full Name: Quiver.SingleObj.pathEquivList_symm_cons
+
+Status: Status.PROVED
+
+Proof:
+  cases l <;> rfl
+
+Search Statistics:
+  Actor Time: 15.349780977936462
+  Environment Time: 0.012738632038235664
+  Total Time: 15.362896828912199
+  Total Nodes: 2
+  Searched Nodes: 1
+2024-05-30 09:22:44.775 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:22:44.783 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Order/Monotone/Basic.lean'), full_name='Function.update_strictMono')
+2024-05-30 09:23:43.820 | INFO     | prover.proof_search:_best_first_search:204 - Found a proof!
+2024-05-30 09:23:54.125 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Data/Finmap.lean
+  Full Name: Finmap.keys_union
+
+Status: Status.PROVED
+
+Proof:
+  ext u
+  simp [Finmap.mem_keys, Finmap.mem_keys]
+
+Search Statistics:
+  Actor Time: 81.11724828719161
+  Environment Time: 0.7236519397702068
+  Total Time: 81.84560157102533
+  Total Nodes: 132
+  Searched Nodes: 4
+2024-05-30 09:23:54.125 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:23:54.133 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/AlgebraicGeometry/Properties.lean'), full_name='AlgebraicGeometry.basicOpen_eq_bot_iff')
+2024-05-30 09:23:59.400 | INFO     | prover.proof_search:_best_first_search:204 - Found a proof!
+2024-05-30 09:24:11.648 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Order/Monotone/Basic.lean
+  Full Name: Function.update_strictMono
+
+Status: Status.PROVED
+
+Proof:
+  intro x y h
+  simpa
+
+Search Statistics:
+  Actor Time: 34.395479849074036
+  Environment Time: 0.21137604815885425
+  Total Time: 34.608909795992076
+  Total Nodes: 70
+  Searched Nodes: 2
+2024-05-30 09:24:11.649 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:24:11.655 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Order/Filter/Pointwise.lean'), full_name='Filter.pure_vsub')
+2024-05-30 09:25:08.856 | INFO     | prover.proof_search:_best_first_search:204 - Found a proof!
+2024-05-30 09:25:19.430 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Order/Lattice.lean
+  Full Name: Antitone.map_sup_le
+
+Status: Status.PROVED
+
+Proof:
+  rw [sup_comm]
+  simp only [sup_comm, h _, le_inf_iff]
+  exact ⟨h le_sup_left, h le_sup_right⟩
+
+Search Statistics:
+  Actor Time: 103.70037117996253
+  Environment Time: 2.3246496350038797
+  Total Time: 106.03438149299473
+  Total Nodes: 359
+  Searched Nodes: 8
+2024-05-30 09:25:19.430 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:25:19.437 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/Analysis/Asymptotics/Asymptotics.lean'), full_name='Asymptotics.IsLittleO.right_isBigO_sub')
+2024-05-30 09:32:38.218 | INFO     | prover.proof_search:_best_first_search:196 - Search timed out.
+2024-05-30 09:32:49.383 | INFO     | prover.proof_search:search:170 - Search Result:
+
+Theorem:
+  Repository: LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7')
+  File Path: Mathlib/Analysis/InnerProductSpace/Calculus.lean
+  Full Name: HasStrictFDerivAt.inner
+
+Status: Status.OPEN
+
+Proof: None
+
+Search Statistics:
+  Actor Time: 565.4229012557771
+  Environment Time: 50.849526268430054
+  Total Time: 616.3409480738919
+  Total Nodes: 650
+  Searched Nodes: 30
+2024-05-30 09:32:49.384 | INFO     | prover.proof_search:search:171 - 
+---------------------------------
+
+2024-05-30 09:32:49.392 | INFO     | prover.proof_search:search:113 - Proving Theorem(repo=LeanGitRepo(url='https://github.com/leanprover-community/mathlib4', commit='fe4454af900584467d21f4fd4fe951d29d9332a7'), file_path=PosixPath('Mathlib/LinearAlgebra/LinearIndependent.lean'), full_name='linearIndependent_iff')
